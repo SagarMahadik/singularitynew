@@ -192,17 +192,6 @@ export const IconBorderCircle = styled.div`
           ${WobbleTop} 1s
         `
       : 'none'};
-  &:active {
-    -ms-transform: translateY(2px);
-    -webkit-transform: translateY(2px);
-    transform: translateY(2px);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
-    border-bottom: none;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.28);
-    -webkit-transform: translateY(-15px);
-    -ms-transform: translateY(-15px);
-    transform: translateY(-15px);
-  }
 `;
 export const AddOnitemIcon = styled.div`
   display: flex;
@@ -285,6 +274,7 @@ export const UploadButton = styled.div`
   display: flex;
   flex-direction: column;
   text-decoration: none;
+  align-content: center;
   margin-top: 2em;
   color: #f9a9ae;
   width: 120px;
@@ -292,7 +282,6 @@ export const UploadButton = styled.div`
   line-height: 120px;
   border-radius: 50%;
   text-align: center;
-  vertical-align: middle;
   overflow: hidden;
   font-weight: bold;
   background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #b0a7e6 100%);
@@ -345,8 +334,8 @@ export const Bounce = keyframes`
 `;
 
 export const AddIconImage = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 110px;
+  height: 80px;
 
   animation: ${props =>
     props.checked
@@ -364,7 +353,6 @@ export const RadioButtonIcon = styled.img`
 
 export const ImageContainer = styled.div`
   display: flex;
-  position: relative;
 `;
 
 export const SubmitButton = styled.div`

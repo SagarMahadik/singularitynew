@@ -42,14 +42,15 @@ const UploadImage = React.forwardRef(props => {
     TweenMax.fromTo(
       uploadImageRef,
       {
-        autoAlpha: 0,
-        x: 400
+        autoAlpha: 1,
+        x: -400
       },
       {
-        duration: 1.22,
+        duration: 0.8,
         autoAlpha: 1,
         x: 0,
-        delay: 0.5,
+        delay: 0.1,
+
         ease: Power3.easeOut
       }
     );
@@ -68,22 +69,22 @@ const UploadImage = React.forwardRef(props => {
           </FormSectionHeadingTextContainer>
 
           <UploadButton style={{ marginTop: '30px' }}>
-            <ImageContainer>
+            <UploadFileInput
+              type="file"
+              name="productFileName"
+              onChange={onFileSelect('productFileName')}
+              ref={fileInputRef}
+            />
+            <ImageContainer style={{ marginTop: '-20px', marginLeft: '30px' }}>
               <UploadIcon src={attachmentIcon} />
-              <UploadFileInput
-                type="file"
-                name="productFileName"
-                onChange={onFileSelect('productFileName')}
-                ref={fileInputRef}
-              />
             </ImageContainer>
           </UploadButton>
           <PTSansText fontSize="18px" color="black">
             File Selected: {productFileName}
           </PTSansText>
-          <PartialWidthDivider />
         </CenterAlignedColumnContainer>
       </div>
+      <PartialWidthDivider />
     </Fragment>
   );
 });

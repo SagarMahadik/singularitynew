@@ -64,6 +64,10 @@ const ProductType = () => {
     );
   }, []);
 
+  let vegRef = useRef(null);
+  let nonVegRef = useRef(null);
+  let egggRef = useRef(null);
+
   return (
     <Fragment>
       <div
@@ -86,7 +90,12 @@ const ProductType = () => {
             />
             <InputLabel for="veg">
               <IconItemContainer>
-                <IconBorderCircle checked={cuisine === 'veg'}>
+                <IconBorderCircle
+                  ref={el => {
+                    vegRef = el;
+                  }}
+                  checked={cuisine === 'veg'}
+                >
                   <ImageContainer>
                     {' '}
                     <RadioButtonIcon src={vegIcon} />
@@ -105,7 +114,12 @@ const ProductType = () => {
             />
             <InputLabel for="nonVeg">
               <IconItemContainer>
-                <IconBorderCircle checked={cuisine === 'Non veg'}>
+                <IconBorderCircle
+                  ref={el => {
+                    nonVegRef = el;
+                  }}
+                  checked={cuisine === 'Non veg'}
+                >
                   <ImageContainer>
                     {' '}
                     <RadioButtonIcon src={nonVegIcon} />
@@ -124,7 +138,12 @@ const ProductType = () => {
             />
             <InputLabel for="egg">
               <IconItemContainer>
-                <IconBorderCircle checked={cuisine === 'Egg'}>
+                <IconBorderCircle
+                  ref={el => {
+                    egggRef = el;
+                  }}
+                  checked={cuisine === 'Egg'}
+                >
                   <ImageContainer>
                     <RadioButtonIcon src={eggIcon} />
                   </ImageContainer>

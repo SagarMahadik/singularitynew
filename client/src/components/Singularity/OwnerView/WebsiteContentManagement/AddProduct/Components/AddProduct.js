@@ -33,6 +33,8 @@ import Sleepy from 'components/Singularity/ApplicationView/WaitingIcons/Sleepy';
 import 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/styles/index.css';
 
 import ScrollAnimation from 'react-animate-on-scroll';
+import { gsap } from 'gsap';
+import animation from 'styles/Singularity/GSAPAnimations';
 
 function AddProduct() {
   function useOnScreen(options) {
@@ -82,6 +84,8 @@ function AddProduct() {
   });
 
   const scrollRef = useRef(null);
+  let headingRef1 = useRef();
+  let headingRef2 = useRef();
 
   const [showProductDetails, setProductDetials] = useState(false);
   const [showUploadFileDetails, setUploadFileDetails] = useState(false);
@@ -116,14 +120,21 @@ function AddProduct() {
     }
   }, [visible, selectedCategory, productPrice, productFileName, cuisine]);
 
-  if (loading) {
-    return <Sleepy />;
-  }
+  useEffect(() => {
+    animation.SlideInleft(headingRef1.current);
+    animation.SlideInleftSolwer(headingRef2.current);
+    return () => {};
+  }, []);
 
   return (
     <>
       <Background />
-      <FormHeadings heading="Add Product To Menu" />
+
+      <FormHeadings
+        ref={{ headingRef1, headingRef2 }}
+        heading="Add Product To Menu"
+      />
+
       <CenterAlignedColumnContainer>
         <div ref={setRef} />
         <Category />
@@ -134,7 +145,7 @@ function AddProduct() {
           {showProductStatus ? <ProductStatus /> : null}
         </div>
 
-        {showUploadFileDetails ? (
+        {showProductStatus ? (
           <ScrollAnimation
             animateIn="slideInLeft"
             delay={0}
@@ -147,7 +158,7 @@ function AddProduct() {
             <AddOnItems />{' '}
           </ScrollAnimation>
         ) : null}
-        {showUploadFileDetails ? (
+        {showProductStatus ? (
           <ScrollAnimation
             animateIn="slideInRight"
             delay={0}
@@ -160,9 +171,9 @@ function AddProduct() {
             <AddOnFlavours />{' '}
           </ScrollAnimation>
         ) : null}
-        {showUploadFileDetails ? (
+        {showProductStatus ? (
           <ScrollAnimation
-            animateIn="slideInRight"
+            animateIn="slideInLeft"
             duration={0.5}
             delay={0}
             style={{ width: '100%' }}
@@ -172,9 +183,9 @@ function AddProduct() {
             <ProductVariant />{' '}
           </ScrollAnimation>
         ) : null}
-        {showUploadFileDetails ? (
+        {showProductStatus ? (
           <ScrollAnimation
-            animateIn="slideInLeft"
+            animateIn="slideInRight"
             duration={0.5}
             delay={0}
             style={{ width: '100%' }}
@@ -186,7 +197,7 @@ function AddProduct() {
             <NutritionalFacts />{' '}
           </ScrollAnimation>
         ) : null}
-        {showUploadFileDetails ? (
+        {showProductStatus ? (
           <ScrollAnimation
             animateIn="slideInLeft"
             duration={0.5}

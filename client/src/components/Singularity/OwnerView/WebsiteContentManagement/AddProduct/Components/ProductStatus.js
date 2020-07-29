@@ -50,18 +50,19 @@ const ProductStatus = () => {
     loading
   } = AddProductContext;
 
-  let uploadImageRef = useRef(null);
+  let productStatusRef = useRef(null);
   useEffect(() => {
     TweenMax.fromTo(
-      uploadImageRef,
+      productStatusRef,
       {
         autoAlpha: 0,
-        x: -500
+        x: -400
       },
       {
-        duration: 1.22,
+        duration: 1.4,
         autoAlpha: 1,
         x: 0,
+        delay: 1,
         ease: Power3.easeOut
       }
     );
@@ -71,7 +72,7 @@ const ProductStatus = () => {
     <Fragment>
       <div
         ref={el => {
-          uploadImageRef = el;
+          productStatusRef = el;
         }}
         style={{ width: '100%' }}
       >

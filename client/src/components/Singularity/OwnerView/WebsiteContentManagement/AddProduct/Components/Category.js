@@ -72,7 +72,7 @@ const Category = React.forwardRef((props, setRef1) => {
     });
 
     TweenMax.to(categoryRefs.current[0], 0.5, {
-      y: -60,
+      y: -20,
       ease: Power2.easeOut
     });
     TweenMax.to(categoryRefs.current[0], 0.8, {
@@ -81,6 +81,19 @@ const Category = React.forwardRef((props, setRef1) => {
       delay: 0.3
     });
   }, [categoryData]);
+
+  const bounceElement = index => {
+    console.log(`in a bouncelement moving element ${index}`);
+    TweenMax.to(categoryRefs.current[index], 0.5, {
+      y: -15,
+      ease: Power2.easeOut
+    });
+    TweenMax.to(categoryRefs.current[index], 0.8, {
+      y: 0,
+      ease: Bounce.easeOut,
+      delay: 0.1
+    });
+  };
 
   const addToRefs = el => {
     if (el && !categoryRefs.current.includes(el)) {
@@ -109,7 +122,10 @@ const Category = React.forwardRef((props, setRef1) => {
               return (
                 <TextRadioButton
                   value={c.category}
-                  onClick={handleChange}
+                  onClick={e => {
+                    handleChange(e);
+                    bounceElement(i);
+                  }}
                   selected={Category === `${c.category}`}
                   ref={addToRefs}
                 >

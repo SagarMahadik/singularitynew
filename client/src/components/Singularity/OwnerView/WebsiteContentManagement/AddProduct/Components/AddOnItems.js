@@ -32,6 +32,8 @@ import { PartialWidthDivider } from 'styles/Singularity/Style1.0/PageDividerStyl
 
 import addProductContext from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/addProductContext.js';
 
+import Plate from 'components/Singularity/ApplicationView/FormElements/Plate';
+
 const AddOnItems = () => {
   const AddProductContext = useContext(addProductContext);
 
@@ -69,10 +71,19 @@ const AddOnItems = () => {
                     />
                     <InputLabel for={item.itemName}>
                       <AddIconImage
+                        style={{ border: '0px solid green' }}
                         checked={item.isChecked}
                         src={item.itemIconURL}
                       />
-                      <AddOnitemIcon checked={item.isChecked} />
+                      <Plate
+                        style={{
+                          width: '110px',
+                          marginTop: '-68px',
+                          zIndex: '-1'
+                        }}
+                        checked={item.isChecked}
+                      />
+
                       <ItemDescription>
                         <ItemDescriptionText>
                           {item.itemName}

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 
 import {
   TextBox,
@@ -25,6 +25,7 @@ import {
 import addProductContext from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/addProductContext.js';
 
 import { PartialWidthDivider } from 'styles/Singularity/Style1.0/PageDividerStyles';
+import { gsap, Bounce, Slow, TweenMax, Power3 } from 'gsap';
 
 const ProductDetails = React.forwardRef((props, setRef1) => {
   const AddProductContext = useContext(addProductContext);
@@ -50,10 +51,35 @@ const ProductDetails = React.forwardRef((props, setRef1) => {
   } = AddProductContext;
 
   const [hide, setHide] = useState(true);
+  let productDetails = useRef(null);
+
+  useEffect(() => {
+    TweenMax.fromTo(
+      productDetails,
+      {
+        autoAlpha: 0,
+        x: 300,
+        y: -100
+      },
+      {
+        duration: 1.3,
+        autoAlpha: 1,
+        x: 0,
+        y: 0,
+        delay: 0,
+        ease: Power3.easeOut
+      }
+    );
+  }, []);
 
   return (
     <>
-      <ProductVariantContainer>
+      <ProductVariantContainer
+        ref={el => {
+          productDetails = el;
+        }}
+        style={{ visibility: 'hidden', width: '100%' }}
+      >
         <FormHeadingText>
           <FormSectionHeadingTextContainer>
             Product Details

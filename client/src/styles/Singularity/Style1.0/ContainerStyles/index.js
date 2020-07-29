@@ -174,7 +174,6 @@ export const ProductStatusContainer = styled(CenterAlignedColumnContainer)`
 `;
 export const ProductVariantContainer = styled(CenterAlignedColumnContainer)`
   max-width: 100%;
-  animation: ${SlideInLeft} 1s cubic-bezier(0.55, 0.055, 0.675, 0.19) backwards;
 `;
 
 export const IconItemContainer = styled(ColumnContainer)`
