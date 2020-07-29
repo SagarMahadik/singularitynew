@@ -33,8 +33,6 @@ import Sleepy from 'components/Singularity/ApplicationView/WaitingIcons/Sleepy';
 import 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/styles/index.css';
 
 import ScrollAnimation from 'react-animate-on-scroll';
-import { gsap } from 'gsap';
-import animation from 'styles/Singularity/GSAPAnimations';
 
 function AddProduct() {
   function useOnScreen(options) {
@@ -84,8 +82,6 @@ function AddProduct() {
   });
 
   const scrollRef = useRef(null);
-  let headingRef1 = useRef();
-  let headingRef2 = useRef();
 
   const [showProductDetails, setProductDetials] = useState(false);
   const [showUploadFileDetails, setUploadFileDetails] = useState(false);
@@ -120,20 +116,11 @@ function AddProduct() {
     }
   }, [visible, selectedCategory, productPrice, productFileName, cuisine]);
 
-  useEffect(() => {
-    animation.SlideInleft(headingRef1.current);
-    animation.SlideInleftSolwer(headingRef2.current);
-    return () => {};
-  }, []);
-
   return (
     <>
       <Background />
 
-      <FormHeadings
-        ref={{ headingRef1, headingRef2 }}
-        heading="Add Product To Menu"
-      />
+      <FormHeadings heading="Add Product To Menu" />
 
       <CenterAlignedColumnContainer>
         <div ref={setRef} />

@@ -18,15 +18,16 @@ export default {
     );
   },
   SlideInleftSolwer(target) {
+    console.log('In a slowewr');
     return gsap.fromTo(
       target,
       {
-        x: -400,
+        y: -100,
         ease: 'power3.easeOut',
         autoAlpha: 0
       },
       {
-        x: 0,
+        y: 0,
         ease: 'power3.easeOut',
         autoAlpha: 1,
         duration: 1.22

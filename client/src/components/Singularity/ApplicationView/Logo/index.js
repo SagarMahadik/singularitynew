@@ -6,9 +6,9 @@ import {
   ItemPriceContainer
 } from 'styles/Singularity/Style1.0/ContainerStyles';
 
-function SvgComponent(props) {
+const SvgComponent = React.forwardRef((props, ref) => {
   return (
-    <svg viewBox="0 0 1440 1440" height={110} width={110} {...props}>
+    <svg viewBox="0 0 1440 1440" height={110} width={110} {...props} ref={ref}>
       <defs>
         <clipPath id="prefix__a" clipPathUnits="userSpaceOnUse">
           <path d="M0 1080h1080V0H0z" />
@@ -34,6 +34,6 @@ function SvgComponent(props) {
       </g>
     </svg>
   );
-}
+});
 
 export default SvgComponent;
