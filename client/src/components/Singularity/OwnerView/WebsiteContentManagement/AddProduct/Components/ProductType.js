@@ -39,7 +39,7 @@ import eggIcon from 'img/piatto/icons/candy.svg';
 
 import addProductContext from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/addProductContext.js';
 import ScrollAnimation from 'react-animate-on-scroll';
-import { gsap, Bounce, TweenMax, Power3 } from 'gsap';
+import { gsap, Bounce, TweenMax, Power2, Power3 } from 'gsap';
 const ProductType = () => {
   const AddProductContext = useContext(addProductContext);
 
@@ -68,6 +68,18 @@ const ProductType = () => {
   let nonVegRef = useRef(null);
   let egggRef = useRef(null);
 
+  const bounceElement = element => {
+    TweenMax.to(element, 0.5, {
+      y: -100,
+      ease: Power2.easeOut
+    });
+    TweenMax.to(element, 0.8, {
+      y: 0,
+      ease: Bounce.easeOut,
+      delay: 0.0
+    });
+  };
+
   return (
     <Fragment>
       <div
@@ -89,7 +101,11 @@ const ProductType = () => {
               onChange={handleChangeFor('cuisine')}
             />
             <InputLabel for="veg">
-              <IconItemContainer>
+              <IconItemContainer
+                onClick={() => {
+                  bounceElement(vegRef);
+                }}
+              >
                 <IconBorderCircle
                   ref={el => {
                     vegRef = el;
@@ -113,7 +129,11 @@ const ProductType = () => {
               onChange={handleChangeFor('cuisine')}
             />
             <InputLabel for="nonVeg">
-              <IconItemContainer>
+              <IconItemContainer
+                onClick={() => {
+                  bounceElement(nonVegRef);
+                }}
+              >
                 <IconBorderCircle
                   ref={el => {
                     nonVegRef = el;
@@ -137,7 +157,11 @@ const ProductType = () => {
               onChange={handleChangeFor('cuisine')}
             />
             <InputLabel for="egg">
-              <IconItemContainer>
+              <IconItemContainer
+                onClick={() => {
+                  bounceElement(egggRef);
+                }}
+              >
                 <IconBorderCircle
                   ref={el => {
                     egggRef = el;

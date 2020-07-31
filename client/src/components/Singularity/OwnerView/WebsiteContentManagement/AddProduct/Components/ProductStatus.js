@@ -35,8 +35,11 @@ import { PartialWidthDivider } from 'styles/Singularity/Style1.0/PageDividerStyl
 import addProductContext from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/addProductContext.js';
 
 import ScrollAnimation from 'react-animate-on-scroll';
+import animation from 'styles/Singularity/GSAPAnimations';
 
 const ProductStatus = () => {
+  const productStatusRefs = useRef([]);
+  productStatusRefs.current = [];
   const AddProductContext = useContext(addProductContext);
 
   const {
@@ -52,22 +55,14 @@ const ProductStatus = () => {
 
   let productStatusRef = useRef(null);
   useEffect(() => {
-    TweenMax.fromTo(
-      productStatusRef,
-      {
-        autoAlpha: 0,
-        x: -400
-      },
-      {
-        duration: 1.4,
-        autoAlpha: 1,
-        x: 0,
-        delay: 1,
-        ease: Power3.easeOut
-      }
-    );
+    animation.SildeLeftContainer(productStatusRef);
   }, []);
 
+  const addToRefs = el => {
+    if (el && !productStatusRefs.current.includes(el)) {
+      productStatusRefs.current.push(el);
+    }
+  };
   return (
     <Fragment>
       <div
@@ -82,20 +77,28 @@ const ProductStatus = () => {
           </FormSectionHeadingTextContainer>
 
           <IconItemGroupContainer>
-            {productStatusData.map((product, index) => {
+            {productStatusData.map((product, i) => {
               {
                 return (
                   <IconItemContainer>
                     <HiddenCheckbox
-                      key={index}
+                      key={i}
                       id={product._id}
                       name={product._id}
                       value={product.additionalInformation}
                       onChange={e => handleProductStatusChange(e)}
                     />
 
-                    <InputLabel for={product._id}>
-                      <IconBorderCircle checked={product.isChecked}>
+                    <InputLabel
+                      for={product._id}
+                      onClick={() => {
+                        animation.IconBounce(productStatusRefs.current, i);
+                      }}
+                    >
+                      <IconBorderCircle
+                        checked={product.isChecked}
+                        ref={addToRefs}
+                      >
                         <RadioButtonIcon
                           src={product.additionalInformationIconURL}
                         />

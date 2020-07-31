@@ -57,16 +57,13 @@ const ProductDetails = React.forwardRef((props, setRef1) => {
     TweenMax.fromTo(
       productDetails,
       {
-        autoAlpha: 0,
-        x: 300,
-        y: -100
+        autoAlpha: 0
       },
       {
         duration: 1.3,
         autoAlpha: 1,
-        x: 0,
-        y: 0,
-        delay: 0,
+
+        delay: 0.2,
         ease: Power3.easeOut
       }
     );

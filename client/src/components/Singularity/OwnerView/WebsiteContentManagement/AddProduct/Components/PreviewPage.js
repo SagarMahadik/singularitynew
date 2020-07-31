@@ -33,6 +33,8 @@ import {
   ProductPageICon
 } from 'styles/Singularity/Style1.0/ImageStyles';
 
+import { SubmitButton } from 'styles/Singularity/Style1.0/ButtonStyles';
+
 import {
   RadioButtonText,
   TextContainer,
@@ -42,7 +44,8 @@ import {
   PriceText,
   FormHeadingText,
   FormSectionHeadingTextContainer,
-  ItemDescriptionText
+  ItemDescriptionText,
+  ButtonText
 } from 'styles/Singularity/Style1.0/TextStyles';
 
 import { PartialWidthDivider } from 'styles/Singularity/Style1.0/PageDividerStyles';
@@ -152,6 +155,9 @@ const PreviewPage = () => {
             }
           })}
         </IconItemGroupContainer>
+        <SubmitButton>
+          <ButtonText>Submit</ButtonText>
+        </SubmitButton>
       </CenterAlignedColumnContainer>
     </Fragment>
   );

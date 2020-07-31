@@ -184,14 +184,16 @@ export const IconBorderCircle = styled.div`
   overflow: hidden;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
   border-bottom: solid 3px #6e5dcc;
-  transition: all 0.6s linear;
+  transition: all 0.2s ease-in-out;
   outline: none;
+  /*
   animation: ${props =>
     props.checked
       ? css`
           ${WobbleTop} 1s
         `
       : 'none'};
+    */
 `;
 export const AddOnitemIcon = styled.div`
   display: flex;
@@ -246,7 +248,7 @@ export const TextRadioButton = styled.button`
   transition: all ease 0.6s;
   &:active {
     box-shadow: 0 0 4px ${styles.themecolor};
-    transform: translateY(-10px);
+    transform: translateY(-20px);
   }
 `;
 

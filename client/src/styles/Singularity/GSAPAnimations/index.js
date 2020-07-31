@@ -22,16 +22,57 @@ export default {
     return gsap.fromTo(
       target,
       {
-        y: -100,
+        x: -100,
         ease: 'power3.easeOut',
-        autoAlpha: 0
+        autoAlpha: 0,
+        scale: 0.3
       },
       {
-        y: 0,
+        x: 0,
         ease: 'power3.easeOut',
         autoAlpha: 1,
-        duration: 1.22
+        duration: 1.22,
+        scale: 1
       }
     );
+  },
+  bounceElement(target, index) {
+    console.log(`in a bouncelement moving element ${index}`);
+    gsap.to(target[index], 0.5, {
+      y: -15,
+      ease: 'power2.easeOut'
+    });
+    gsap.to(target[index], 0.8, {
+      y: 0,
+      ease: 'bounce.easeOut',
+      delay: 0.1
+    });
+  },
+  SildeLeftContainer(target) {
+    return gsap.fromTo(
+      target,
+      {
+        autoAlpha: 0,
+        x: -400
+      },
+      {
+        duration: 1.4,
+        autoAlpha: 1,
+        x: 0,
+        delay: 1,
+        ease: 'power3.easeOut'
+      }
+    );
+  },
+  IconBounce(element, index) {
+    gsap.to(element[index], 0.5, {
+      y: -100,
+      ease: 'power2.easeOut'
+    });
+    gsap.to(element[index], 0.8, {
+      y: 0,
+      ease: 'bounce.easeOut',
+      delay: 0.0
+    });
   }
 };

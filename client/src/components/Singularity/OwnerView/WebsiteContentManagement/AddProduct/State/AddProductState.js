@@ -370,6 +370,7 @@ const AddProductState = props => {
   };
 
   const handleChangeFor = input => e => {
+    console.log('In a handle change');
     {
       dispatch({
         type: UPDATE_FIELD,

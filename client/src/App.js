@@ -8,9 +8,10 @@ import AddAdditionalProductInformation from 'components/Singularity/OwnerView/We
 import AddAdditionalProductInformationState from 'components/Singularity/OwnerView/WebsiteContentManagement/AddAdditionalProductInformation/AddAdditionalProductInformationState/AddAdditionalProductInformationsState.js';
 import AddProduct from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/Components/AddProduct.js';
 import AddProductState from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/AddProductState.js';
+import Ball from 'components/Singularity/ApplicationView/Loaders/Ball';
 
-import Routes from "components/Routing/Routes.js";
-import LandingPage from "components/Singularity/OwnerView/LandingPage.js"
+import Routes from 'components/Routing/Routes.js';
+import LandingPage from 'components/Singularity/OwnerView/LandingPage.js';
 
 function App() {
   return (

@@ -127,14 +127,14 @@ function AddProduct() {
         <Category />
         {showProductDetails ? <ProductDetails /> : null}
         {showUploadFileDetails ? <UploadImage /> : null}
-        {showProductType ? <ProductType /> : null}
+        {showUploadFileDetails ? <ProductType /> : null}
         <div ref={scrollRef} style={{ width: '100%' }}>
           {showProductStatus ? <ProductStatus /> : null}
         </div>
 
         {showProductStatus ? (
           <ScrollAnimation
-            animateIn="slideInLeft"
+            animateIn="fadeInLeft"
             delay={0}
             style={{ width: '100%' }}
             duration={1.4}
@@ -147,7 +147,7 @@ function AddProduct() {
         ) : null}
         {showProductStatus ? (
           <ScrollAnimation
-            animateIn="slideInRight"
+            animateIn="slideInLeft"
             delay={0}
             style={{ width: '100%' }}
             duration={1.2}
@@ -160,11 +160,11 @@ function AddProduct() {
         ) : null}
         {showProductStatus ? (
           <ScrollAnimation
-            animateIn="slideInLeft"
+            animateIn="slideInBottom"
             duration={0.5}
             delay={0}
             style={{ width: '100%' }}
-            duration={1.1}
+            duration={1.8}
           >
             {' '}
             <ProductVariant />{' '}

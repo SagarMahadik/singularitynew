@@ -30,8 +30,10 @@ import {
 import { PartialWidthDivider } from 'styles/Singularity/Style1.0/PageDividerStyles';
 import addProductContext from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/addProductContext.js';
 import Loaders from 'components/Singularity/ApplicationView/Loaders';
-
+import Ball from 'components/Singularity/ApplicationView/Loaders/Ball';
 import ScrollAnimation from 'react-animate-on-scroll';
+
+import animation from 'styles/Singularity/GSAPAnimations';
 
 import { TweenMax, Power2, Bounce } from 'gsap';
 
@@ -40,6 +42,8 @@ const Category = React.forwardRef((props, setRef1) => {
   let categoryName = useRef(null);
   const categoryRefs = useRef([]);
   categoryRefs.current = [];
+  const subcategoryRefs = useRef([]);
+  subcategoryRefs.current = [];
 
   const {
     categoryData,
@@ -62,12 +66,12 @@ const Category = React.forwardRef((props, setRef1) => {
       getData('/api/v1/category', 'SET_CATEGORYDATA');
     }
     TweenMax.to(categoryName, 0.5, {
-      y: -30,
+      y: -40,
       ease: Power2.easeOut
     });
     TweenMax.to(categoryName, 0.8, {
       y: 0,
-      ease: Bounce.easeOut,
+      ease: Power2.easeOut,
       delay: 0.4
     });
 
@@ -82,6 +86,7 @@ const Category = React.forwardRef((props, setRef1) => {
     });
   }, [categoryData]);
 
+  /*
   const bounceElement = index => {
     console.log(`in a bouncelement moving element ${index}`);
     TweenMax.to(categoryRefs.current[index], 0.5, {
@@ -94,10 +99,16 @@ const Category = React.forwardRef((props, setRef1) => {
       delay: 0.1
     });
   };
+  */
 
   const addToRefs = el => {
     if (el && !categoryRefs.current.includes(el)) {
       categoryRefs.current.push(el);
+    }
+  };
+  const addToRefsSub = el => {
+    if (el && !subcategoryRefs.current.includes(el)) {
+      subcategoryRefs.current.push(el);
     }
   };
 
@@ -124,7 +135,7 @@ const Category = React.forwardRef((props, setRef1) => {
                   value={c.category}
                   onClick={e => {
                     handleChange(e);
-                    bounceElement(i);
+                    animation.bounceElement(categoryRefs.current, i);
                   }}
                   selected={Category === `${c.category}`}
                   ref={addToRefs}
@@ -148,13 +159,17 @@ const Category = React.forwardRef((props, setRef1) => {
               </FormSectionHeadingTextContainer>
             </FormHeadingText>
             <SubCategoryContainer>
-              {selectedCategory.map((category, index) =>
+              {selectedCategory.map((category, i) =>
                 category.subCategory.map(subcategory => {
                   {
                     return (
                       <TextRadioButton
                         value={subcategory}
-                        onClick={handleSubCategory}
+                        onClick={e => {
+                          handleSubCategory(e);
+                          animation.bounceElement(subcategoryRefs.current, i);
+                        }}
+                        ref={addToRefsSub}
                         selected={SubCategory === `${subcategory}`}
                       >
                         <RadioButtonText

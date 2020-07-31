@@ -46,7 +46,7 @@ const UploadImage = React.forwardRef(props => {
         x: -400
       },
       {
-        duration: 0.8,
+        duration: 1.4,
         autoAlpha: 1,
         x: 0,
         delay: 0.1,
