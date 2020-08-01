@@ -11,11 +11,23 @@ export const MainContainer = styled(motion.div)`
   width: 100%;
   height: 120vh;
   overflow-y: hidden;
-  background-image: linear-gradient(315deg, #f9c5d1 0%, #9795ef 74%);
+  background-image: ${props =>
+    props.completed
+      ? 'linear-gradient(315deg, #4dccc6 0%, #96e4df 74%)'
+      : 'linear-gradient(315deg, #f9c5d1 0%, #9795ef 74%)'};
   z-index: -1;
 `;
 
 export const LoadingTextContiner = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 30px;
+  width: 100%;
+`;
+
+export const DoneTextContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +57,6 @@ export const Ball = styled.div`
   border-radius: 50%;
   background-color: #c70039;
   background: ${styles.formContentColor};
-  transform: translateY(-150px);
 `;
 
 export const Shadow = styled.div`

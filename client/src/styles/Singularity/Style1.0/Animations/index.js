@@ -1,4 +1,6 @@
 import { keyframes, css } from 'styled-components';
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
 
 export const SlideInRight = keyframes`
    0% {
@@ -58,4 +60,13 @@ export const WobbleTop = keyframes`
   }
 }
 
+`;
+
+export const MainContainer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  z-index: -1;
 `;

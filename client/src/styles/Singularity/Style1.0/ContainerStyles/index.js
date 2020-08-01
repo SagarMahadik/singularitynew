@@ -156,10 +156,6 @@ export const ProductTypeContainer = styled(CenterAlignedColumnContainer)`
   max-width: 100%;
   justify-content: space-evenly;
   margin-top: 0.5em;
-  animation: ${SlideInRight} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
-  @media (min-width: 765px) {
-    width: 60%;
-  }
 `;
 
 export const ProductStatusContainer = styled(CenterAlignedColumnContainer)`
@@ -167,10 +163,6 @@ export const ProductStatusContainer = styled(CenterAlignedColumnContainer)`
   max-width: 100%;
   justify-content: space-evenly;
   margin-top: 0.5em;
-  animation: ${SlideInLeft} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
-  @media (min-width: 765px) {
-    width: 60%;
-  }
 `;
 export const ProductVariantContainer = styled(CenterAlignedColumnContainer)`
   max-width: 100%;

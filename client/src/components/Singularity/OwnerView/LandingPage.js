@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Background,
@@ -10,10 +10,15 @@ import {
   Quote,
   AuthorName
 } from 'styles/Singularity/CustomerView/LandingPage';
+import { useLocation } from 'react-router-dom';
 
 import Logo from 'components/Singularity/ApplicationView/Logo';
 
 const LandingPage = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return (
     <LandingPageContainer>
       <Background />

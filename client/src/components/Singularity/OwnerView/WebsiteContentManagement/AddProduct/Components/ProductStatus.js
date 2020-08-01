@@ -55,7 +55,7 @@ const ProductStatus = () => {
 
   let productStatusRef = useRef(null);
   useEffect(() => {
-    animation.SildeLeftContainer(productStatusRef);
+    animation.fadeIn(productStatusRef);
   }, []);
 
   const addToRefs = el => {

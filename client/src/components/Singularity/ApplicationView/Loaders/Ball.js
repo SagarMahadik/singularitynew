@@ -1,5 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { TimelineMax, Circ, Power3, gsap } from 'gsap';
+import Loaders from 'components/Singularity/ApplicationView/Loaders';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 import {
   Ball,
@@ -10,61 +13,26 @@ import {
   LoadingText,
   TextContainer,
   DoneText,
-  LoadingTextContiner
+  LoadingTextContiner,
+  DoneTextContainer
 } from 'styles/Singularity/Style1.0/Loaders/Ball';
 import styled from 'styled-components';
 
-function BallLoader() {
-  let ballRef = useRef(null);
-  let textRef = useRef(null);
-  let mainRef = useRef(null);
+const BallLoader = props => {
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    let backcolor = '#ffffff';
-    let ease = Circ.easeIn;
-    var tl = new TimelineMax({ repeat: -1, yoyo: true });
-    tl.add('start')
-      .to(ballRef.current, 0.8, {
-        y: 100,
-        ease: ease
-      })
-      .to(
-        ballRef.current,
-        0.1,
-        {
-          scaleY: 0.6,
-          transformOrigin: 'center bottom',
-          borderBottomLeftRadius: '40%',
-          borderBottomRightRadius: '40%',
-          ease: ease
-        },
-        '-=.05'
-      );
+    if (props.isComplete) {
+      setTimeout(() => setRedirect(true), 2000);
+    }
+  }, [props.isComplete]);
 
-    gsap.fromTo(
-      textRef.current,
-      0.8,
-      {
-        opacity: 0,
-        y: -100,
-        ease: 'bouce.ease',
-        delay: 1.2
-      },
-      {
-        y: 0,
-        opacity: 1,
-        ease: 'bounce.easeOut'
-      }
-    );
-    gsap.from(mainRef.current, 0.8, {
-      backgroundColor: backcolor,
-      ease: 'none',
-      duration: 1
-    });
-  });
+  if (redirect) {
+    return window.location.reload();
+  }
   return (
     <>
-      <div ref={mainRef}>
+      <div>
         <MainContainer
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -73,30 +41,40 @@ function BallLoader() {
             duration: 0.8
           }}
           exit={{ opacity: 0 }}
-          ref={mainRef}
+          completed={props.isComplete}
         >
           <TextContainer>
-            <LoadingTextContiner
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                ease: 'easeOut',
-                duration: 0.3
-              }}
-              exit={{ opacity: 0 }}
-            >
-              <LoadingText>Working on it..</LoadingText>
-            </LoadingTextContiner>
-            <DoneText ref={textRef}>Done :-)</DoneText>
+            {props.isComplete ? (
+              <DoneTextContainer
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  ease: 'easeOut',
+                  duration: 0.9
+                }}
+                exit={{ opacity: 0 }}
+              >
+                <DoneText>Done</DoneText>
+              </DoneTextContainer>
+            ) : (
+              <LoadingTextContiner
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  ease: 'easeOut',
+                  duration: 0.3
+                }}
+                exit={{ opacity: 0 }}
+              >
+                <LoadingText>Working on it..</LoadingText>
+              </LoadingTextContiner>
+            )}
           </TextContainer>
-          <BallContainer>
-            <Ball ref={ballRef} />
-            <Wall src="https://res.cloudinary.com/antilibrary/image/upload/v1596128625/beautiful-purple-brick-wall-background_181624-2861_z5icys.jpg" />
-          </BallContainer>
+          <Loaders />
         </MainContainer>
       </div>
     </>
   );
-}
+};
 
 export default BallLoader;

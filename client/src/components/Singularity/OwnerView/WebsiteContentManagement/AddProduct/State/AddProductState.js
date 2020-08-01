@@ -21,12 +21,14 @@ import {
   SET_PRODUCTVARIANTDATA,
   UPDATE_PRODUCTVARIANTDATA,
   UPDATE_NUTRITIONDATA,
-  SET_SUBCATEGORY
+  SET_SUBCATEGORY,
+  SHOW_LOADER
 } from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/types.js';
 
 import { useHttpClient } from 'Hooks/httpsHooks';
 
 import axios from 'axios';
+import { identifier } from '../../../../../../../../../../../.cache/typescript/3.9/node_modules/@babel/types/lib/index';
 
 const AddProductState = props => {
   const initialState = {
@@ -76,7 +78,9 @@ const AddProductState = props => {
     productFileName: '',
     filesrc: '',
     step: 1,
-    file: null
+    file: null,
+    isComplete: false,
+    showLoader: false
   };
 
   const fileInputRef = useRef();
@@ -135,11 +139,13 @@ const AddProductState = props => {
         }
       };
       const res = await axios.post('/api/v1/product', body, config);
+      setLoading();
       console.log(res);
-
-      dispatch({
-        type: COMPLETE_FORM
-      });
+      if (res.data.status === 'success') {
+        dispatch({
+          type: COMPLETE_FORM
+        });
+      }
     };
 
     if (productImageURL !== '') {
@@ -162,6 +168,7 @@ const AddProductState = props => {
   }, [state.productImageURL]);
 
   const setLoading = () => dispatch({ type: SET_LOADING });
+  const setShowLoader = () => dispatch({ type: SHOW_LOADER });
 
   const { sendRequest, error } = useHttpClient();
 
@@ -446,6 +453,7 @@ const AddProductState = props => {
   const onSubmit = e => {
     e.preventDefault();
     console.log(state.file);
+    setShowLoader();
     fileUpload();
   };
 
@@ -481,6 +489,8 @@ const AddProductState = props => {
         productFileName: state.productFileName,
         productImageURL: state.productImageURL,
         file: state.file,
+        isComplete: state.isComplete,
+        showLoader: state.showLoader,
         nextStep,
         previousStep,
         handleChangeFor,

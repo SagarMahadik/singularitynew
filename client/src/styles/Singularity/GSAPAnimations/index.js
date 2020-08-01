@@ -17,6 +17,20 @@ export default {
       }
     );
   },
+  fadeIn(target) {
+    return gsap.fromTo(
+      target,
+      {
+        ease: 'power2.easeIn',
+        autoAlpha: 0
+      },
+      {
+        ease: 'power2.easeIn',
+        autoAlpha: 1,
+        duration: 1.8
+      }
+    );
+  },
   SlideInleftSolwer(target) {
     console.log('In a slowewr');
     return gsap.fromTo(

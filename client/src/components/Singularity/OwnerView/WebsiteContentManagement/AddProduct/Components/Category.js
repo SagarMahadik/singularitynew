@@ -66,7 +66,7 @@ const Category = React.forwardRef((props, setRef1) => {
       getData('/api/v1/category', 'SET_CATEGORYDATA');
     }
     TweenMax.to(categoryName, 0.5, {
-      y: -40,
+      y: -8,
       ease: Power2.easeOut
     });
     TweenMax.to(categoryName, 0.8, {
@@ -76,7 +76,7 @@ const Category = React.forwardRef((props, setRef1) => {
     });
 
     TweenMax.to(categoryRefs.current[0], 0.5, {
-      y: -20,
+      y: -10,
       ease: Power2.easeOut
     });
     TweenMax.to(categoryRefs.current[0], 0.8, {

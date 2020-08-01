@@ -6,6 +6,8 @@ import React, {
   useContext
 } from 'react';
 
+import { useLocation } from 'react-router-dom';
+
 import { SlideInRight } from 'styles/Singularity/Style1.0/Animations';
 
 import { Background } from 'styles/Singularity/Style1.0/ApplicationStyles';
@@ -26,15 +28,22 @@ import {
   CategoryContainer,
   SubCategoryContainer
 } from 'styles/Singularity/Style1.0/ContainerStyles';
+import Ball from 'components/Singularity/ApplicationView/Loaders/Ball';
 
 import FormHeadings from 'components/Singularity/ApplicationView/FormHeadings';
 import addProductContext from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/addProductContext.js';
 import Sleepy from 'components/Singularity/ApplicationView/WaitingIcons/Sleepy';
 import 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/styles/index.css';
+import { MainContainer } from 'styles/Singularity/Style1.0/Animations';
 
 import ScrollAnimation from 'react-animate-on-scroll';
 
 function AddProduct() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   function useOnScreen(options) {
     const [ref, setRef] = React.useState(null);
 
@@ -70,7 +79,9 @@ function AddProduct() {
     isFileUploadVisible,
     productPrice,
     productFileName,
-    cuisine
+    cuisine,
+    isComplete,
+    showLoader
   } = AddProductContext;
 
   const [setRef, visible] = useOnScreen({
@@ -116,89 +127,104 @@ function AddProduct() {
     }
   }, [visible, selectedCategory, productPrice, productFileName, cuisine]);
 
+  if (showLoader) {
+    return <Ball loading={loading} isComplete={isComplete} />;
+  }
+
   return (
     <>
-      <Background />
+      <MainContainer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          ease: 'easeOut',
+          duration: 0.8
+        }}
+        exit={{ opacity: 0 }}
+      >
+        <Background />
 
-      <FormHeadings heading="Add Product To Menu" />
+        <FormHeadings heading="Add Product To Menu" />
 
-      <CenterAlignedColumnContainer>
-        <div ref={setRef} />
-        <Category />
-        {showProductDetails ? <ProductDetails /> : null}
-        {showUploadFileDetails ? <UploadImage /> : null}
-        {showUploadFileDetails ? <ProductType /> : null}
-        <div ref={scrollRef} style={{ width: '100%' }}>
-          {showProductStatus ? <ProductStatus /> : null}
-        </div>
+        <CenterAlignedColumnContainer>
+          <Category />
+          <div ref={setRef} />
+          {showProductDetails ? <ProductDetails /> : null}
 
-        {showProductStatus ? (
-          <ScrollAnimation
-            animateIn="fadeInLeft"
-            delay={0}
-            style={{ width: '100%' }}
-            duration={1.4}
-            offset={180}
-            animateOut="fadeOut"
-          >
-            {' '}
-            <AddOnItems />{' '}
-          </ScrollAnimation>
-        ) : null}
-        {showProductStatus ? (
-          <ScrollAnimation
-            animateIn="slideInLeft"
-            delay={0}
-            style={{ width: '100%' }}
-            duration={1.2}
-            offset={140}
-            animateOut="fadeOut"
-          >
-            {' '}
-            <AddOnFlavours />{' '}
-          </ScrollAnimation>
-        ) : null}
-        {showProductStatus ? (
-          <ScrollAnimation
-            animateIn="slideInBottom"
-            duration={0.5}
-            delay={0}
-            style={{ width: '100%' }}
-            duration={1.8}
-          >
-            {' '}
-            <ProductVariant />{' '}
-          </ScrollAnimation>
-        ) : null}
-        {showProductStatus ? (
-          <ScrollAnimation
-            animateIn="slideInRight"
-            duration={0.5}
-            delay={0}
-            style={{ width: '100%' }}
-            duration={1.4}
-            animateOut="fadeOut"
-            animateOnce={true}
-          >
-            {' '}
-            <NutritionalFacts />{' '}
-          </ScrollAnimation>
-        ) : null}
-        {showProductStatus ? (
-          <ScrollAnimation
-            animateIn="slideInLeft"
-            duration={0.5}
-            delay={0}
-            style={{ width: '100%' }}
-            duration={1.4}
-            animateOut="fadeOutLeft"
-            animateOnce={true}
-          >
-            {' '}
-            <ReviewPage />{' '}
-          </ScrollAnimation>
-        ) : null}
-      </CenterAlignedColumnContainer>
+          {showUploadFileDetails ? <UploadImage /> : null}
+          {showUploadFileDetails ? <ProductType /> : null}
+          <div ref={scrollRef} style={{ width: '100%' }}>
+            {showProductStatus ? <ProductStatus /> : null}
+          </div>
+
+          {showProductStatus ? (
+            <ScrollAnimation
+              animateIn="fadeInLeft"
+              delay={0}
+              style={{ width: '100%' }}
+              duration={1.4}
+              offset={180}
+              animateOut="fadeOut"
+            >
+              {' '}
+              <AddOnItems />{' '}
+            </ScrollAnimation>
+          ) : null}
+          {showProductStatus ? (
+            <ScrollAnimation
+              animateIn="slideInLeft"
+              delay={0}
+              style={{ width: '100%' }}
+              duration={1.2}
+              offset={140}
+              animateOut="fadeOut"
+            >
+              {' '}
+              <AddOnFlavours />{' '}
+            </ScrollAnimation>
+          ) : null}
+          {showProductStatus ? (
+            <ScrollAnimation
+              animateIn="slideInBottom"
+              duration={0.5}
+              delay={0}
+              style={{ width: '100%' }}
+              duration={1.8}
+            >
+              {' '}
+              <ProductVariant />{' '}
+            </ScrollAnimation>
+          ) : null}
+          {showProductStatus ? (
+            <ScrollAnimation
+              animateIn="slideInRight"
+              duration={0.5}
+              delay={0}
+              style={{ width: '100%' }}
+              duration={1.4}
+              animateOut="fadeOut"
+              animateOnce={true}
+            >
+              {' '}
+              <NutritionalFacts />{' '}
+            </ScrollAnimation>
+          ) : null}
+          {showProductStatus ? (
+            <ScrollAnimation
+              animateIn="slideInLeft"
+              duration={0.5}
+              delay={0}
+              style={{ width: '100%' }}
+              duration={1.4}
+              animateOut="fadeOutLeft"
+              animateOnce={true}
+            >
+              {' '}
+              <ReviewPage />{' '}
+            </ScrollAnimation>
+          ) : null}
+        </CenterAlignedColumnContainer>
+      </MainContainer>
     </>
   );
 }

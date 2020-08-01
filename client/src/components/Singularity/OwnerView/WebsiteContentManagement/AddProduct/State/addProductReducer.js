@@ -18,7 +18,8 @@ import {
   SET_PRODUCTVARIANTDATA,
   UPDATE_PRODUCTVARIANTDATA,
   UPDATE_NUTRITIONDATA,
-  SET_SUBCATEGORY
+  SET_SUBCATEGORY,
+  SHOW_LOADER
 } from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/types.js';
 
 export default (state, action) => {
@@ -37,6 +38,12 @@ export default (state, action) => {
       return {
         ...state,
         loading: true
+      };
+
+    case SHOW_LOADER:
+      return {
+        ...state,
+        showLoader: true
       };
     case UPDATE_FIELD:
       const { input, value } = action.payload;
@@ -65,6 +72,7 @@ export default (state, action) => {
     case COMPLETE_FORM:
       return {
         ...state,
+        loading: false,
         isComplete: true
       };
 

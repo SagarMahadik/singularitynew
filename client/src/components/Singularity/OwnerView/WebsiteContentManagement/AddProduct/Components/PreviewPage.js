@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useContext } from 'react';
+import React, { Fragment, useEffect, useContext, useState } from 'react';
 import {
   TextBox,
   TextParagraph,
@@ -7,7 +7,9 @@ import {
   AddIconImage,
   InputLabel,
   AddOnitemIcon,
-  ItemDescription
+  ItemDescription,
+  IconBorderCircle,
+  RadioButtonIcon
 } from 'styles/Singularity/Style1.0/FormInputStyles';
 
 import {
@@ -69,7 +71,13 @@ const PreviewPage = () => {
     onSubmit,
     previousStep,
     isComplete,
-    crossSellPitch
+    crossSellPitch,
+    nutritionDetails,
+    proteins,
+    fats,
+    carbohydrates,
+    calories,
+    loading
   } = AddProductContext;
 
   let isVeg = false;
@@ -77,18 +85,26 @@ const PreviewPage = () => {
     isVeg = true;
   }
 
-  const productStatus = additionalInformation.filter(
-    status => status.additionalInformationType === status
-  );
-  const productVariant = additionalInformation.filter(
-    variant => variant.additionalInformationType === variant
-  );
+  useEffect(() => {
+    setNutrientData();
+    const productStatus = additionalInformation.filter(
+      status => status.additionalInformationType == 'status'
+    );
+    const productVariant = additionalInformation.filter(
+      variant => variant.additionalInformationType == 'variant'
+    );
+
+    console.log(productStatus);
+    console.log(productVariant);
+  }, [additionalInformation, proteins, fats, carbohydrates, calories]);
+
+  const [showLoader, setShowLoader] = useState(false);
 
   return (
     <Fragment>
       <CenterAlignedColumnContainer style={{ marginTop: '15px' }}>
         <FormSectionHeadingTextContainer>
-          <FormHeadingText>Prevview</FormHeadingText>
+          <FormHeadingText>Preview</FormHeadingText>
         </FormSectionHeadingTextContainer>
         <MenuPageMainContainer>
           <ProductImage src={filesrc} />
@@ -104,16 +120,22 @@ const PreviewPage = () => {
               </TextContainer>
             </MenuPageDescriptionContainer>
             <MenuPageIconContainer>
-              {additionalInformation.map((item, index) => {
-                return (
-                  <CenterAlignedColumnContainer style={{ marginRight: '4px' }}>
-                    <ProductPageICon src={item.additionalInformationIconURL} />
-                    <ProductIconDescription>
-                      {item.additionalInformation}
-                    </ProductIconDescription>
-                  </CenterAlignedColumnContainer>
-                );
-              })}
+              {additionalInformation
+                .filter(status => status.additionalInformationType == 'status')
+                .map((item, index) => {
+                  return (
+                    <CenterAlignedColumnContainer
+                      style={{ marginRight: '4px' }}
+                    >
+                      <ProductPageICon
+                        src={item.additionalInformationIconURL}
+                      />
+                      <ProductIconDescription>
+                        {item.additionalInformation}
+                      </ProductIconDescription>
+                    </CenterAlignedColumnContainer>
+                  );
+                })}
             </MenuPageIconContainer>
 
             <MenuPagePriceContainer>
@@ -135,7 +157,7 @@ const PreviewPage = () => {
                 <>
                   <IconItemContainer>
                     <InputLabel>
-                      <AddIconImage src={item.itemIconURL} />
+                      <AddIconImage src={item.additionalInformationIconURL} />
                       <AddOnitemIcon />
                       <ItemDescription>
                         <ItemDescriptionText>
@@ -155,7 +177,41 @@ const PreviewPage = () => {
             }
           })}
         </IconItemGroupContainer>
-        <SubmitButton>
+        <FormHeadingText>
+          <FormSectionHeadingTextContainer>
+            Make it
+          </FormSectionHeadingTextContainer>
+        </FormHeadingText>
+
+        <IconItemGroupContainer>
+          {additionalInformation
+            .filter(variant => variant.additionalInformationType == 'variant')
+            .map((product, i) => {
+              {
+                return (
+                  <IconItemContainer>
+                    <InputLabel>
+                      <IconBorderCircle>
+                        <RadioButtonIcon
+                          src={product.additionalInformationIconURL}
+                        />
+                      </IconBorderCircle>
+                      <ItemDescription>
+                        <ItemDescriptionText>
+                          {product.additionalInformation}
+                        </ItemDescriptionText>
+                      </ItemDescription>
+                    </InputLabel>
+                  </IconItemContainer>
+                );
+              }
+            })}
+        </IconItemGroupContainer>
+        <SubmitButton
+          onClick={e => {
+            onSubmit(e);
+          }}
+        >
           <ButtonText>Submit</ButtonText>
         </SubmitButton>
       </CenterAlignedColumnContainer>
