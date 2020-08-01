@@ -28,7 +28,6 @@ import {
 import { useHttpClient } from 'Hooks/httpsHooks';
 
 import axios from 'axios';
-import { identifier } from '../../../../../../../../../../../.cache/typescript/3.9/node_modules/@babel/types/lib/index';
 
 const AddProductState = props => {
   const initialState = {
