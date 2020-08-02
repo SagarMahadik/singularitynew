@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { SlideInRight, SlideInLeft } from '../Animations';
+import { styles } from 'styles/Singularity/Style1.0/ApplicationStyles';
 
 export const ColumnContainer = styled.div`
   display: flex;
@@ -183,6 +184,8 @@ export const IconItemGroupContainer = styled(RowContainer)`
 export const ItemPriceContainer = styled(RowContainer)`
   width: 90%;
   justify-content: center;
+  background-color: ${props =>
+    props.checked ? `${styles.formContentColor}` : 'none'};
 `;
 
 export const MenuPageMainContainer = styled(RowContainer)`

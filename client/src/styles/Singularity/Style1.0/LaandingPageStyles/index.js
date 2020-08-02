@@ -9,6 +9,7 @@ export const LandingPageContainer = styled.div`
   width: 100%;
   height: 100vh;
   background-color: #0d0c0c;
+  overflow: hidden;
 `;
 
 export const Background = styled.div`
@@ -43,6 +44,7 @@ export const ContentContainer = styled.div`
   margin: auto;
   padding: auto;
   height: 300px;
+  margin-top: 70px;
   color: #c7b72a;
   text-align: center;
 `;
@@ -73,6 +75,14 @@ export const Button = styled(Link)`
   font-size: 36px;
   line-height: 53px;
   text-align: center;
+  text-decoration: none;
+`;
+export const GalleryLink = styled(Link)`
+  display: block;
+  margin: auto;
+  padding: auto;
+  margin-top: 10px;
+  width: 100%;
   text-decoration: none;
 `;
 

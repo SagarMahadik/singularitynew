@@ -34,7 +34,7 @@ import FormHeadings from 'components/Singularity/ApplicationView/FormHeadings';
 import addProductContext from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/addProductContext.js';
 import Sleepy from 'components/Singularity/ApplicationView/WaitingIcons/Sleepy';
 import 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/styles/index.css';
-import { MainContainer } from 'styles/Singularity/Style1.0/Animations';
+import { MainProductConatiner } from 'styles/Singularity/Style1.0/Animations';
 
 import ScrollAnimation from 'react-animate-on-scroll';
 
@@ -133,7 +133,7 @@ function AddProduct() {
 
   return (
     <>
-      <MainContainer
+      <MainProductConatiner
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -224,7 +224,7 @@ function AddProduct() {
             </ScrollAnimation>
           ) : null}
         </CenterAlignedColumnContainer>
-      </MainContainer>
+      </MainProductConatiner>
     </>
   );
 }

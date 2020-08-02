@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import CSSRulePlugin from 'gsap/CSSRulePlugin';
-import { TimelineLite, Power3, Power2, Linear, RoughEase } from 'gsap';
+import { TimelineLite, Power3, Power2, Linear, RoughEase, gsap } from 'gsap';
 
 import {
   Background,
@@ -11,7 +11,8 @@ import {
   Content,
   Button,
   Quote,
-  AuthorName
+  AuthorName,
+  GalleryLink
 } from 'styles/Singularity/Style1.0/LaandingPageStyles';
 import { useLocation } from 'react-router-dom';
 
@@ -27,27 +28,44 @@ const LandingPage = () => {
   let overlay = useRef(null);
   let logo = useRef(null);
   let contentRef = useRef([]);
-  let tl = new TimelineLite();
+  let tl = gsap.timeline();
 
   useEffect(() => {
     tl.fromTo(
       logo,
-      0.5,
       { opacity: 0 },
-      { opacity: 1, ease: Power2.easeInOut, scale: 1.6 }
+      { opacity: 1, duration: 0.5, ease: 'power2.easeInOut', scale: 1.5 }
     );
     tl.fromTo(
       contentRef.current,
-      1.5,
       { opacity: 0 },
-      { opacity: 1, ease: Power2.easeInOut, stagger: 0.7 }
+      {
+        opacity: 1,
+        duration: 1.0,
+        ease: Power2.easeInOut,
+        stagger: { each: 0.7, ease: 'power3.easeInOut' }
+      }
     );
-    tl.to(overlay, 1.2, { width: '0%', ease: Power3.easeInOut, delay: -1.2 });
-    tl.from(image, 1.6, {
-      scale: 1.4,
-      ease: Power2.easeInOut,
-      delay: -1.6
+    tl.to(overlay, 1.6, {
+      width: '0%',
+      ease: Power3.easeInOut,
+      delay: -1.2
     });
+    tl.fromTo(
+      image,
+      {
+        filter: 'blur(0px)',
+        opacity: 0
+      },
+      {
+        scale: 1.4,
+        filter: 'blur(2px)',
+        ease: Power2.easeInOut,
+        delay: -1.6,
+        duration: 1.6,
+        opacity: 1
+      }
+    );
     tl.fromTo(
       contentRef.current[2],
       0.5,
@@ -79,11 +97,13 @@ const LandingPage = () => {
 
       <LandingPageContentContainer>
         <ContentContainer>
-          <Logo
-            ref={el => {
-              logo = el;
-            }}
-          />
+          <GalleryLink to="/gallery">
+            <Logo
+              ref={el => {
+                logo = el;
+              }}
+            />
+          </GalleryLink>
 
           <Content
             ref={el => {

@@ -30,12 +30,15 @@ import {
 } from 'styles/Singularity/Style1.0/ContainerStyles';
 
 import {
+  OverLay,
+  ImageContainer,
   ProductImage,
   IconImage,
   ProductPageICon
 } from 'styles/Singularity/Style1.0/ImageStyles';
 
 import { SubmitButton } from 'styles/Singularity/Style1.0/ButtonStyles';
+import Plate from 'components/Singularity/ApplicationView/FormElements/Plate';
 
 import {
   RadioButtonText,
@@ -47,7 +50,8 @@ import {
   FormHeadingText,
   FormSectionHeadingTextContainer,
   ItemDescriptionText,
-  ButtonText
+  ButtonText,
+  ProductImageName
 } from 'styles/Singularity/Style1.0/TextStyles';
 
 import { PartialWidthDivider } from 'styles/Singularity/Style1.0/PageDividerStyles';
@@ -106,50 +110,56 @@ const PreviewPage = () => {
         <FormSectionHeadingTextContainer>
           <FormHeadingText>Preview</FormHeadingText>
         </FormSectionHeadingTextContainer>
-        <MenuPageMainContainer>
-          <ProductImage src={filesrc} />
-          <MenuContentContainer>
-            <MenuPageDescriptionContainer>
-              <IconImage src="https://res.cloudinary.com/antilibrary/image/upload/v1595774240/nonvegicon_lioksr.png" />
-              <ProductName>{productName}</ProductName>
-              <TextContainer style={{ width: '146px', height: '84px' }}>
-                <ProductInformation>
-                  {productDescription}
-                  <span> {crossSellPitch}</span>
-                </ProductInformation>
-              </TextContainer>
-            </MenuPageDescriptionContainer>
-            <MenuPageIconContainer>
-              {additionalInformation
-                .filter(status => status.additionalInformationType == 'status')
-                .map((item, index) => {
-                  return (
-                    <CenterAlignedColumnContainer
-                      style={{ marginRight: '4px' }}
-                    >
-                      <ProductPageICon
-                        src={item.additionalInformationIconURL}
-                      />
-                      <ProductIconDescription>
-                        {item.additionalInformation}
-                      </ProductIconDescription>
-                    </CenterAlignedColumnContainer>
-                  );
-                })}
-            </MenuPageIconContainer>
 
-            <MenuPagePriceContainer>
-              <TextContainer>
-                <PriceText>Rs. {productPrice}</PriceText>
-              </TextContainer>
-            </MenuPagePriceContainer>
-          </MenuContentContainer>
-        </MenuPageMainContainer>
-        <FormHeadingText>
-          <FormSectionHeadingTextContainer>
-            Add - Ons
-          </FormSectionHeadingTextContainer>
-        </FormHeadingText>
+        <ImageContainer>
+          <img
+            style={{
+              height: '200px',
+              width: '300px',
+              borderRadius: '25px'
+            }}
+            src={filesrc}
+          />
+          <OverLay />
+        </ImageContainer>
+
+        <TextContainer style={{ marginTop: '-40px' }}>
+          <ProductImageName>{productName}</ProductImageName>
+        </TextContainer>
+
+        <IconImage src="https://res.cloudinary.com/antilibrary/image/upload/v1595774240/nonvegicon_lioksr.png" />
+
+        <TextContainer style={{ width: '146px', height: '84px' }}>
+          <ProductInformation>
+            {productDescription}
+            <span> {crossSellPitch}</span>
+          </ProductInformation>
+          <TextContainer>
+            <PriceText>Rs. {productPrice}</PriceText>
+          </TextContainer>
+        </TextContainer>
+        <FormSectionHeadingTextContainer>
+          <FormHeadingText>Product Status</FormHeadingText>
+        </FormSectionHeadingTextContainer>
+
+        <MenuPageIconContainer>
+          {additionalInformation
+            .filter(status => status.additionalInformationType == 'status')
+            .map((item, index) => {
+              return (
+                <CenterAlignedColumnContainer style={{ marginRight: '4px' }}>
+                  <ProductPageICon src={item.additionalInformationIconURL} />
+                  <ProductIconDescription>
+                    {item.additionalInformation}
+                  </ProductIconDescription>
+                </CenterAlignedColumnContainer>
+              );
+            })}
+        </MenuPageIconContainer>
+
+        <FormSectionHeadingTextContainer>
+          <FormHeadingText>Add - Ons</FormHeadingText>
+        </FormSectionHeadingTextContainer>
         <IconItemGroupContainer>
           {selectedAddOnItemItems.map((item, index) => {
             {
@@ -157,8 +167,15 @@ const PreviewPage = () => {
                 <>
                   <IconItemContainer>
                     <InputLabel>
-                      <AddIconImage src={item.additionalInformationIconURL} />
-                      <AddOnitemIcon />
+                      <AddIconImage src={item.itemIconURL} />
+                      <Plate
+                        style={{
+                          width: '110px',
+                          marginTop: '-60px',
+                          zIndex: '-1'
+                        }}
+                      />
+
                       <ItemDescription>
                         <ItemDescriptionText>
                           {item.itemName}

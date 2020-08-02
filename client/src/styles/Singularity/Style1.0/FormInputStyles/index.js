@@ -226,6 +226,9 @@ export const ItemDescription = styled.div`
   justify-content: center;
   width: 100%;
   height: 35px;
+  border-radius: 10px;
+  background: ${props =>
+    props.checked ? `${styles.formContentColor}` : 'none'};
 `;
 
 export const TextRadioButton = styled.button`
@@ -342,7 +345,7 @@ export const AddIconImage = styled.img`
   animation: ${props =>
     props.checked
       ? css`
-          ${Bounce} 2s
+          ${Bounce} 1.4s
         `
       : 'none'};
 `;

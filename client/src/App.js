@@ -12,6 +12,7 @@ import Ball from 'components/Singularity/ApplicationView/Loaders/Ball';
 
 import Routes from 'components/Routing/Routes.js';
 import LandingPage from 'components/Singularity/OwnerView/LandingPage.js';
+import ImageGallery from 'components/Singularity/ApplicationView/ImageGallery';
 
 function App() {
   return (

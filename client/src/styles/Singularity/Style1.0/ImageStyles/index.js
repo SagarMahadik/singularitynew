@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 export const ProductImage = styled.img`
   height: 198px;
@@ -17,4 +17,23 @@ export const ProductPageICon = styled.img`
   height: 50px;
   width: 50px;
   object-fit: cover;
+`;
+
+export const OverLay = styled.div`
+  display: flex;
+  width: 300px;
+  height: 200px;
+  background: linear-gradient(
+    182.07deg,
+    rgba(0, 0, 0, 0) 77.6%,
+    rgba(0, 0, 0, 0.75) 97.31%
+  );
+
+  position: absolute;
+  border-radius: 25px;
+`;
+export const ImageContainer = styled.div`
+  display: flex;
+  width: 300px;
+  height: 200px;
 `;

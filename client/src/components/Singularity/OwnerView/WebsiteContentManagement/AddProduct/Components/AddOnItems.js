@@ -78,14 +78,14 @@ const AddOnItems = () => {
                       <Plate
                         style={{
                           width: '110px',
-                          marginTop: '-68px',
+                          marginTop: '-60px',
                           zIndex: '-1'
                         }}
                         checked={item.isChecked}
                       />
 
-                      <ItemDescription>
-                        <ItemDescriptionText>
+                      <ItemDescription checked={item.isChecked}>
+                        <ItemDescriptionText checked={item.isChecked}>
                           {item.itemName}
                         </ItemDescriptionText>
                       </ItemDescription>

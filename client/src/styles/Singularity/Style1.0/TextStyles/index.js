@@ -37,8 +37,15 @@ export const TextContainer = styled.div`
   align-items: center;
 `;
 
+export const ProductImageName = styled(PTSansText)`
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+`;
+
 export const FormSectionHeadingTextContainer = styled(TextContainer)`
-  margin-top: 1.5em;
+  margin-top: 2em;
+  padding: 5px;
 `;
 
 export const RadioButtonText = styled(PTSansText)`
@@ -69,7 +76,8 @@ export const FormHeadingText = styled(RecursiveText)`
 export const ItemDescriptionText = styled(PTSansText)`
   font-size: 14px;
   line-height: 14px;
-  color: ${styles.formContentColor};
+  color: ${props =>
+    props.checked ? `${styles.themecolor}` : `${styles.formContentColor}`};
 `;
 
 export const ProductName = styled(PTSansText)`
@@ -85,7 +93,7 @@ export const ProductInformation = styled(PTSansText)`
   font-family: PT Sans;
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 14px;
   text-align: left;
   /* or 117% */
@@ -93,13 +101,13 @@ export const ProductInformation = styled(PTSansText)`
   color: #665c5c;
 `;
 export const ProductIconDescription = styled(PTSansText)`
-  font-size: 8px;
-  line-height: 8px;
+  font-size: 14px;
+  line-height: 14px;
   color: #000000;
 `;
 
 export const PriceText = styled(PTSansText)`
   font-size: 14px;
-  line-height: 8px;
+  line-height: 14px;
   color: #000000;
 `;
