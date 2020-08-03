@@ -19,7 +19,7 @@ import {
   ProductImageName,
   TextContainer
 } from 'styles/Singularity/Style1.0/TextStyles';
-import { tsConstructorType } from '../../../../../../../../../.cache/typescript/3.9/node_modules/@babel/types/lib/index';
+
 gsap.registerPlugin(ScrollTrigger);
 
 function ImageGalley() {
