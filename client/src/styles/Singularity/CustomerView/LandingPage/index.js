@@ -27,6 +27,7 @@ export const LandingPageContentContainer = styled.div`
   margin-top: -110px;
   z-index: 2;
   width: 100%;
+  overflow-y: scroll;
 `;
 
 export const ContentContainer = styled.div`

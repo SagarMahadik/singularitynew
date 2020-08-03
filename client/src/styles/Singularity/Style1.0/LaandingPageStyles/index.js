@@ -22,7 +22,7 @@ export const Background = styled.div`
 
 export const BackgroundImage = styled.img`
   width: 100%;
-  height: 526px;
+  height: 426px;
   object-fit: cover;
   filter: blur(3px);
 `;
@@ -32,7 +32,7 @@ export const LandingPageContentContainer = styled.div`
   margin: auto;
   padding: auto;
   text-align: center;
-  margin-top: -110px;
+  margin-top: -30px;
   z-index: 2;
   width: 100%;
 `;
@@ -47,6 +47,7 @@ export const ContentContainer = styled.div`
   margin-top: 70px;
   color: #c7b72a;
   text-align: center;
+  margin-top: -30px;
 `;
 
 export const Content = styled.text`
@@ -76,6 +77,7 @@ export const Button = styled(Link)`
   line-height: 53px;
   text-align: center;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 `;
 export const GalleryLink = styled(Link)`
   display: block;
@@ -84,6 +86,7 @@ export const GalleryLink = styled(Link)`
   margin-top: 10px;
   width: 100%;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 `;
 
 export const Quote = styled.div`

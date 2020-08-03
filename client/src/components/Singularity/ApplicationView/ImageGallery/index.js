@@ -19,6 +19,7 @@ import {
   ProductImageName,
   TextContainer
 } from 'styles/Singularity/Style1.0/TextStyles';
+import { tsConstructorType } from '../../../../../../../../../.cache/typescript/3.9/node_modules/@babel/types/lib/index';
 gsap.registerPlugin(ScrollTrigger);
 
 function ImageGalley() {
@@ -31,49 +32,39 @@ function ImageGalley() {
 
   const PiattoImages = [
     {
-      product: 'Coffee Macaron',
-      productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1594557520/coffeemacaron.jpg'
-    },
-    {
-      product: 'Paan Macaron',
-      productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1593722005/PannMacaroon_1.jpg'
-    },
-    {
       product: 'Macaron Gift Box',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371030/IMG_0201_1_ceujnu.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464703/Christmas_Hamper_kg4mpe.jpg'
     },
     {
       product: 'Barley Salad',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371108/Barley_Salad_with_Hulk_SMoothie_vtotc9.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464705/Barley_Salad_with_Hulk_SMoothie_new_wbhgms.jpg'
     },
     {
       product: 'Barley Salad ',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371166/Barley_Salad_with_Long_Black_r9qbqk.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464705/NewBarley_Salad_with_Long_Black_p3ssfu.jpg'
     },
     {
       product: 'English Breakfast',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371253/English_breakfast_djeszl.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464703/English_breakfast_q0ophl.jpg'
     },
     {
       product: 'Scrambled Eggs ',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371349/Scrambled_eggs_with_chilly_mushroom_uipu3i.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464701/Scrambled_eggs_with_chilly_mushroom_1_f24hhn.jpg'
     },
     {
       product: 'Spicy Chicken Sandwich',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371388/Spicy_chicken_sandwich_zqbxta.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464702/Spicy_chicken_sandwich_ng9pft.jpg'
     },
     {
       product: 'Spicy Chicken Sandwich',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371388/Spicy_chicken_sandwich_zqbxta.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464702/Spicy_chicken_sandwich_nutty_chocolate_cappuccino_b23yze.jpg'
     },
     {
       product: 'Spicy Chicken Sandwich',
@@ -83,7 +74,7 @@ function ImageGalley() {
     {
       product: 'Opera Wedding Cake',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371549/Opera_-_Wedding_Cake_fm4yts.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464704/Opera_-_Wedding_Cake_elcerc.jpg'
     },
     {
       product: 'Nutty Chocolate Cake',
@@ -91,49 +82,39 @@ function ImageGalley() {
         'https://res.cloudinary.com/antilibrary/image/upload/v1596371573/Nutty_Chocolate_Eggless_Cake_ete0xu.jpg'
     },
     {
-      product: 'Nutella Naked Cake',
+      product: 'Wedding Cake',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371649/Nutella_naked_cake_hzyyaj.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464702/Wedding_Cake_sdk1gf.jpg'
     },
     {
-      product: 'Nutella Naked Cake ',
+      product: 'Wedding Cake',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371651/Naked_cake_with_fresh_fruits_xh4u2n.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464702/Wedding_Cake_1_o8ia5r.jpg'
+    },
+    {
+      product: 'Dark Chocolate',
+      productImageURL:
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464703/Dark_Chocolate_w1uwez.jpg'
     },
     {
       product: 'Mocha Naked Cake',
       productImageURL:
         'https://res.cloudinary.com/antilibrary/image/upload/v1596371732/Mocha_naked_cake_pwqmdo.jpg'
-    },
-    {
-      product: 'Mocha Naked Cake',
-      productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371732/Mocha_naked_cake_pwqmdo.jpg'
-    },
-    {
-      product: 'Mango Cheese Cake',
-      productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371870/Mango_Cheesecake_ywj0fm.jpg'
-    },
-    {
-      product: 'Mocha Entremet',
-      productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371907/Mocha_Entremet_qiwd5x.jpg'
     },
     {
       product: 'HazelNut Forest Cake',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371995/Hazelnut_forest_naked_cake_m4ysuz.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464702/Hazelnut_forest_naked_cake_qcg9jz.jpg'
     },
     {
       product: 'Chocolate Orange Cake',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596372056/Chocolate_orange_Cake_gxi45o.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464704/NewChocolate_orange_Cake_hdb9e0.jpg'
     },
     {
-      product: 'Carrot Cake',
+      product: 'Cappuccino',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596372054/Carrot_Cake_p2aixe.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464704/NewCappuccino_with_macarons_kfekpq.jpg'
     }
   ];
 
@@ -159,18 +140,20 @@ function ImageGalley() {
       gsap.fromTo(
         el,
         {
-          autoAlpha: 0
+          filter: 'blur(2px)'
         },
         {
           duration: 1.2,
-          autoAlpha: 1,
-          scale: 1.0,
-          ease: 'power3',
+
+          scale: 1.1,
+          ease: 'power2',
+          filter: 'blur(0px)',
           scrollTrigger: {
             id: `section-${index + 1}`,
             trigger: el,
-            start: 'top center+=400',
-            toggleActions: 'play none none reverse'
+            start: 'top 80%',
+            toggleActions: 'play pause none none',
+            once: true
           }
         }
       );
@@ -180,51 +163,63 @@ function ImageGalley() {
         el,
         {
           autoAlpha: 0,
-          x: -80
+          y: 20
         },
         {
-          duration: 1.4,
+          duration: 0.9,
           x: 0,
+          y: 0,
           autoAlpha: 1,
           ease: 'back',
           scrollTrigger: {
             id: `section-${index + 1}`,
             trigger: el,
             start: 'bottom +=800',
-            toggleActions: 'play none none reverse'
+            end: 'bottom +=700',
+            toggleActions: 'play pause none none',
+            scrub: 0.8
           }
         }
       );
     });
+
+    imageRefs.current.forEach((el, index) => {
+      if (el.complete) {
+        ScrollTrigger.refresh();
+      } else {
+        el.addEventListener('load', imgLoded => ScrollTrigger.refresh());
+      }
+    });
   }, []);
+
+  const url = `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 220"%3E%3C/svg%3E`;
 
   return (
     <MainContainer
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{
-        ease: 'easeOut',
-        duration: 0.8
+        ease: 'easeIn',
+        duration: 0.6
       }}
       exit={{ opacity: 0 }}
       style={{}}
     >
-      <CenterAlignedColumnContainer>
-        <FormHeading heading="Picture Gallery" />
-
+      <CenterAlignedColumnContainer style={{ marginTop: '50px' }}>
         {PiattoImages.map((product, index) => {
           return (
-            <div style={{ marginTop: '30px', marginBottom: '30px' }}>
-              <ImageContainer>
+            <div style={{ marginTop: '45px' }}>
+              <ImageContainer ref={addToRefs}>
                 <img
                   key={index}
                   style={{
                     height: '200px',
                     width: '300px',
-                    borderRadius: '25px'
+                    borderRadius: '25px',
+                    aspectRatio: '16:9',
+                    imageRendering: 'crisp-edges'
                   }}
                   src={product.productImageURL}
-                  ref={addToRefs}
                 />
                 <OverLay />
               </ImageContainer>
@@ -237,6 +232,7 @@ function ImageGalley() {
             </div>
           );
         })}
+        <div style={{ height: '200px' }} />
       </CenterAlignedColumnContainer>
     </MainContainer>
   );

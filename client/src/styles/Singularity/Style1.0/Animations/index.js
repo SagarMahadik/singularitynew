@@ -69,7 +69,7 @@ export const MainContainer = styled(motion.div)`
   flex-direction: column;
   width: 100%;
   z-index: -1;
-  background-image: url('https://res.cloudinary.com/antilibrary/image/upload/v1596378567/bck_2_lbhkag.svg');
+  background-image: url('https://res.cloudinary.com/antilibrary/image/upload/v1595772184/newBackground_1_wuvjj4.png');
 `;
 
 export const MainProductConatiner = styled(motion.div)`
