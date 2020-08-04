@@ -249,3 +249,8 @@ export const MainContainer = styled.div`
   overflow-x: hidden;
   max-width: 100%;
 `;
+
+export const GalleryContainer = styled.div`
+  overflow-x: hidden;
+  max-width: 100%;
+`;

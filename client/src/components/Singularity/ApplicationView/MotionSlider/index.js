@@ -19,9 +19,9 @@ const MotionSlider = ({ children, padding, gap, velocity, transition }) => {
 };
 
 MotionSlider.defaultProps = {
-  padding: 10,
+  padding: 20,
   gap: 30,
-  velocity: 0.4,
+  velocity: 0.5,
   transition: { type: 'spring', damping: 500 }
 };
 

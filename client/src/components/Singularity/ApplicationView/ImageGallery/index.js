@@ -7,7 +7,8 @@ import {
   SliderContainer,
   ImageContainer,
   HorizontalImage,
-  MainContainer
+  MainContainer,
+  GalleryContainer
 } from 'styles/Singularity/Style1.0/ContainerStyles';
 import { ProductImage, OverLay } from 'styles/Singularity/Style1.0/ImageStyles';
 import FormHeading from 'components/Singularity/ApplicationView/FormHeadings';
@@ -36,7 +37,10 @@ gsap.registerPlugin(ScrollTrigger);
 SwiperCore.use([Navigation, Pagination]);
 SwiperCore.use([Thumbs]);
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  overflow-x: hidden;
+  max-width: 100%;
+`;
 
 function ImageGalley() {
   const { pathname } = useLocation();
@@ -202,17 +206,65 @@ function ImageGalley() {
 
   return (
     <>
-      <h1>Hello</h1>
-      <Swiper
-        spaceBetween={-80}
-        style={{ overflowX: 'hidden', maxWidth: '100%' }}
-      >
-        {PiattoImages.map((product, index) => {
-          return (
-            <>
-              <SwiperSlide style={{ width: '30%' }}>
-                {' '}
-                <div style={{ marginLeft: '10px' }}>
+      <GalleryContainer>
+        <h1>Hello</h1>
+        <Swiper
+          spaceBetween={-80}
+          style={{ overflowX: 'hidden', maxWidth: '100%' }}
+        >
+          {PiattoImages.map((product, index) => {
+            return (
+              <>
+                <SwiperSlide style={{ width: '30%' }}>
+                  {' '}
+                  <div style={{ marginLeft: '10px' }}>
+                    <img
+                      key={index}
+                      style={{
+                        width: '280px',
+                        height: '200px',
+                        borderRadius: '25px',
+                        aspectRatio: '16:9',
+                        imageRendering: 'crisp-edges'
+                      }}
+                      src={product.productImageURL}
+                    />
+                  </div>
+                </SwiperSlide>
+              </>
+            );
+          })}
+        </Swiper>
+        <MainContainer>
+          <SliderContainer>
+            {PiattoImages.map((product, index) => {
+              return (
+                <>
+                  {' '}
+                  <img
+                    ref={addToRefs}
+                    key={index}
+                    style={{
+                      width: '280px',
+                      height: '200px',
+                      borderRadius: '25px',
+                      aspectRatio: '16:9',
+                      imageRendering: 'crisp-edges',
+                      padding: '10px'
+                    }}
+                    src={product.productImageURL}
+                  />
+                </>
+              );
+            })}
+          </SliderContainer>
+        </MainContainer>
+        <Wrapper>
+          <MotionSlider>
+            {PiattoImages.map((product, index) => {
+              return (
+                <>
+                  {' '}
                   <img
                     key={index}
                     style={{
@@ -220,64 +272,17 @@ function ImageGalley() {
                       height: '200px',
                       borderRadius: '25px',
                       aspectRatio: '16:9',
-                      imageRendering: 'crisp-edges'
+                      imageRendering: 'crisp-edges',
+                      padding: '10px'
                     }}
                     src={product.productImageURL}
                   />
-                </div>
-              </SwiperSlide>
-            </>
-          );
-        })}
-      </Swiper>
-      <MainContainer>
-        <SliderContainer>
-          {PiattoImages.map((product, index) => {
-            return (
-              <>
-                {' '}
-                <img
-                  ref={addToRefs}
-                  key={index}
-                  style={{
-                    width: '280px',
-                    height: '200px',
-                    borderRadius: '25px',
-                    aspectRatio: '16:9',
-                    imageRendering: 'crisp-edges',
-                    padding: '10px'
-                  }}
-                  src={product.productImageURL}
-                />
-              </>
-            );
-          })}
-        </SliderContainer>
-      </MainContainer>
-      <Wrapper>
-        <MotionSlider>
-          {PiattoImages.map((product, index) => {
-            return (
-              <>
-                {' '}
-                <img
-                  ref={addToRefs}
-                  key={index}
-                  style={{
-                    width: '280px',
-                    height: '200px',
-                    borderRadius: '25px',
-                    aspectRatio: '16:9',
-                    imageRendering: 'crisp-edges',
-                    padding: '10px'
-                  }}
-                  src={product.productImageURL}
-                />
-              </>
-            );
-          })}
-        </MotionSlider>
-      </Wrapper>
+                </>
+              );
+            })}
+          </MotionSlider>
+        </Wrapper>
+      </GalleryContainer>
     </>
   );
 }
