@@ -21,8 +21,8 @@ export const ProductPageICon = styled.img`
 
 export const OverLay = styled.div`
   display: flex;
-  width: 300px;
-  height: 200px;
+  width: 200px;
+  height: 100px;
   background: linear-gradient(
     182.07deg,
     rgba(0, 0, 0, 0) 77.6%,
@@ -34,6 +34,9 @@ export const OverLay = styled.div`
 `;
 export const ImageContainer = styled.div`
   display: flex;
-  width: 300px;
-  height: 200px;
+  flex-direction: row;
+  wrap: nowrap;
+  width: 200px;
+  height: 100px;
+  padding: 20px;
 `;

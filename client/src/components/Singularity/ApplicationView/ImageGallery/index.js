@@ -1,26 +1,42 @@
 import React, { useRef, UseEffect, useEffect } from 'react';
 import {
   CenterAlignedColumnContainer,
-  CenterAlignedRowContainer
+  CenterAlignedRowContainer,
+  LeftAlignedRowContainer,
+  HorizontalSilder,
+  SliderContainer,
+  ImageContainer,
+  HorizontalImage,
+  MainContainer
 } from 'styles/Singularity/Style1.0/ContainerStyles';
-import {
-  ProductImage,
-  OverLay,
-  ImageContainer
-} from 'styles/Singularity/Style1.0/ImageStyles';
+import { ProductImage, OverLay } from 'styles/Singularity/Style1.0/ImageStyles';
 import FormHeading from 'components/Singularity/ApplicationView/FormHeadings';
-import { MainContainer } from 'styles/Singularity/Style1.0/Animations';
+
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
+import { Frame, Scroll } from 'framer';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { EffectFade, Pagination, Navigation, Thumbs } from 'swiper';
+
+import 'swiper/swiper-bundle.css';
 
 import {
   ProductImageName,
   TextContainer
 } from 'styles/Singularity/Style1.0/TextStyles';
 
+import 'swiper/swiper.scss';
+import 'swiper/components/effect-fade/effect-fade.scss';
+import MotionSlider from 'components/Singularity/ApplicationView/MotionSlider';
+
 gsap.registerPlugin(ScrollTrigger);
+
+SwiperCore.use([Navigation, Pagination]);
+SwiperCore.use([Thumbs]);
+
+const Wrapper = styled.div``;
 
 function ImageGalley() {
   const { pathname } = useLocation();
@@ -57,17 +73,17 @@ function ImageGalley() {
         'https://res.cloudinary.com/antilibrary/image/upload/v1596464701/Scrambled_eggs_with_chilly_mushroom_1_f24hhn.jpg'
     },
     {
-      product: 'Spicy Chicken Sandwich',
+      product: 'Spicy Chicken ',
       productImageURL:
         'https://res.cloudinary.com/antilibrary/image/upload/v1596464702/Spicy_chicken_sandwich_ng9pft.jpg'
     },
     {
-      product: 'Spicy Chicken Sandwich',
+      product: 'Spicy Chicken',
       productImageURL:
         'https://res.cloudinary.com/antilibrary/image/upload/v1596464702/Spicy_chicken_sandwich_nutty_chocolate_cappuccino_b23yze.jpg'
     },
     {
-      product: 'Spicy Chicken Sandwich',
+      product: 'Spicy Chicken',
       productImageURL:
         'https://res.cloudinary.com/antilibrary/image/upload/v1596371487/Spicy_chicken_sandwich_nutty_chocolate_cappuccino_pkhxpw.jpg'
     },
@@ -122,6 +138,7 @@ function ImageGalley() {
   imageRefs.current = [];
   const textRefs = useRef([]);
   textRefs.current = [];
+  const dummyRef = useRef(null);
 
   const addToRefs = el => {
     if (el && !imageRefs.current.includes(el)) {
@@ -140,20 +157,19 @@ function ImageGalley() {
       gsap.fromTo(
         el,
         {
-          filter: 'blur(2px)'
+          filter: 'blur(0px)'
         },
         {
           duration: 1.2,
-
-          scale: 1.1,
           ease: 'power2',
           filter: 'blur(0px)',
+          scale: 1.2,
           scrollTrigger: {
             id: `section-${index + 1}`,
             trigger: el,
-            start: 'top 80%',
-            toggleActions: 'play pause none none',
-            once: true
+            start: 'left',
+            toggleActions: 'play none none none',
+            horizontal: true
           }
         }
       );
@@ -174,67 +190,95 @@ function ImageGalley() {
           scrollTrigger: {
             id: `section-${index + 1}`,
             trigger: el,
-            start: 'bottom +=800',
-            end: 'bottom +=700',
             toggleActions: 'play pause none none',
             scrub: 0.8
           }
         }
       );
     });
-
-    imageRefs.current.forEach((el, index) => {
-      if (el.complete) {
-        ScrollTrigger.refresh();
-      } else {
-        el.addEventListener('load', imgLoded => ScrollTrigger.refresh());
-      }
-    });
   }, []);
 
   const url = `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 220"%3E%3C/svg%3E`;
 
   return (
-    <MainContainer
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{
-        ease: 'easeIn',
-        duration: 0.6
-      }}
-      exit={{ opacity: 0 }}
-      style={{}}
-    >
-      <CenterAlignedColumnContainer style={{ marginTop: '50px' }}>
+    <>
+      <h1>Hello</h1>
+      <Swiper
+        spaceBetween={-80}
+        style={{ overflowX: 'hidden', maxWidth: '100%' }}
+      >
         {PiattoImages.map((product, index) => {
           return (
-            <div style={{ marginTop: '45px' }}>
-              <ImageContainer ref={addToRefs}>
+            <>
+              <SwiperSlide style={{ width: '30%' }}>
+                {' '}
+                <div style={{ marginLeft: '10px' }}>
+                  <img
+                    key={index}
+                    style={{
+                      width: '280px',
+                      height: '200px',
+                      borderRadius: '25px',
+                      aspectRatio: '16:9',
+                      imageRendering: 'crisp-edges'
+                    }}
+                    src={product.productImageURL}
+                  />
+                </div>
+              </SwiperSlide>
+            </>
+          );
+        })}
+      </Swiper>
+      <MainContainer>
+        <SliderContainer>
+          {PiattoImages.map((product, index) => {
+            return (
+              <>
+                {' '}
                 <img
+                  ref={addToRefs}
                   key={index}
                   style={{
+                    width: '280px',
                     height: '200px',
-                    width: '300px',
                     borderRadius: '25px',
                     aspectRatio: '16:9',
-                    imageRendering: 'crisp-edges'
+                    imageRendering: 'crisp-edges',
+                    padding: '10px'
                   }}
                   src={product.productImageURL}
                 />
-                <OverLay />
-              </ImageContainer>
-
-              <TextContainer style={{ marginTop: '-40px' }}>
-                <ProductImageName ref={addToTextRefs}>
-                  {product.product}
-                </ProductImageName>
-              </TextContainer>
-            </div>
-          );
-        })}
-        <div style={{ height: '200px' }} />
-      </CenterAlignedColumnContainer>
-    </MainContainer>
+              </>
+            );
+          })}
+        </SliderContainer>
+      </MainContainer>
+      <Wrapper>
+        <MotionSlider>
+          {PiattoImages.map((product, index) => {
+            return (
+              <>
+                {' '}
+                <img
+                  ref={addToRefs}
+                  key={index}
+                  style={{
+                    width: '280px',
+                    height: '200px',
+                    borderRadius: '25px',
+                    aspectRatio: '16:9',
+                    imageRendering: 'crisp-edges',
+                    padding: '10px'
+                  }}
+                  src={product.productImageURL}
+                />
+              </>
+            );
+          })}
+        </MotionSlider>
+      </Wrapper>
+    </>
   );
 }
 

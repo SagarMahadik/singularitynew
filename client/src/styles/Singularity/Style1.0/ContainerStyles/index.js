@@ -41,6 +41,8 @@ export const RightAlignedRowContainer = styled(RowContainer)`
 
 export const LeftAlignedRowContainer = styled(RowContainer)`
   justify-content: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 `;
 
 export const Box = styled.div`
@@ -224,4 +226,26 @@ export const MenuPagePriceContainer = styled(RowContainer)`
 export const ManuePageIconDescriptionContainer = styled(ColumnContainer)`
   height: 60px;
   align-items: center;
+`;
+
+export const HorizontalSilder = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.3fr 1fr auto 1fr;
+`;
+
+export const SliderContainer = styled.div`
+  display: flex;
+  flex: row;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  width: 375px;
+  overflow-x: scroll;
+`;
+
+export const MainContainer = styled.div`
+  overflow-x: hidden;
+  max-width: 100%;
 `;
