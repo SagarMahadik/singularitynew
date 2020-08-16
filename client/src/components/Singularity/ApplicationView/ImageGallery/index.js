@@ -8,10 +8,12 @@ import {
   ImageContainer,
   HorizontalImage,
   MainContainer,
-  GalleryContainer
+  GalleryContainer,
+  GsapConatiner
 } from 'styles/Singularity/Style1.0/ContainerStyles';
 import { ProductImage, OverLay } from 'styles/Singularity/Style1.0/ImageStyles';
-import FormHeading from 'components/Singularity/ApplicationView/FormHeadings';
+
+import { ThemeAnimationContainer } from 'styles/Singularity/Style1.0/Animations';
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -20,19 +22,22 @@ import { useLocation } from 'react-router-dom';
 import { Frame, Scroll } from 'framer';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { EffectFade, Pagination, Navigation, Thumbs } from 'swiper';
+import { motion, useAnimation } from 'framer-motion';
+import Track from 'components/Singularity/ApplicationView/MotionSlider/Track.js';
+import { Draggable } from 'gsap/Draggable';
 
 import 'swiper/swiper-bundle.css';
 
 import {
   ProductImageName,
-  TextContainer
+  GalleryProducctNameContainer,
+  ProductName
 } from 'styles/Singularity/Style1.0/TextStyles';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/effect-fade/effect-fade.scss';
-import MotionSlider from 'components/Singularity/ApplicationView/MotionSlider';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, Draggable);
 
 SwiperCore.use([Navigation, Pagination]);
 SwiperCore.use([Thumbs]);
@@ -89,7 +94,7 @@ function ImageGalley() {
     {
       product: 'Spicy Chicken',
       productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371487/Spicy_chicken_sandwich_nutty_chocolate_cappuccino_pkhxpw.jpg'
+        'https://res.cloudinary.com/antilibrary/image/upload/v1596464702/Spicy_chicken_sandwich_nutty_chocolate_cappuccino_b23yze.jpg'
     },
     {
       product: 'Opera Wedding Cake',
@@ -117,11 +122,6 @@ function ImageGalley() {
         'https://res.cloudinary.com/antilibrary/image/upload/v1596464703/Dark_Chocolate_w1uwez.jpg'
     },
     {
-      product: 'Mocha Naked Cake',
-      productImageURL:
-        'https://res.cloudinary.com/antilibrary/image/upload/v1596371732/Mocha_naked_cake_pwqmdo.jpg'
-    },
-    {
       product: 'HazelNut Forest Cake',
       productImageURL:
         'https://res.cloudinary.com/antilibrary/image/upload/v1596464702/Hazelnut_forest_naked_cake_qcg9jz.jpg'
@@ -143,62 +143,123 @@ function ImageGalley() {
   const textRefs = useRef([]);
   textRefs.current = [];
   const dummyRef = useRef(null);
+  const sliderRef = useRef(null);
+
+  const proxy = document.createElement('div');
+  const scroller = document.getElementById('scroller');
+
+  Draggable.create(proxy, {
+    type: 'x',
+    trigger: scroller,
+    onDrag: function() {
+      console.log(this.proxy.offsetWidth);
+    }
+  });
 
   const addToRefs = el => {
     if (el && !imageRefs.current.includes(el)) {
       imageRefs.current.push(el);
-      console.log(imageRefs);
     }
   };
   const addToTextRefs = el => {
     if (el && !textRefs.current.includes(el)) {
       textRefs.current.push(el);
-      console.log(textRefs);
     }
   };
+  let index = 0;
   useEffect(() => {
     imageRefs.current.forEach((el, index) => {
       gsap.fromTo(
         el,
         {
-          filter: 'blur(0px)'
+          filter: 'blur(0px)',
+          scale: 1,
+          autoAlpha: 0.98
         },
         {
-          duration: 1.2,
+          duration: 0.6,
           ease: 'power2',
           filter: 'blur(0px)',
-          scale: 1.2,
+          scale: 1,
+          autoAlpha: 1,
           scrollTrigger: {
             id: `section-${index + 1}`,
             trigger: el,
-            start: 'left',
+            scroller: '.scroller',
+            start: 'left 350',
+            end: 'right 40',
             toggleActions: 'play none none none',
+            horizontal: true,
+            scrub: 1,
+            onLeave: () =>
+              gsap.to(el, {
+                autoAlpha: 0,
+                duration: 0.4,
+                ease: 'power3.easeOut'
+              }),
+            onEnterBack: () =>
+              gsap.to(el, {
+                autoAlpha: 1,
+                duration: 0.8,
+                delay: 1.2,
+                ease: 'powe2.easeOut'
+              })
+          }
+        }
+      );
+    });
+
+    textRefs.current.forEach((el, index) => {
+      if (index === 0) {
+        return;
+      }
+      gsap.fromTo(
+        el,
+        {
+          autoAlpha: 0
+        },
+        {
+          duration: 0.5,
+          autoAlpha: 1,
+          scrollTrigger: {
+            id: `section-${index + 1}`,
+            scroller: '.scroller',
+            trigger: imageRefs.current[index - 1],
+            toggleActions: 'play none none none',
+            scrub: 1,
+            start: 'right +=250',
             horizontal: true
           }
         }
       );
     });
-    textRefs.current.forEach((el, index) => {
-      gsap.fromTo(
-        el,
-        {
-          autoAlpha: 0,
-          y: 20
-        },
-        {
-          duration: 0.9,
-          x: 0,
-          y: 0,
-          autoAlpha: 1,
-          ease: 'back',
-          scrollTrigger: {
-            id: `section-${index + 1}`,
-            trigger: el,
-            toggleActions: 'play pause none none',
-            scrub: 0.8
-          }
-        }
-      );
+    const slider = document.querySelector('.scroller');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let scrollRight;
+    slider.addEventListener('pointerdown', e => {
+      isDown = true;
+
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+      scrollRight = slider.scrollRight;
+    });
+    slider.addEventListener('pointerleave', () => {
+      isDown = false;
+      slider.classList.remove('active');
+    });
+    slider.addEventListener('pointerup', () => {
+      isDown = false;
+    });
+    slider.addEventListener('pointermove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 3; //scroll-fast
+      slider.scrollLeft = scrollLeft - walk;
+      slider.scrollRight = scrollRight + walk;
+      console.log(walk);
     });
   }, []);
 
@@ -206,83 +267,58 @@ function ImageGalley() {
 
   return (
     <>
-      <GalleryContainer>
-        <h1>Hello</h1>
-        <Swiper
-          spaceBetween={-80}
-          style={{ overflowX: 'hidden', maxWidth: '100%' }}
-        >
-          {PiattoImages.map((product, index) => {
-            return (
-              <>
-                <SwiperSlide style={{ width: '30%' }}>
-                  {' '}
-                  <div style={{ marginLeft: '10px' }}>
-                    <img
-                      key={index}
-                      style={{
-                        width: '280px',
-                        height: '200px',
-                        borderRadius: '25px',
-                        aspectRatio: '16:9',
-                        imageRendering: 'crisp-edges'
-                      }}
-                      src={product.productImageURL}
-                    />
-                  </div>
-                </SwiperSlide>
-              </>
-            );
-          })}
-        </Swiper>
-        <MainContainer>
-          <SliderContainer>
-            {PiattoImages.map((product, index) => {
-              return (
-                <>
-                  {' '}
-                  <img
-                    ref={addToRefs}
-                    key={index}
-                    style={{
-                      width: '280px',
-                      height: '200px',
-                      borderRadius: '25px',
-                      aspectRatio: '16:9',
-                      imageRendering: 'crisp-edges',
-                      padding: '10px'
-                    }}
-                    src={product.productImageURL}
-                  />
-                </>
-              );
-            })}
-          </SliderContainer>
-        </MainContainer>
-        <Wrapper>
-          <MotionSlider>
-            {PiattoImages.map((product, index) => {
-              return (
-                <>
-                  {' '}
-                  <img
-                    key={index}
-                    style={{
-                      width: '280px',
-                      height: '200px',
-                      borderRadius: '25px',
-                      aspectRatio: '16:9',
-                      imageRendering: 'crisp-edges',
-                      padding: '10px'
-                    }}
-                    src={product.productImageURL}
-                  />
-                </>
-              );
-            })}
-          </MotionSlider>
-        </Wrapper>
-      </GalleryContainer>
+      <ThemeAnimationContainer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          ease: 'easeOut',
+          duration: 1.2
+        }}
+        exit={{ opacity: 0 }}
+      >
+        <GalleryContainer>
+          <h1>Hello</h1>
+          <MainContainer class="mainContianer">
+            <GsapConatiner className="scroller">
+              {PiattoImages.map((product, index) => {
+                return (
+                  <>
+                    {' '}
+                    <CenterAlignedColumnContainer>
+                      <div
+                        ref={addToRefs}
+                        style={{
+                          padding: '15px',
+                          marginRight: '24px',
+                          display: 'flex'
+                        }}
+                      >
+                        <OverLay />
+                        <img
+                          alt={product}
+                          key={index}
+                          style={{
+                            width: '250px',
+                            height: '180px',
+                            borderRadius: '25px',
+                            aspectRatio: '16:9',
+                            imageRendering: 'crisp-edges'
+                          }}
+                          src={product.productImageURL}
+                        />
+                      </div>
+                      <GalleryProducctNameContainer ref={addToTextRefs}>
+                        <ProductName>{product.product}</ProductName>
+                      </GalleryProducctNameContainer>
+                    </CenterAlignedColumnContainer>
+                  </>
+                );
+              })}
+            </GsapConatiner>
+          </MainContainer>
+          <div ref={dummyRef}>Hello from framer</div>
+        </GalleryContainer>
+      </ThemeAnimationContainer>
     </>
   );
 }

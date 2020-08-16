@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components/macro';
 import { SlideInRight, SlideInLeft } from '../Animations';
 import { styles } from 'styles/Singularity/Style1.0/ApplicationStyles';
 
@@ -8,6 +8,12 @@ export const ColumnContainer = styled.div`
   margin: auto;
   flex-direction: column;
   max-width: 500px;
+`;
+
+export const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: 40% 20% 30%;
+  grid-gap: 20px;
 `;
 
 export const CenterAlignedColumnContainer = styled(ColumnContainer)`
@@ -190,32 +196,45 @@ export const ItemPriceContainer = styled(RowContainer)`
     props.checked ? `${styles.formContentColor}` : 'none'};
 `;
 
-export const MenuPageMainContainer = styled(RowContainer)`
+export const PreviewPageProductNameContainer = styled(ColumnContainer)`
+  align-items: flex-start;
   justify-content: flex-start;
-  margin-top: 1.5em;
+  height: 30px;
+  width: 80%;
+  flex-wrap: nowrap;
+  padding-top: 8px;
 `;
 
-export const MenuContentContainer = styled(RowContainer)`
-  justify-content: space-between;
-  height: 199px;
-  width: 146px;
+export const PreviewProductPriceContainer = styled(ColumnContainer)`
+  height: 30px;
   padding-left: 5px;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  padding-top: -8px;
+`;
+
+export const NameCuisineIconContainer = styled(RowContainer)`
+  justify-content: flex-start;
 `;
 
 export const MenuAlignmentContainer = styled(RowContainer)`
   justify-content: flex-start;
-  padding-left: 5px;
+  width: 90%;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  margin-top: 1em;
 `;
 
 export const MenuPageIconContainer = styled(RowContainer)`
-  width: 146px;
-  height: 50px;
+  width: 90%;
   justify-content: flex-start;
   flex-wrap: nowrap;
 `;
 
 export const MenuPageDescriptionContainer = styled(RowContainer)`
   justify-content: flex-start;
+  width: 80%;
 `;
 
 export const MenuPagePriceContainer = styled(RowContainer)`
@@ -253,4 +272,31 @@ export const MainContainer = styled.div`
 export const GalleryContainer = styled.div`
   overflow-x: hidden;
   max-width: 100%;
+`;
+
+export const GsapConatiner = styled.div`
+  display: flex;
+  flex: row;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow-x: scroll;
+  height: 250px;
+`;
+
+/**Recipe Styles */
+
+export const RecipeManagementContainer = styled(CenterAlignedColumnContainer)`
+  max-width: 100%;
+`;
+
+export const SearchFilterContainer = styled(RowContainer)`
+  width: 90%;
+  justify-content: space-evenly;
+  margin-top: 2em;
+  overflow-y: auto;
+  animation: ${SlideInLeft} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  @media (min-width: 765px) {
+    width: 60%;
+  }
 `;

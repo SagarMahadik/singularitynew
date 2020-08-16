@@ -17,6 +17,14 @@ const categorySchema = new mongoose.Schema({
       type: [String]
     }
   ],
+  categoryMood: {
+    type: String
+  },
+  conversationTags: [
+    {
+      type: String
+    }
+  ],
   testimonials: [
     {
       patronName: {

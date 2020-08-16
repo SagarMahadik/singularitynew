@@ -22,7 +22,7 @@ MotionSlider.defaultProps = {
   padding: 20,
   gap: 30,
   velocity: 0.5,
-  transition: { type: 'spring', damping: 500 }
+  transition: { type: 'spring', damping: 800 }
 };
 
 export default MotionSlider;

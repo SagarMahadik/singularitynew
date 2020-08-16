@@ -9,6 +9,9 @@ import AddAdditionalProductInformationState from 'components/Singularity/OwnerVi
 import AddProduct from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/Components/AddProduct.js';
 import AddProductState from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/AddProductState.js';
 import Ball from 'components/Singularity/ApplicationView/Loaders/Ball';
+import Macaron from 'components/Singularity/ApplicationView/Loaders/Macaron.js';
+import Test from 'components/Singularity/ApplicationView/Test';
+import RecipeManagementMainComponent from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/RecipeManagementMainComponent.js';
 
 import Routes from 'components/Routing/Routes.js';
 import LandingPage from 'components/Singularity/OwnerView/LandingPage.js';

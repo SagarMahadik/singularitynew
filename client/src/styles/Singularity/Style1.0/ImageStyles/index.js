@@ -21,22 +21,20 @@ export const ProductPageICon = styled.img`
 
 export const OverLay = styled.div`
   display: flex;
-  width: 200px;
-  height: 100px;
+  width: 250px;
+  height: 180px;
   background: linear-gradient(
     182.07deg,
     rgba(0, 0, 0, 0) 77.6%,
     rgba(0, 0, 0, 0.75) 97.31%
   );
-
   position: absolute;
   border-radius: 25px;
 `;
 export const ImageContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  wrap: nowrap;
-  width: 200px;
-  height: 100px;
-  padding: 20px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 300px;
+  height: 200px;
 `;

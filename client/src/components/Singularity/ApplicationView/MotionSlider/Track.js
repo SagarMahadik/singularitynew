@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { motion, useAnimation } from "framer-motion";
-import useDimensions from "react-use-dimensions";
-import useWindowSize from "@rehooks/window-size";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { motion, useAnimation } from 'framer-motion';
+import useDimensions from 'react-use-dimensions';
+import useWindowSize from '@rehooks/window-size';
 
-import { Context } from "./Context";
+import { Context } from './Context';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -49,7 +49,7 @@ const Track = ({ children, padding, velocity, transition }) => {
     );
 
     const activeSlide = negativeItems.indexOf(closestPosition);
-    dispatch({ type: "SET_ACTIVE_ITEM", activeItem: activeSlide });
+    dispatch({ type: 'SET_ACTIVE_ITEM', activeItem: activeSlide });
 
     controls.start({
       x: Math.max(

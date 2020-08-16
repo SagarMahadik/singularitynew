@@ -30,8 +30,6 @@ import {
 import { PartialWidthDivider } from 'styles/Singularity/Style1.0/PageDividerStyles';
 import addProductContext from 'components/Singularity/OwnerView/WebsiteContentManagement/AddProduct/State/addProductContext.js';
 import Loaders from 'components/Singularity/ApplicationView/Loaders';
-import Ball from 'components/Singularity/ApplicationView/Loaders/Ball';
-import ScrollAnimation from 'react-animate-on-scroll';
 
 import animation from 'styles/Singularity/GSAPAnimations';
 

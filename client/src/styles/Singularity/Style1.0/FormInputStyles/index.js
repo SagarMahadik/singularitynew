@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { styles } from 'styles/Singularity/Style1.0/ApplicationStyles';
 
 import { keyframes, css } from 'styled-components';
@@ -366,4 +366,33 @@ export const SubmitButton = styled.div`
   height: 60px;
   border-radius: 50px;
   background: ${styles.buttonBackgroundGradient};
+`;
+
+/**reccipe styles */
+
+export const RecipeName = styled(TextBox)``;
+
+export const RecipeNameLabel = styled(LabelText)`
+  ${RecipeName}:focus ~ &,
+  ${RecipeName}:not(:placeholder-shown) ~ & {
+    top: 0;
+    left: 0;
+    color: ${styles.formContentColor};
+    font-size: 16px;
+  }
+`;
+
+export const SearchInputWrapper = styled(InputWrapper)`
+  width: 80%;
+`;
+export const SearchBox = styled(TextBox)``;
+
+export const SearchBoxLabel = styled(LabelText)`
+  ${SearchBox}:focus ~ &,
+  ${SearchBox}:not(:placeholder-shown) ~ & {
+    top: 0;
+    left: 0;
+    color: ${styles.formContentColor};
+    font-size: 16px;
+  }
 `;

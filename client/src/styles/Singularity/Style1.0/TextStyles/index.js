@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { styles } from 'styles/Singularity/Style1.0/ApplicationStyles';
 
 export const PTSansText = styled.text`
@@ -38,14 +38,19 @@ export const TextContainer = styled.div`
 `;
 
 export const ProductImageName = styled(PTSansText)`
-  color: #ffffff;
-  font-size: 24px;
+  color: #000000;
+  font-size: 16px;
+  line-height: 12px;
   font-weight: bold;
 `;
 
 export const FormSectionHeadingTextContainer = styled(TextContainer)`
-  margin-top: 2em;
+  margin-top: 0.8em;
   padding: 5px;
+`;
+
+export const PreviewaPageSectionHeader = styled(TextContainer)`
+  margin-top: 0.5em;
 `;
 
 export const RadioButtonText = styled(PTSansText)`
@@ -80,25 +85,21 @@ export const ItemDescriptionText = styled(PTSansText)`
     props.checked ? `${styles.themecolor}` : `${styles.formContentColor}`};
 `;
 
-export const ProductName = styled(PTSansText)`
-  font-family: PT Sans;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 18px;
-  display: flex;
-`;
-
 export const ProductInformation = styled(PTSansText)`
   font-family: PT Sans;
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 14px;
   text-align: left;
   /* or 117% */
 
   color: #665c5c;
+`;
+
+export const ProductInformationTextContainer = styled.div`
+  width: 80%;
+  padding: 10px;
 `;
 export const ProductIconDescription = styled(PTSansText)`
   font-size: 14px;
@@ -107,7 +108,25 @@ export const ProductIconDescription = styled(PTSansText)`
 `;
 
 export const PriceText = styled(PTSansText)`
-  font-size: 14px;
+  font-size: 16px;
   line-height: 14px;
   color: #000000;
+`;
+
+export const PriceTextContainer = styled(TextContainer)``;
+
+export const ProductName = styled(PTSansText)`
+  font-family: PT Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 18px;
+  display: flex;
+  color: #ffffff;
+`;
+
+export const GalleryProducctNameContainer = styled.div`
+  display: flex;
+  margin-top: -35px;
+  z-index: 3;
 `;

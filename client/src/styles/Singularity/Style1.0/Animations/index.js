@@ -80,3 +80,12 @@ export const MainProductConatiner = styled(motion.div)`
   width: 100%;
   z-index: -1;
 `;
+
+export const ThemeAnimationContainer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  z-index: -1;
+`;
