@@ -8,4 +8,6 @@ router.route('/').get(rawMaterialController.getAllRawMaterials);
 
 router.route('/').post(rawMaterialController.createRawMaterial);
 
+router.route('/:id').put(rawMaterialController.updateRawMaterial);
+
 module.exports = router;

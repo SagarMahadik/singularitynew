@@ -61,7 +61,6 @@ export const Box = styled.div`
 export const PeruBox = styled(Box)`
   background: peru;
 `;
-
 export const LavenderBox = styled(Box)`
   background: lavender;
 `;
@@ -287,15 +286,15 @@ export const GsapConatiner = styled.div`
 /**Recipe Styles */
 
 export const RecipeManagementContainer = styled(CenterAlignedColumnContainer)`
-  max-width: 100%;
+  width: 100%;
+  max-width: 600px;
 `;
 
 export const SearchFilterContainer = styled(RowContainer)`
   width: 90%;
   justify-content: space-evenly;
-  margin-top: 2em;
+  margin-top: 1em;
   overflow-y: auto;
-  animation: ${SlideInLeft} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   @media (min-width: 765px) {
     width: 60%;
   }

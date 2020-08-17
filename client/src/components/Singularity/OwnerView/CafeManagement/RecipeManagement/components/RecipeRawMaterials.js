@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
 import {
-  RadioButtonText,
-  TextContainer,
   FormHeadingText,
   FormSectionHeadingTextContainer
 } from 'styles/Singularity/Style1.0/TextStyles';
@@ -70,7 +68,7 @@ const RecipeRawMaterials = () => {
                 <Quantity
                   type="text"
                   name="quantity"
-                  defaultValue={material.quantityInRecipe}
+                  value={material.quantityInRecipe}
                   onChange={handleQuantityChange(material._id)}
                 />
                 <QuantityUnit>{material.recipeUnit}</QuantityUnit>
@@ -111,12 +109,22 @@ const RecipeRawMaterials = () => {
         <FinalRawMaterialCost>
           {Math.round(
             recipeRawMaterials.reduce(
+              (total, obj) => Number(obj.quantityInRecipe) + total,
+              0
+            )
+          )}
+        </FinalRawMaterialCost>
+
+        <FinalRawMaterialCost>
+          {Math.round(
+            recipeRawMaterials.reduce(
               (total, obj) => obj.costOfRawMaterial + total,
               0
             )
           )}
         </FinalRawMaterialCost>
       </TotalCost>
+      <PartialWidthDivider />
     </RecipeManagementContainer>
   );
 };

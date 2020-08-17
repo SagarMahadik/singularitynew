@@ -19,6 +19,7 @@ const productRouter = require('./routes/productRoutes');
 const addOnRouter = require('./routes/addOnRoutes');
 const rawMaterialRouter = require('./routes/rawMaterialRoutes');
 const additionalProductInformationRouter = require('./routes/additionalProductInformationRoutes');
+const basicRecipeRouter = require('./routes/basicRecipeRoutes');
 
 const app = express();
 
@@ -86,6 +87,8 @@ app.use(
 );
 
 app.use('/api/v1/rawMaterial', rawMaterialRouter);
+
+app.use('/api/v1/basicRecipe', basicRecipeRouter);
 
 if (process.env.NODE_ENV === 'production') {
   // Serving static files

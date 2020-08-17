@@ -22,6 +22,7 @@ const BallLoader = props => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
+    console.log('In a use Effect');
     if (props.isComplete) {
       setTimeout(() => setRedirect(true), 2000);
     }

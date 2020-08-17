@@ -7,6 +7,8 @@ import {
 
 import { PTSansText } from 'styles/Singularity/Style1.0/TextStyles';
 
+import { SubmitButton } from 'styles/Singularity/Style1.0/ButtonStyles';
+
 import { styles } from 'styles/Singularity/Style1.0/ApplicationStyles';
 
 export const GridContainenr = styled.div`
@@ -40,6 +42,7 @@ export const Quantity = styled.input`
   border: none;
   color: #6e5dcc;
   text-align: right;
+  padding-top: 3px;
   &:focus {
     outline: none;
     border: 1px solid #6e5dcc;
@@ -125,4 +128,18 @@ export const TotalCostText = styled(PTSansText)`
 export const FinalRawMaterialCost = styled(PTSansText)`
   font-size: 20px;
   color: ${styles.formContentColor};
+`;
+
+export const SaveOptionsContainer = styled(RowContainer)`
+  width: 90%;
+  justify-content: space-evenly;
+  margin-top: 1em;
+  overflow-y: auto;
+  @media (min-width: 765px) {
+    width: 60%;
+  }
+`;
+
+export const RecipeSubmitButton = styled(SubmitButton)`
+  margin-top: 2em;
 `;

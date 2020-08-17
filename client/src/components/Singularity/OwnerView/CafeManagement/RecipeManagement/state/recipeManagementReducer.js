@@ -9,7 +9,10 @@ import {
   REMOVE_RAWMATERIAL,
   UPDATE_RAWMATERIAL_PRICE,
   UPDATE_RAWMATERIAL_RATE,
-  UPDATE_RAWMATERIAL_COST
+  UPDATE_RAWMATERIAL_COST,
+  COMPLETE_FORM,
+  SHOW_LOADER,
+  COMPLETE_RAWMATERIAL
 } from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/types.js';
 
 export default (state, action) => {
@@ -18,6 +21,11 @@ export default (state, action) => {
       return {
         ...state,
         loading: true
+      };
+    case SHOW_LOADER:
+      return {
+        ...state,
+        showLoader: true
       };
     case SET_RAWMATERIALS:
       return {
@@ -81,5 +89,17 @@ export default (state, action) => {
         recipeRawMaterials: action.payload
       };
     }
+    case COMPLETE_FORM:
+      return {
+        ...state,
+        loading: false,
+        isDataUploaded: true
+      };
+    case COMPLETE_RAWMATERIAL:
+      return {
+        ...state,
+        loading: false,
+        isRawmUploaded: true
+      };
   }
 };
