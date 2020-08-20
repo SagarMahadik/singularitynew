@@ -46,7 +46,7 @@ const basicRecipeSchema = new mongoose.Schema({
       }
     }
   ],
-  totalCost: {
+  rate: {
     type: Number
   },
   brandName: {

@@ -55,7 +55,7 @@ const RecipeRawMaterials = () => {
         return (
           <>
             <GridContainenr key={index}>
-              <RawMaterial>{material.rawMaterial}</RawMaterial>
+              <RawMaterial>{material.name}</RawMaterial>
               <div
                 style={{
                   display: 'flex',

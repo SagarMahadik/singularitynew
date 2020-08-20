@@ -12,7 +12,13 @@ import {
   UPDATE_RAWMATERIAL_COST,
   COMPLETE_FORM,
   SHOW_LOADER,
-  COMPLETE_RAWMATERIAL
+  COMPLETE_RAWMATERIAL,
+  SET_BASICRECIPES,
+  SET_SEARCHFILTER,
+  UPDATE_BASICRECIPE,
+  UPDATE_BASICRECIPEQUANTITY,
+  UPDATE_BASICRECIPERAWMCOST,
+  UPDATE_BASICRECIPERATE
 } from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/types.js';
 
 export default (state, action) => {
@@ -32,12 +38,24 @@ export default (state, action) => {
         ...state,
         rawMaterials: action.payload
       };
+    case SET_BASICRECIPES:
+      return {
+        ...state,
+        basicRecipe: action.payload
+      };
     case UPDATE_FIELD:
       const { input, value } = action.payload;
       return {
         ...state,
         [input]: value
       };
+    case SET_SEARCHFILTER: {
+      return {
+        ...state,
+        searchFilter: action.payload,
+        searchArray: action.temparray
+      };
+    }
     case UPDATE_SEARCHSTRING: {
       return {
         ...state,
@@ -63,12 +81,39 @@ export default (state, action) => {
         searchString: ''
       };
     }
+    case UPDATE_BASICRECIPE: {
+      return {
+        ...state,
+        recipeBasicRecipes: [...state.recipeBasicRecipes, action.payload],
+        searchString: ''
+      };
+    }
+
     case REMOVE_RAWMATERIAL: {
       return {
         ...state,
         recipeRawMaterials: state.recipeRawMaterials.filter(
           item => item._id !== action.payload
         )
+      };
+    }
+    case UPDATE_BASICRECIPEQUANTITY: {
+      return {
+        ...state,
+        recipeBasicRecipes: action.payload
+      };
+    }
+    case UPDATE_BASICRECIPERAWMCOST: {
+      return {
+        ...state,
+        recipeBasicRecipes: action.payload
+      };
+    }
+    case UPDATE_BASICRECIPERATE: {
+      return {
+        ...state,
+        recipeBasicRecipes: action.payload,
+        searchString: ''
       };
     }
     case UPDATE_RAWMATERIAL_PRICE: {

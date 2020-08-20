@@ -6,6 +6,7 @@ import RecipeRawMaterials from 'components/Singularity/OwnerView/CafeManagement/
 import SubmitRecipe from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/components/SubmitRecipe.js';
 import Ball from 'components/Singularity/ApplicationView/Loaders/Ball';
 import recipeManagementContext from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/recipeManagementContext.js';
+import RecipeBasicRecipies from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/components/RecipeBasicRecipes.js';
 const RecipeManagement = () => {
   const RecipeManagementContext = useContext(recipeManagementContext);
   const {
@@ -24,6 +25,7 @@ const RecipeManagement = () => {
       <RecipeName />
       <SearchItems />
       <RecipeRawMaterials />
+      <RecipeBasicRecipies />
       <SubmitRecipe />
     </>
   );

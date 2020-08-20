@@ -34,7 +34,8 @@ const SeachItems = () => {
     handleSearchText,
     searchString,
     searchResults,
-    handleSearchItemClick
+    handleSearchItemClick,
+    handleSearchFilter
   } = RecipeManagementContext;
 
   return (
@@ -50,6 +51,7 @@ const SeachItems = () => {
             <TextRadioButton
               value={item.filterValue}
               selected={searchFilter === `${item.filterValue}`}
+              onClick={handleSearchFilter}
             >
               <RadioButtonText
                 selected={searchFilter === `${item.filterValue}`}
@@ -73,7 +75,7 @@ const SeachItems = () => {
               onClick={() => handleSearchItemClick(result)}
               key={index}
             >
-              <SearchResultText>{result.rawMaterial}</SearchResultText>
+              <SearchResultText>{result.name}</SearchResultText>
               <BrandPriceContainer>
                 <SearchBrandName>{result.brandName} </SearchBrandName>
                 <SearchPrice>{result.rate}</SearchPrice>
