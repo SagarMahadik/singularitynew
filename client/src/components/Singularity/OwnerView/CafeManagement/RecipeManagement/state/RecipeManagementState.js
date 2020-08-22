@@ -313,16 +313,22 @@ const RecipeManagementState = props => {
     dispatch({
       type: UPDATE_BASICRECIPEQUANTITY,
       payload: newArray
-    });
-     */
 
+
+    });
+    
+
+
+     */
     const tempRawMaterials = state.recipeBasicRecipes[index];
 
     const updatedDetails = tempRawMaterials.details.map(detail => {
       if (detail._id === id) {
         return {
           ...detail,
-          quantityInRecipe: e.target.value
+          quantityInRecipe: e.target.value,
+          costOfRawMaterial: (detail.costOfRawMaterial =
+            (detail.rate * e.target.value) / detail.baseQuantity)
         };
       } else {
         return detail;
@@ -344,8 +350,8 @@ const RecipeManagementState = props => {
       type: UPDATE_BASICRECIPEQUANTITY,
       payload: newArray
     });
-
-    const tempRawMaterials1 = state.recipeBasicRecipes[index];
+    /**
+ *     const tempRawMaterials1 = state.recipeBasicRecipes[index];
 
     const updatedDetails1 = tempRawMaterials1.details.map(detail => {
       if (detail._id === id) {
@@ -374,6 +380,7 @@ const RecipeManagementState = props => {
       type: UPDATE_BASICRECIPERAWMCOST,
       payload: newArray1
     });
+ */
   };
 
   const handleBasicRecipeRMRateChange = (id, name, index) => e => {
@@ -384,7 +391,9 @@ const RecipeManagementState = props => {
       if (detail._id === id) {
         return {
           ...detail,
-          rate: e.target.value
+          rate: e.target.value,
+          costOfRawMaterial: (detail.costOfRawMaterial =
+            (detail.quantityInRecipe * e.target.value) / detail.baseQuantity)
         };
       } else {
         return detail;
@@ -409,7 +418,9 @@ const RecipeManagementState = props => {
       payload: newArray2
     });
 
-    const tempRawMaterials1 = state.recipeBasicRecipes[index];
+    /**
+ * 
+ * const tempRawMaterials1 = state.recipeBasicRecipes[index];
 
     const updatedDetails1 = tempRawMaterials1.details.map(detail => {
       if (detail._id === id) {
@@ -438,6 +449,7 @@ const RecipeManagementState = props => {
       type: UPDATE_BASICRECIPERAWMCOST,
       payload: newArray1
     });
+ */
   };
 
   const handleQuantityChange = id => e => {
