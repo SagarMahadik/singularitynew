@@ -7,7 +7,7 @@ const basicRecipeSchema = new mongoose.Schema({
   },
   details: [
     {
-      rawMaterial: {
+      name: {
         type: String,
         required: [true, 'Please enter the raw material']
       },

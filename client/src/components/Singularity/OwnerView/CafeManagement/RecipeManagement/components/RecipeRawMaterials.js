@@ -105,7 +105,7 @@ const RecipeRawMaterials = () => {
       })}
       <PartialWidthDivider />
       <TotalCost>
-        <TotalCostText>Total Food Cost</TotalCostText>
+        <TotalCostText>Total Raw Material Cost</TotalCostText>
         <FinalRawMaterialCost>
           {Math.round(
             recipeRawMaterials.reduce(

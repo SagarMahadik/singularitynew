@@ -61,35 +61,7 @@ const SeachItems = () => {
             </TextRadioButton>
           );
         })}
-        <SearchInputWrapper>
-          <SearchBox
-            placeholder=" "
-            value={searchString}
-            onChange={handleSearchText}
-          />
-          <SearchBoxLabel>Search the above selected item</SearchBoxLabel>
-        </SearchInputWrapper>
-        {searchResults.map((result, index) => {
-          return (
-            <SearchResultContainer
-              onClick={() => handleSearchItemClick(result)}
-              key={index}
-            >
-              <SearchResultText>{result.name}</SearchResultText>
-              <BrandPriceContainer>
-                <SearchBrandName>{result.brandName} </SearchBrandName>
-                <SearchPrice>{result.rate}</SearchPrice>
-                <SearchBaseUnitRate>
-                  /{result.baseQuantity}
-                  {result.baseUnit}
-                </SearchBaseUnitRate>
-              </BrandPriceContainer>
-            </SearchResultContainer>
-          );
-        })}
       </SearchFilterContainer>
-
-      <PartialWidthDivider />
     </RecipeManagementContainer>
   );
 };

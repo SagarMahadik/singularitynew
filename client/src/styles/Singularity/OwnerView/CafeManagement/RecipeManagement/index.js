@@ -112,6 +112,13 @@ export const DeleteIcon = styled.div`
   border: 5px solid ${styles.formContentColor};
 `;
 
+export const AddIcon = styled.div`
+  width: 10px;
+  height: 1em;
+  border-radius: 50%;
+  border: 5px solid #28b463;
+`;
+
 export const TotalCost = styled(RowContainer)`
   width: 60%;
   justify-content: space-between;
@@ -120,13 +127,13 @@ export const TotalCost = styled(RowContainer)`
 `;
 
 export const TotalCostText = styled(PTSansText)`
-  font-size: 20px;
+  font-size: 16px;
   color: ${styles.formContentColor};
   font-weight: bold;
 `;
 
 export const FinalRawMaterialCost = styled(PTSansText)`
-  font-size: 20px;
+  font-size: 16px;
   color: ${styles.formContentColor};
 `;
 

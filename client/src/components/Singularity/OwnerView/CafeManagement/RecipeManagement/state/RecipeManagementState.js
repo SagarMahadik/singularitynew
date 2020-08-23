@@ -14,7 +14,6 @@ import {
   REMOVE_RAWMATERIAL,
   UPDATE_RAWMATERIAL_PRICE,
   UPDATE_RAWMATERIAL_RATE,
-  UPDATE_RAWMATERIAL_COST,
   COMPLETE_FORM,
   SHOW_LOADER,
   COMPLETE_RAWMATERIAL,
@@ -22,14 +21,18 @@ import {
   SET_SEARCHFILTER,
   UPDATE_BASICRECIPE,
   UPDATE_BASICRECIPEQUANTITY,
-  UPDATE_BASICRECIPERAWMCOST,
-  UPDATE_BASICRECIPERATE
+  UPDATE_BASICRECIPERATE,
+  REMOVE_BASICRECIPERM,
+  REMOVE_BASICRECIPE,
+  SET_BASICRECIPERMSEARCHFILTER,
+  HANDLE_BASICRECIPESEARCHDISPLAY,
+  ADD_BASICRECCIPESEARCHRM
 } from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/types.js';
 
 import { useHttpClient } from 'Hooks/httpsHooks';
 
 import axios from 'axios';
-import ResponsiveStyleContext from 'Context/responsiveStyle/ResponsiveStyleContext';
+import produce from 'immer';
 
 const RecipeManagementState = props => {
   const saveOptions = [
@@ -60,7 +63,8 @@ const RecipeManagementState = props => {
     saveOption: 'basicRecipe',
     isDataUploaded: false,
     showLoader: false,
-    isRawmUploaded: false
+    isRawmUploaded: false,
+    showBasicRecipeSearch: false
   };
   const [state, dispatch] = useReducer(recipeManagementReducer, initialState);
 
@@ -233,6 +237,23 @@ const RecipeManagementState = props => {
     });
   };
 
+  const handleBasicRecipeMSearchFilter = id => {
+    console.log(id);
+
+    let filter = 'basicRecipeRawMaterial';
+    let currentArray = [];
+    currentArray = [...state.rawMaterials];
+    dispatch({
+      type: SET_BASICRECIPERMSEARCHFILTER,
+      payload: filter,
+      temparray: currentArray
+    });
+    dispatch({
+      type: HANDLE_BASICRECIPESEARCHDISPLAY,
+      id1: id
+    });
+  };
+
   const handleSearchText = e => {
     let string = e.currentTarget.value;
 
@@ -258,8 +279,9 @@ const RecipeManagementState = props => {
     }
   };
 
-  const handleSearchItemClick = item => {
-    console.log(item.details);
+  const handleSearchItemClick = (item, index, basicRecipeId) => {
+    console.log(index);
+    console.log(item);
     if (state.searchFilter === 'rawMaterial') {
       dispatch({
         type: UPDATE_RAWMATERIALS,
@@ -273,6 +295,14 @@ const RecipeManagementState = props => {
         rmdetails: item.details
       });
     }
+    if (state.searchFilter === 'basicRecipeRawMaterial') {
+      dispatch({
+        type: ADD_BASICRECCIPESEARCHRM,
+        index1: index,
+        item1: item,
+        id1: basicRecipeId
+      });
+    }
   };
 
   const handleRemoveRawMaterial = id => {
@@ -283,231 +313,99 @@ const RecipeManagementState = props => {
   };
 
   const handleBasicRecipeRMQuantityChange = (id, name, index) => e => {
-    /**
-     *     console.log(e.target.value);
-
-    console.log(state.recipeBasicRecipes);
-
-    let tempArray = state.recipeBasicRecipes[index].details;
-
-    let objIndex = tempArray.findIndex(rec => rec._id === id);
-    const updatedObj = {
-      ...tempArray[objIndex],
-      quantityInRecipe: e.target.value
-    };
-
-    console.log(objIndex);
-
-    const updatedArray = [
-      ...tempArray.slice(0, objIndex),
-      updatedObj,
-      ...tempArray.slice(objIndex + 1)
-    ];
-
-    state.recipeBasicRecipes[index].details = updatedArray;
-
-    console.log(state.recipeBasicRecipes);
-
-    let newArray = [...state.recipeBasicRecipes];
-
+    let quantity = e.target.value;
     dispatch({
       type: UPDATE_BASICRECIPEQUANTITY,
-      payload: newArray
-
-
+      id1: id,
+      index1: index,
+      value: quantity
     });
-    
-
-
-     */
-    const tempRawMaterials = state.recipeBasicRecipes[index];
-
-    const updatedDetails = tempRawMaterials.details.map(detail => {
-      if (detail._id === id) {
-        return {
-          ...detail,
-          quantityInRecipe: e.target.value,
-          costOfRawMaterial: (detail.costOfRawMaterial =
-            (detail.rate * e.target.value) / detail.baseQuantity)
-        };
-      } else {
-        return detail;
-      }
-    });
-
-    const updatedBasicRecipeRM = {
-      ...tempRawMaterials,
-      details: updatedDetails
-    };
-
-    console.log(updatedBasicRecipeRM);
-
-    state.recipeBasicRecipes[index] = updatedBasicRecipeRM;
-
-    const newArray = [...state.recipeBasicRecipes];
-
-    dispatch({
-      type: UPDATE_BASICRECIPEQUANTITY,
-      payload: newArray
-    });
-    /**
- *     const tempRawMaterials1 = state.recipeBasicRecipes[index];
-
-    const updatedDetails1 = tempRawMaterials1.details.map(detail => {
-      if (detail._id === id) {
-        return {
-          ...detail,
-          costOfRawMaterial: (detail.costOfRawMaterial =
-            (detail.quantityInRecipe * detail.rate) / detail.baseQuantity)
-        };
-      } else {
-        return detail;
-      }
-    });
-
-    const updatedBasicRecipeRM1 = {
-      ...tempRawMaterials1,
-      details: updatedDetails1
-    };
-
-    console.log(updatedBasicRecipeRM1);
-
-    state.recipeBasicRecipes[index] = updatedBasicRecipeRM1;
-
-    const newArray1 = [...state.recipeBasicRecipes];
-
-    dispatch({
-      type: UPDATE_BASICRECIPERAWMCOST,
-      payload: newArray1
-    });
- */
   };
 
   const handleBasicRecipeRMRateChange = (id, name, index) => e => {
-    console.log(index);
-    const tempRawMaterials2 = state.recipeBasicRecipes[index];
-    console.log(tempRawMaterials2);
-    const updatedDetails2 = tempRawMaterials2.details.map(detail => {
-      if (detail._id === id) {
-        return {
-          ...detail,
-          rate: e.target.value,
-          costOfRawMaterial: (detail.costOfRawMaterial =
-            (detail.quantityInRecipe * e.target.value) / detail.baseQuantity)
-        };
-      } else {
-        return detail;
-      }
-    });
-
-    const updatedBasicRecipeRM2 = {
-      ...tempRawMaterials2,
-      details: updatedDetails2
-    };
-
-    console.log(updatedBasicRecipeRM2);
-
-    state.recipeBasicRecipes[index] = updatedBasicRecipeRM2;
-
-    const newArray2 = [...state.recipeBasicRecipes];
-
-    console.log(newArray2);
-
+    let rate = e.target.value;
     dispatch({
       type: UPDATE_BASICRECIPERATE,
-      payload: newArray2
+      id1: id,
+      index1: index,
+      value: rate
     });
+  };
 
-    /**
- * 
- * const tempRawMaterials1 = state.recipeBasicRecipes[index];
+  const handleBasicRecipeRMDelete = (index, id, basicRecipeID) => {
+    console.log(basicRecipeID);
 
-    const updatedDetails1 = tempRawMaterials1.details.map(detail => {
-      if (detail._id === id) {
-        return {
-          ...detail,
-          costOfRawMaterial: (detail.costOfRawMaterial =
-            (detail.quantityInRecipe * detail.rate) / detail.baseQuantity)
-        };
-      } else {
-        return detail;
-      }
-    });
+    if (state.recipeBasicRecipes[index].details.length === 1) {
+      dispatch({
+        type: REMOVE_BASICRECIPE,
+        id1: basicRecipeID
+      });
+    } else {
+      dispatch({
+        type: REMOVE_BASICRECIPERM,
+        id1: id,
+        index1: index
+      });
+    }
+  };
 
-    const updatedBasicRecipeRM1 = {
-      ...tempRawMaterials1,
-      details: updatedDetails1
-    };
-
-    console.log(updatedBasicRecipeRM1);
-
-    state.recipeBasicRecipes[index] = updatedBasicRecipeRM1;
-
-    const newArray1 = [...state.recipeBasicRecipes];
-
+  const handleRemoveBasicRecipe = id => {
     dispatch({
-      type: UPDATE_BASICRECIPERAWMCOST,
-      payload: newArray1
+      type: REMOVE_BASICRECIPE,
+      id1: id
     });
- */
   };
 
   const handleQuantityChange = id => e => {
-    let tempArray = [...state.recipeRawMaterials];
-
-    tempArray
-      .filter(rec => rec._id === id)
-      .forEach(item => (item.quantityInRecipe = e.target.value));
+    let quantity = e.target.value;
 
     dispatch({
       type: UPDATE_RAWMATERIAL_PRICE,
-      payload: tempArray
-    });
-
-    tempArray
-      .filter(rec => rec._id === id)
-      .forEach(
-        item =>
-          (item.costOfRawMaterial =
-            (item.quantityInRecipe * item.rate) / item.baseQuantity)
-      );
-
-    dispatch({
-      type: UPDATE_RAWMATERIAL_COST,
-      payload: tempArray
+      id1: id,
+      value: quantity
     });
   };
 
   const handleRateChange = id => e => {
-    let tempArray = [...state.recipeRawMaterials];
-
-    tempArray
-      .filter(rec => rec._id === id)
-      .forEach(item => (item.rate = e.target.value));
+    let rate = e.target.value;
 
     dispatch({
       type: UPDATE_RAWMATERIAL_RATE,
-      payload: tempArray
-    });
-
-    tempArray
-      .filter(rec => rec._id === id)
-      .forEach(
-        item =>
-          (item.costOfRawMaterial =
-            (item.quantityInRecipe * item.rate) / item.baseQuantity)
-      );
-
-    dispatch({
-      type: UPDATE_RAWMATERIAL_COST,
-      payload: tempArray
+      id1: id,
+      value: rate
     });
   };
 
   const onSubmit = e => {
     e.preventDefault();
+    /**
+    * 
     setShowLoader();
     updateawMateris(state.recipeRawMaterials);
+    *  */
+
+    let r = [...state.basicRecipe];
+
+    let Array2 = [...state.recipeBasicRecipes];
+
+    r = r.map(item => {
+      let element = Array2.find(e => e._id == item._id);
+      if (element) {
+        let temparray = item.details.map(e => {
+          let detail = element.details.find(d => d._id == e._id);
+          if (detail) {
+            return {
+              ...item.details,
+              rate: e.rate
+            };
+          }
+          return e;
+        });
+      }
+      return { ...item, details: element };
+    });
+
+    console.log(r);
   };
 
   return (
@@ -530,6 +428,7 @@ const RecipeManagementState = props => {
         basicRecipe: state.basicRecipe,
         recipeBasicRecipes: state.recipeBasicRecipes,
         recipeBasicRecipeRMDetails: state.recipeBasicRecipeRMDetails,
+        showBasicRecipeSearch: state.showBasicRecipeSearch,
         getData,
         handleChangeFor,
         handleSearchText,
@@ -540,7 +439,10 @@ const RecipeManagementState = props => {
         onSubmit,
         handleSearchFilter,
         handleBasicRecipeRMQuantityChange,
-        handleBasicRecipeRMRateChange
+        handleBasicRecipeRMRateChange,
+        handleBasicRecipeRMDelete,
+        handleRemoveBasicRecipe,
+        handleBasicRecipeMSearchFilter
       }}
     >
       {props.children}

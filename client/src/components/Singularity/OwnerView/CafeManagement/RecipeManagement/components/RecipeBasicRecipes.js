@@ -17,19 +17,23 @@ import {
   GridContainenr,
   QuantityDisplay,
   DeleteIcon,
+  AddIcon,
   TotalCost,
   TotalCostText,
   FinalRawMaterialCost
 } from 'styles/Singularity/OwnerView/CafeManagement/RecipeManagement';
 
+import SearchBoxResults from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/components/SearchBoxResults.js';
+
 const RecipeBasicRecipies = () => {
   const RecipeManagementContext = useContext(recipeManagementContext);
   const {
     recipeBasicRecipes,
-    handleRemoveRawMaterial,
     handleBasicRecipeRMQuantityChange,
-    handleRateChange,
-    handleBasicRecipeRMRateChange
+    handleBasicRecipeRMRateChange,
+    handleBasicRecipeRMDelete,
+    handleRemoveBasicRecipe,
+    handleBasicRecipeMSearchFilter
   } = RecipeManagementContext;
 
   return (
@@ -44,7 +48,21 @@ const RecipeBasicRecipies = () => {
         ? recipeBasicRecipes.map((material, index) => {
             return (
               <RecipeManagementContainer key={index}>
-                {material.name}
+                <FormHeadingText>{material.name}</FormHeadingText>
+                <DeleteIcon
+                  onClick={() => handleRemoveBasicRecipe(material._id)}
+                  style={{ margin: '0' }}
+                />
+                <AddIcon
+                  onClick={() => handleBasicRecipeMSearchFilter(material._id)}
+                />
+                {material.showSearchBox && (
+                  <SearchBoxResults
+                    arrayIndex={index}
+                    basicRecipeID={material._id}
+                  />
+                )}
+
                 <GridContainenr>
                   <RawMaterial style={{ fontWeight: 'bold' }}>
                     Raw Material
@@ -65,7 +83,7 @@ const RecipeBasicRecipies = () => {
                   return (
                     <>
                       <GridContainenr>
-                        <RawMaterial>{item.rawMaterial}</RawMaterial>
+                        <RawMaterial>{item.name}</RawMaterial>
                         <div
                           style={{
                             display: 'flex',
@@ -97,7 +115,7 @@ const RecipeBasicRecipies = () => {
                         >
                           <Quantity
                             type="text"
-                            defaultValue={item.rate}
+                            value={item.rate}
                             onChange={handleBasicRecipeRMRateChange(
                               item._id,
                               material.name,
@@ -114,23 +132,50 @@ const RecipeBasicRecipies = () => {
                             item.baseQuantity}
                         </CostOfRawMaterial>
                         <DeleteIcon
-                          onClick={() => handleRemoveRawMaterial(item._id)}
+                          onClick={() =>
+                            handleBasicRecipeRMDelete(
+                              index,
+                              item._id,
+                              material._id
+                            )
+                          }
                           style={{ margin: '0' }}
                         />
                       </GridContainenr>
                     </>
                   );
                 })}
+                <TotalCost>
+                  <TotalCostText>{`${material.name} Cost`}</TotalCostText>
+                  <FinalRawMaterialCost>
+                    {Math.round(
+                      material.details.reduce(
+                        (total, obj) => obj.costOfRawMaterial + total,
+                        0
+                      )
+                    )}
+                  </FinalRawMaterialCost>
+                </TotalCost>
               </RecipeManagementContainer>
             );
           })
         : null}
-
       <PartialWidthDivider />
       <TotalCost>
         <TotalCostText>Total Basic Recipe Cost</TotalCostText>
+        <FinalRawMaterialCost>
+          {Math.round(
+            recipeBasicRecipes.reduce(
+              (total, obj) =>
+                obj.details.reduce(
+                  (total1, obj1) => obj1.costOfRawMaterial + total1,
+                  0
+                ) + total,
+              0
+            )
+          )}
+        </FinalRawMaterialCost>
       </TotalCost>
-      <PartialWidthDivider />
     </RecipeManagementContainer>
   );
 };
