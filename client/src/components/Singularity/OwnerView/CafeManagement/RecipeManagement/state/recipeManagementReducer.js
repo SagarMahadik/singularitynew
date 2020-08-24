@@ -23,7 +23,8 @@ import {
   REMOVE_BASICRECIPE,
   SET_BASICRECIPERMSEARCHFILTER,
   HANDLE_BASICRECIPESEARCHDISPLAY,
-  ADD_BASICRECCIPESEARCHRM
+  ADD_BASICRECCIPESEARCHRM,
+  SET_SAVEOPTION
 } from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/types.js';
 
 import { produce } from 'immer';
@@ -224,6 +225,12 @@ export default (state, action) => {
       return {
         ...state,
         recipeRawMaterials: action.payload
+      };
+    }
+    case SET_SAVEOPTION: {
+      return {
+        ...state,
+        saveOption: action.selectedOption
       };
     }
     case COMPLETE_FORM:

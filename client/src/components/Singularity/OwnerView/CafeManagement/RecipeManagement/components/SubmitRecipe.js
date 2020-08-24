@@ -19,7 +19,12 @@ import {
 import recipeManagementContext from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/recipeManagementContext.js';
 const SubmitRecipe = () => {
   const RecipeManagementContext = useContext(recipeManagementContext);
-  const { saveOptionDisplay, saveOption, onSubmit } = RecipeManagementContext;
+  const {
+    saveOptionDisplay,
+    saveOption,
+    handleSaveOption,
+    onSubmit
+  } = RecipeManagementContext;
 
   return (
     <>
@@ -36,6 +41,7 @@ const SubmitRecipe = () => {
               <TextRadioButton
                 value={item.optionValue}
                 selected={saveOption === `${item.optionValue}`}
+                onClick={handleSaveOption}
               >
                 <RadioButtonText
                   selected={saveOption === `${item.optionValue}`}

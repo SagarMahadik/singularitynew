@@ -26,7 +26,8 @@ import {
   REMOVE_BASICRECIPE,
   SET_BASICRECIPERMSEARCHFILTER,
   HANDLE_BASICRECIPESEARCHDISPLAY,
-  ADD_BASICRECCIPESEARCHRM
+  ADD_BASICRECCIPESEARCHRM,
+  SET_SAVEOPTION
 } from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/types.js';
 
 import { useHttpClient } from 'Hooks/httpsHooks';
@@ -60,7 +61,7 @@ const RecipeManagementState = props => {
       { filterDisplay: 'Product', filterValue: 'product' }
     ],
     saveOptionDisplay: [...saveOptions],
-    saveOption: 'basicRecipe',
+    saveOption: '',
     isDataUploaded: false,
     showLoader: false,
     isRawmUploaded: false,
@@ -376,36 +377,106 @@ const RecipeManagementState = props => {
     });
   };
 
+  const handleSaveOption = e => {
+    let option = e.currentTarget.value;
+
+    dispatch({
+      type: SET_SAVEOPTION,
+      selectedOption: option
+    });
+  };
+
   const onSubmit = e => {
     e.preventDefault();
     /**
     * 
     setShowLoader();
     updateawMateris(state.recipeRawMaterials);
-    *  */
-
-    let r = [...state.basicRecipe];
+        let r = [...state.basicRecipe];
 
     let Array2 = [...state.recipeBasicRecipes];
 
     r = r.map(item => {
-      let element = Array2.find(e => e._id == item._id);
+      let element = Array2.find(e => e._id === item._id);
+      console.log(element);
       if (element) {
-        let temparray = item.details.map(e => {
-          let detail = element.details.find(d => d._id == e._id);
-          if (detail) {
-            return {
-              ...item.details,
-              rate: e.rate
-            };
-          }
-          return e;
-        });
+        return {
+          ...item,
+          details: item.details.map(e => {
+            let detail = element.details.find(d => d._id === e._id);
+            if (detail) {
+              return {
+                ...e,
+                rate: detail.rate
+              };
+            }
+            return e;
+          })
+        };
       }
-      return { ...item, details: element };
+      return item;
+    });
+    *  */
+
+    let updatedState = produce(state, draft => {
+      draft.basicRecipe = draft.basicRecipe.map(item => {
+        let element = draft.recipeBasicRecipes.find(e => e._id === item._id);
+
+        if (element) {
+          item.details = item.details.map(e => {
+            let detail = element.details.find(d => d._id === e._id);
+            if (detail) {
+              e.rate = detail.rate;
+            }
+            return e;
+          });
+        }
+        return item;
+      });
+
+      return draft;
     });
 
-    console.log(r);
+    const operation = (list1, list2, isUnion = false) =>
+      list1.filter(a => isUnion === list2.some(b => a._id === b._id));
+
+    const inBoth = (list1, list2) => operation(list1, list2, true),
+      inFirstOnly = operation,
+      inSecondOnly = (list1, list2) => inFirstOnly(list2, list1);
+
+    let finalRecipeBasicRecipes = [
+      ...inBoth(updatedState.basicRecipe, state.recipeBasicRecipes)
+    ];
+
+    let basicRecipeRM = produce(state, draft => {
+      let newBasiccRRecipeRMArray = [];
+      draft.recipeBasicRecipes.forEach(item =>
+        newBasiccRRecipeRMArray.push(item.details)
+      );
+      return newBasiccRRecipeRMArray;
+    });
+    console.log(basicRecipeRM);
+
+    let finalBasicRecipeRM = basicRecipeRM.flat();
+    console.log(finalBasicRecipeRM);
+
+    let finalRecipeRawMaterial = [
+      ...state.recipeRawMaterials,
+      ...finalBasicRecipeRM
+    ];
+
+    const uniqueRawMaterial = finalRecipeRawMaterial.reduce((acc, current) => {
+      const x = acc.find(item => item._id === current._id);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+
+    console.table(finalRecipeBasicRecipes);
+    console.table(finalRecipeRawMaterial);
+    console.table(uniqueRawMaterial);
   };
 
   return (
@@ -442,7 +513,8 @@ const RecipeManagementState = props => {
         handleBasicRecipeRMRateChange,
         handleBasicRecipeRMDelete,
         handleRemoveBasicRecipe,
-        handleBasicRecipeMSearchFilter
+        handleBasicRecipeMSearchFilter,
+        handleSaveOption
       }}
     >
       {props.children}
