@@ -8,6 +8,6 @@ router.route('/').get(basicRecipeController.getAllBasicRecipies);
 
 router.route('/').post(basicRecipeController.createBasicRecipe);
 
-router.route('/:id').put(basicRecipeController.updateBasicRecipe);
+router.route('/:id').patch(basicRecipeController.updateBasicRecipe);
 
 module.exports = router;

@@ -24,7 +24,10 @@ import {
   SET_BASICRECIPERMSEARCHFILTER,
   HANDLE_BASICRECIPESEARCHDISPLAY,
   ADD_BASICRECCIPESEARCHRM,
-  SET_SAVEOPTION
+  SET_SAVEOPTION,
+  SET_RECIPES,
+  UPDATE_RECIPE,
+  HANDLE_BASICRECIPEDISPLAY
 } from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/types.js';
 
 import { produce } from 'immer';
@@ -49,7 +52,20 @@ export default (state, action) => {
     case SET_BASICRECIPES:
       return produce(state, draftState => {
         draftState.basicRecipe = action.payload;
-        draftState.basicRecipe.forEach(item => (item.showSearchBox = false));
+        draftState.basicRecipe.forEach(item => {
+          item.showSearchBox = false;
+          item.showItem = true;
+        });
+      });
+    case SET_RECIPES:
+      return produce(state, draftState => {
+        draftState.recipe = action.payload;
+        draftState.recipe.forEach(item =>
+          item.basicRecipeDetails.forEach(detail => {
+            detail.showSearchBox = false;
+            detail.showItem = true;
+          })
+        );
       });
     case UPDATE_FIELD:
       const { input, value } = action.payload;
@@ -86,6 +102,15 @@ export default (state, action) => {
         ) {
           draftState.showBasicRecipeSearch = false;
         }
+      });
+    }
+    case HANDLE_BASICRECIPEDISPLAY: {
+      return produce(state, draftState => {
+        draftState.recipeBasicRecipes.forEach(item => {
+          if (item._id === action.id1) {
+            item.showItem = !item.showItem;
+          }
+        });
       });
     }
 
@@ -140,6 +165,17 @@ export default (state, action) => {
         recipeBasicRecipes: [...state.recipeBasicRecipes, action.payload],
         searchString: ''
       };
+    }
+
+    case UPDATE_RECIPE: {
+      console.log(action.rawMaterialDetails);
+      return produce(state, draftState => {
+        draftState.recipeRawMaterials = action.rawMaterial;
+        draftState.recipeBasicRecipes = action.basicRecipes;
+
+        draftState.recipeProducts = action.productDetails;
+        draftState.searchString = '';
+      });
     }
 
     case REMOVE_RAWMATERIAL: {

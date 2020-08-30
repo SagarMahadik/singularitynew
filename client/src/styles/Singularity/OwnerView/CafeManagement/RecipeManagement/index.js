@@ -5,21 +5,62 @@ import {
   RowContainer
 } from 'styles/Singularity/Style1.0/ContainerStyles';
 
-import { PTSansText } from 'styles/Singularity/Style1.0/TextStyles';
+import {
+  TextBox,
+  LabelText
+} from 'styles/Singularity/Style1.0/FormInputStyles';
+
+import {
+  PTSansText,
+  FormHeadingText
+} from 'styles/Singularity/Style1.0/TextStyles';
 
 import { SubmitButton } from 'styles/Singularity/Style1.0/ButtonStyles';
 
 import { styles } from 'styles/Singularity/Style1.0/ApplicationStyles';
+import { motion } from 'framer-motion';
+
+export const AnimationContainer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+`;
 
 export const GridContainenr = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: 38% 20% 20% 12% 8%;
-  grid-auto-rows: 35px;
+  grid-auto-rows: 45px;
   align-items: center;
   justify-items: center;
   color: ${styles.formContentColor};
-  font-size: 12px;
+  font-size: 0.8em;
+  font-family: PT Sans;
+`;
+
+export const DetailsContainer = styled.div`
+  display: grid;
+  width: 90%;
+  grid-template-columns: 70% 10% 20%;
+  grid-auto-rows: 45px;
+  align-items: center;
+  justify-items: center;
+  color: ${styles.formContentColor};
+  font-size: 18px;
+  font-family: PT Sans;
+`;
+
+export const BasicRecipeNameContainer = styled.div`
+  display: grid;
+  width: 90%;
+  grid-template-columns: 76% 12% 12%;
+  grid-auto-rows: 45px;
+  align-items: center;
+  justify-items: center;
+  color: ${styles.formContentColor};
+  font-size: 18px;
   font-family: PT Sans;
 `;
 
@@ -32,6 +73,10 @@ export const RawMaterial = styled.div`
 export const QuantityDisplay = styled.div`
   align-self: center;
   justify-self: center;
+`;
+
+export const BasicRecipeName = styled(FormHeadingText)`
+  font-size: 18px;
 `;
 
 export const Quantity = styled.input`
@@ -112,29 +157,31 @@ export const DeleteIcon = styled.div`
   border: 5px solid ${styles.formContentColor};
 `;
 
-export const AddIcon = styled.div`
+export const HideIcon = styled.div`
   width: 10px;
   height: 1em;
   border-radius: 50%;
   border: 5px solid #28b463;
 `;
 
-export const TotalCost = styled(RowContainer)`
-  width: 60%;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-top: 10px;
+export const RotateIcon = styled.div`
+  color: ${styles.formContentColor};
+  transition: all ease 0.2s;
+  transform: rotate(${props => (props.clicked ? '180deg' : '0deg')});
+  margin-top: ${props => (props.clicked ? `-6px` : '6px')};
 `;
+
+export const TotalQuantity = styled(RowContainer)``;
 
 export const TotalCostText = styled(PTSansText)`
   font-size: 16px;
   color: ${styles.formContentColor};
-  font-weight: bold;
 `;
 
 export const FinalRawMaterialCost = styled(PTSansText)`
   font-size: 16px;
   color: ${styles.formContentColor};
+  font-weight: bold;
 `;
 
 export const SaveOptionsContainer = styled(RowContainer)`
@@ -149,4 +196,28 @@ export const SaveOptionsContainer = styled(RowContainer)`
 
 export const RecipeSubmitButton = styled(SubmitButton)`
   margin-top: 2em;
+`;
+
+export const BrandName = styled(TextBox)``;
+
+export const BrandNameLabel = styled(LabelText)`
+  ${BrandName}:focus ~ &,
+  ${BrandName}:not(:placeholder-shown) ~ & {
+    top: 0;
+    left: 0;
+    color: ${styles.formContentColor};
+    font-size: 16px;
+  }
+`;
+
+export const RecipeUrl = styled(TextBox)``;
+
+export const RecipeUrlLabel = styled(LabelText)`
+  ${RecipeUrl}:focus ~ &,
+  ${RecipeUrl}:not(:placeholder-shown) ~ & {
+    top: 0;
+    left: 0;
+    color: ${styles.formContentColor};
+    font-size: 16px;
+  }
 `;

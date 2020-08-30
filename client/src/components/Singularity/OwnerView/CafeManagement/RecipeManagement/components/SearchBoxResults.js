@@ -1,25 +1,17 @@
-import React, { useContext } from 'react';
-import {
-  RecipeManagementContainer,
-  SearchFilterContainer
-} from 'styles/Singularity/Style1.0/ContainerStyles';
+import React, { useContext, useRef } from 'react';
+import { RecipeManagementContainer } from 'styles/Singularity/Style1.0/ContainerStyles';
 import {
   SearchResultContainer,
   SearchResultText,
   SearchBrandName,
   SearchPrice,
   SearchBaseUnitRate,
-  BrandPriceContainer
+  BrandPriceContainer,
+  AnimationContainer
 } from 'styles/Singularity/OwnerView/CafeManagement/RecipeManagement';
-import {
-  RadioButtonText,
-  TextContainer,
-  FormHeadingText,
-  FormSectionHeadingTextContainer
-} from 'styles/Singularity/Style1.0/TextStyles';
+
 import recipeManagementContext from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/recipeManagementContext.js';
 import {
-  TextRadioButton,
   SearchInputWrapper,
   SearchBox,
   SearchBoxLabel
@@ -32,46 +24,67 @@ const SearchBoxResults = props => {
     handleSearchText,
     searchString,
     searchResults,
-    handleSearchItemClick
+    handleSearchItemClick,
+    rawMaterials
   } = RecipeManagementContext;
 
-  return (
-    <RecipeManagementContainer>
-      <SearchInputWrapper>
-        <SearchBox
-          placeholder=" "
-          value={searchString}
-          onChange={handleSearchText}
-        />
-        <SearchBoxLabel>Search the above selected item</SearchBoxLabel>
-      </SearchInputWrapper>
-      {searchResults.map((result, index) => {
-        return (
-          <SearchResultContainer
-            onClick={() =>
-              handleSearchItemClick(
-                result,
-                props.arrayIndex,
-                props.basicRecipeID
-              )
-            }
-            key={index}
-          >
-            <SearchResultText>{result.name}</SearchResultText>
-            <BrandPriceContainer>
-              <SearchBrandName>{result.brandName} </SearchBrandName>
-              <SearchPrice>{result.rate}</SearchPrice>
-              <SearchBaseUnitRate>
-                /{result.baseQuantity}
-                {result.baseUnit}
-              </SearchBaseUnitRate>
-            </BrandPriceContainer>
-          </SearchResultContainer>
-        );
-      })}
+  const searchResultRefs = useRef([]);
+  searchResultRefs.current = [];
 
-      <PartialWidthDivider />
-    </RecipeManagementContainer>
+  const addToRefs = el => {
+    if (el && !searchResultRefs.current.includes(el)) {
+      searchResultRefs.current.push(el);
+    }
+  };
+
+  if (rawMaterials.length === 0) {
+    return null;
+  }
+
+  return (
+    <AnimationContainer
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <RecipeManagementContainer>
+        <SearchInputWrapper>
+          <SearchBox
+            placeholder=" "
+            value={searchString}
+            onChange={handleSearchText}
+          />
+          <SearchBoxLabel>Search the above selected item</SearchBoxLabel>
+        </SearchInputWrapper>
+        {searchResults.map((result, index) => {
+          return (
+            <SearchResultContainer
+              onClick={() =>
+                handleSearchItemClick(
+                  result,
+                  props.arrayIndex,
+                  props.basicRecipeID
+                )
+              }
+              key={index}
+              ref={addToRefs}
+            >
+              <SearchResultText>{result.name}</SearchResultText>
+              <BrandPriceContainer>
+                <SearchBrandName>{result.brandName} </SearchBrandName>
+                <SearchPrice>{result.rate}</SearchPrice>
+                <SearchBaseUnitRate>
+                  /{result.baseQuantity}
+                  {result.baseUnit}
+                </SearchBaseUnitRate>
+              </BrandPriceContainer>
+            </SearchResultContainer>
+          );
+        })}
+
+        <PartialWidthDivider />
+      </RecipeManagementContainer>
+    </AnimationContainer>
   );
 };
 

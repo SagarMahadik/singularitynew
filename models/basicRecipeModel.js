@@ -53,6 +53,9 @@ const basicRecipeSchema = new mongoose.Schema({
     type: String,
     default: 'Piatto'
   },
+  recipeUrl: {
+    type: String
+  },
   baseQuantity: {
     type: Number
   },
