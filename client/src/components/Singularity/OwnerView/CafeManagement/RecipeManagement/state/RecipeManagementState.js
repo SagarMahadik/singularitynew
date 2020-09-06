@@ -30,7 +30,8 @@ import {
   SET_SAVEOPTION,
   SET_RECIPES,
   UPDATE_RECIPE,
-  HANDLE_BASICRECIPEDISPLAY
+  HANDLE_BASICRECIPEDISPLAY,
+  HIDE_BASICRECIPERMONDELETE
 } from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/types.js';
 
 import { useHttpClient } from 'Hooks/httpsHooks';
@@ -420,8 +421,6 @@ const RecipeManagementState = props => {
   };
 
   const handleSearchItemClick = (item, index, basicRecipeId) => {
-    console.log(index);
-    console.log(item);
     if (state.searchFilter === 'rawMaterial') {
       dispatch({
         type: UPDATE_RAWMATERIALS,
@@ -495,9 +494,23 @@ const RecipeManagementState = props => {
     });
   };
 
-  const handleBasicRecipeRMDelete = (index, id, basicRecipeID) => {
-    console.log(basicRecipeID);
+  const hideBasicRecipeRMOnDelete = (index, basicRMIndex) => {
+    dispatch({
+      type: HIDE_BASICRECIPERMONDELETE,
+      index1: index,
+      basicRMIndex1: basicRMIndex
+    });
+  };
 
+  const handleBasicRecipeRMDelete = (
+    index,
+    basicRMIndex,
+    id,
+    basicRecipeID
+  ) => {
+    console.log(basicRecipeID);
+    console.log(index);
+    console.log(basicRMIndex);
     if (state.recipeBasicRecipes[index].details.length === 1) {
       dispatch({
         type: REMOVE_BASICRECIPE,
@@ -507,7 +520,8 @@ const RecipeManagementState = props => {
       dispatch({
         type: REMOVE_BASICRECIPERM,
         id1: id,
-        index1: index
+        index1: index,
+        basicRMIndex1: basicRMIndex
       });
     }
   };
@@ -722,7 +736,8 @@ Immer.js
         handleRemoveBasicRecipe,
         handleBasicRecipeMSearchFilter,
         handleSaveOption,
-        handleBasicRecipeDisplay
+        handleBasicRecipeDisplay,
+        hideBasicRecipeRMOnDelete
       }}
     >
       {props.children}

@@ -10,6 +10,6 @@ export const SubmitButton = styled.div`
   width: 90%;
   height: 60px;
   border-radius: 50px;
-  margin-top: 100px;
+  margin-top: 40px;
   background: ${styles.buttonBackgroundGradient};
 `;

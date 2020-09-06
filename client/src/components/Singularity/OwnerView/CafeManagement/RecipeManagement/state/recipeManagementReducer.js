@@ -27,7 +27,8 @@ import {
   SET_SAVEOPTION,
   SET_RECIPES,
   UPDATE_RECIPE,
-  HANDLE_BASICRECIPEDISPLAY
+  HANDLE_BASICRECIPEDISPLAY,
+  HIDE_BASICRECIPERMONDELETE
 } from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/types.js';
 
 import { produce } from 'immer';
@@ -64,6 +65,11 @@ export default (state, action) => {
           item.basicRecipeDetails.forEach(detail => {
             detail.showSearchBox = false;
             detail.showItem = true;
+          })
+        );
+        draftState.recipe.forEach(item =>
+          item.basicRecipeDetails.forEach(item => {
+            item.details.forEach(detail => (detail.hiddeRM = false));
           })
         );
       });
@@ -219,12 +225,17 @@ export default (state, action) => {
       });
     }
 
+    case HIDE_BASICRECIPERMONDELETE:
+      return produce(state, draftState => {
+        draftState.recipeBasicRecipes[action.index1].details[
+          action.basicRMIndex1
+        ].hiddeRM = true;
+      });
+
     case REMOVE_BASICRECIPERM: {
       return produce(state, draftState => {
         draftState.recipeBasicRecipes[action.index1].details.splice(
-          draftState.recipeBasicRecipes[action.index1].details.findIndex(
-            item => item._id === action.id1
-          ),
+          action.basicRMIndex1,
           1
         );
       });

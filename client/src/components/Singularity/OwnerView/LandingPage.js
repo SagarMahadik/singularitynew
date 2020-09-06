@@ -116,7 +116,7 @@ const LandingPage = () => {
             ref={el => {
               contentRef.current[2] = el;
             }}
-            to="/recipeManagement"
+            to="/rawMaterialManagement"
           >
             Lets go!
           </Button>

@@ -8,6 +8,9 @@ const Loader = () => {
   const green = useRef(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     TweenMax.fromTo(
       [blue.current, yellow.current],
       0.5,

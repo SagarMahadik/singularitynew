@@ -6,10 +6,12 @@ const rawMaterialSchema = new mongoose.Schema({
     required: [true, 'Please enter the raw material']
   },
   brandName: {
-    type: String
+    type: String,
+    default: 'Piatto'
   },
   supplier: {
-    type: String
+    type: mongoose.Schema.ObjectId,
+    ref: 'Supplier'
   },
   type: {
     type: String
@@ -26,16 +28,24 @@ const rawMaterialSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  quantityInRecipe: {
+  rateWOGST: {
     type: Number
   },
+  quantityInRecipe: {
+    type: Number,
+    default: 0
+  },
   costOfRawMaterial: {
-    type: Number
+    type: Number,
+    default: 0
   },
   recipeUnit: {
     type: String
   },
   displayRateUnit: {
+    type: String
+  },
+  GSTPercent: {
     type: String
   }
 });

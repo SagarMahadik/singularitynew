@@ -9,7 +9,7 @@ export const MainContainer = styled(motion.div)`
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  height: 120vh;
+  height: 100vh;
   overflow-y: hidden;
   background-image: ${props =>
     props.completed

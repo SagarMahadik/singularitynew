@@ -31,6 +31,20 @@ export default {
       }
     );
   },
+  fadeOut(target, index) {
+    return gsap.fromTo(
+      target[index],
+      {
+        ease: 'power2.easeOut',
+        autoAlpha: 1
+      },
+      {
+        ease: 'power2.easeOut',
+        autoAlpha: 0,
+        duration: 0.4
+      }
+    );
+  },
   SlideInleftSolwer(target) {
     console.log('In a slowewr');
     return gsap.fromTo(

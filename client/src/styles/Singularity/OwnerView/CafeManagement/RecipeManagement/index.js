@@ -28,7 +28,31 @@ export const AnimationContainer = styled(motion.div)`
   width: 100%;
 `;
 
+export const TableContainer = styled.div`
+  display: flex;
+  width: 100%;
+  &:nth-child(even) {
+    background-color: blue;
+  }
+`;
+
 export const GridContainenr = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: 38% 20% 20% 12% 8%;
+  grid-auto-rows: 45px;
+  align-items: center;
+  justify-items: center;
+  border-radius: 8px;
+  color: ${props => (props.clicked ? `#ffffff` : `${styles.formContentColor}`)};
+  font-size: 0.8em;
+  font-family: PT Sans;
+  transition: color ease-out 1.2s;
+
+  background-color: ${props => (props.isEven ? `#ffffff` : `#f6f6f6`)};
+`;
+
+export const LabelGridContainenr = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: 38% 20% 20% 12% 8%;
@@ -38,6 +62,8 @@ export const GridContainenr = styled.div`
   color: ${styles.formContentColor};
   font-size: 0.8em;
   font-family: PT Sans;
+  border-radius: 8px;
+  background-color: rgba(176, 167, 229, 0.2);
 `;
 
 export const DetailsContainer = styled.div`
@@ -85,13 +111,15 @@ export const Quantity = styled.input`
   height: 1em;
   outline: none;
   border: none;
-  color: #6e5dcc;
+  transition: color ease-out 1.2s;
+  color: ${props => (props.clicked ? `#ffffff` : `${styles.formContentColor}`)};
   text-align: right;
   padding-top: 3px;
   &:focus {
     outline: none;
     border: 1px solid #6e5dcc;
   }
+  background-color: ${props => (props.isEven ? `#ffffff` : `#f6f6f6`)};
 `;
 
 export const QuantityUnit = styled.div`

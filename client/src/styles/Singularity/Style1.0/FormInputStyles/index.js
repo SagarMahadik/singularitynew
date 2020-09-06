@@ -95,6 +95,25 @@ export const LabelText1 = styled.label`
   }
 `;
 
+export const LabelTextParagraph = styled.label`
+  position: absolute;
+  top: 1.6em;
+  left: 0.5em;
+  font-size: 18px;
+  line-height: 16px;
+  pointer-events: none;
+  transition: 0.5s;
+  color: ${styles.formContentColor};
+  ${TextParagraph}:focus ~ &,
+  ${TextParagraph}:not(:placeholder-shown) ~ & {
+    top: 0;
+    left: 0;
+    color: ${styles.formContentColor};
+    font-size: 16px;
+    font-weight: bold;
+  }
+`;
+
 export const InputWrapper = styled.div`
   position: relative;
   width: 60%;
