@@ -20,7 +20,8 @@ import {
   DetailsContainer,
   TotalCostText,
   FinalRawMaterialCost,
-  RotateIcon
+  RotateIcon,
+  RawmateriaName
 } from 'styles/Singularity/OwnerView/CafeManagement/RecipeManagement';
 
 import DeleteIcon from 'components/Singularity/ApplicationView/Icons/DeleteIcon.js';
@@ -32,6 +33,7 @@ const RecipeRawMaterials = () => {
   const RecipeManagementContext = useContext(recipeManagementContext);
   const {
     recipeRawMaterials,
+    handleRawMaterialNameChange,
     handleRemoveRawMaterial,
     handleQuantityChange,
     handleRateChange
@@ -91,8 +93,13 @@ const RecipeRawMaterials = () => {
                         }}
                         exit={{ opacity: 0 }}
                       >
-                        <GridContainenr>
-                          <RawMaterial>{material.name}</RawMaterial>
+                        <GridContainenr isEven={index % 2 === 0}>
+                          <RawmateriaName
+                            value={material.name}
+                            type="text"
+                            onChange={handleRawMaterialNameChange(index)}
+                            isEven={index % 2 === 0}
+                          />
                           <div
                             style={{
                               display: 'flex',
@@ -106,7 +113,11 @@ const RecipeRawMaterials = () => {
                               type="number"
                               name="quantity"
                               value={material.quantityInRecipe}
-                              onChange={handleQuantityChange(material._id)}
+                              onChange={handleQuantityChange(
+                                material._id,
+                                index
+                              )}
+                              isEven={index % 2 === 0}
                             />
                             <QuantityUnit>{material.recipeUnit}</QuantityUnit>
                           </div>
@@ -122,6 +133,7 @@ const RecipeRawMaterials = () => {
                               type="number"
                               value={material.rate}
                               onChange={handleRateChange(material._id)}
+                              isEven={index % 2 === 0}
                             />
                             <BaseRateUnit>
                               /{material.baseQuantity}

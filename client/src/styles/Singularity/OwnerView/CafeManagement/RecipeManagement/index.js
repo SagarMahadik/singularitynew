@@ -94,6 +94,27 @@ export const RawMaterial = styled.div`
   text-align: center;
   align-self: center;
   justify-self: center;
+  color: ${styles.formContentColor};
+  outline: none;
+  border: none;
+`;
+
+export const RawmateriaName = styled.input`
+  font-size: 12px;
+  width: 155px;
+  height: 1em;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: color ease-out 1.2s;
+  color: ${props => (props.clicked ? `#ffffff` : `${styles.formContentColor}`)};
+  text-align: center;
+  padding-top: 3px;
+  &:focus {
+    outline: none;
+    border: 1px solid #6e5dcc;
+  }
+  background-color: ${props => (props.isEven ? `#ffffff` : `#f6f6f6`)};
 `;
 
 export const QuantityDisplay = styled.div`
@@ -111,6 +132,7 @@ export const Quantity = styled.input`
   height: 1em;
   outline: none;
   border: none;
+  border-radius: 5px;
   transition: color ease-out 1.2s;
   color: ${props => (props.clicked ? `#ffffff` : `${styles.formContentColor}`)};
   text-align: right;
@@ -119,7 +141,43 @@ export const Quantity = styled.input`
     outline: none;
     border: 1px solid #6e5dcc;
   }
-  background-color: ${props => (props.isEven ? `#ffffff` : `#f6f6f6`)};
+  background: ${styles.backgroundGradient};
+`;
+
+export const QuantityDisplayProduction = styled.div`
+  font-size: 12px;
+  width: 28px;
+  height: 1em;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: color ease-out 1.2s;
+  color: ${props => (props.clicked ? `#ffffff` : `${styles.formContentColor}`)};
+  text-align: right;
+  padding-top: 3px;
+  &:focus {
+    outline: none;
+    border: 1px solid #6e5dcc;
+  }
+  background: ${styles.backgroundGradient};
+`;
+
+export const NumberOfUnits = styled.input`
+  font-size: 12px;
+  width: 28px;
+  height: 1em;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: color ease-out 1.2s;
+  color: ${props => (props.clicked ? `#ffffff` : `${styles.formContentColor}`)};
+  text-align: right;
+  padding-top: 3px;
+  &:focus {
+    outline: none;
+    border: 1px solid #6e5dcc;
+  }
+  background: ${styles.backgroundGradient};
 `;
 
 export const QuantityUnit = styled.div`
@@ -248,4 +306,41 @@ export const RecipeUrlLabel = styled(LabelText)`
     color: ${styles.formContentColor};
     font-size: 16px;
   }
+`;
+
+export const ProductPricingLabelGridContainer = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 3fr 2fr 2fr;
+  grid-auto-rows: 45px;
+  align-items: center;
+  justify-items: center;
+  color: ${styles.formContentColor};
+  font-size: 0.8em;
+  font-family: PT Sans;
+  border-radius: 8px;
+  background-color: rgba(176, 167, 229, 0.2);
+`;
+
+export const ProductPricingDataContainer = styled(
+  ProductPricingLabelGridContainer
+)`
+  background-color: white;
+`;
+
+export const ProductPricingNameContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  flex-wrap: wrap;
+`;
+
+export const ProductPricingLabel = styled(PTSansText)`
+  font-weight: bold;
+  font-size: 14px;
+`;
+
+export const ProductPricingContentText = styled(PTSansText)`
+  font-size: 12px;
 `;

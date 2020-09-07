@@ -15,11 +15,12 @@ import { TextRadioButton } from 'styles/Singularity/Style1.0/FormInputStyles';
 import Loaders from 'components/Singularity/ApplicationView/Loaders';
 const SeachItems = () => {
   const RecipeManagementContext = useContext(recipeManagementContext);
-  const {
+  let {
     searchFilterDisplay,
     searchFilter,
     rawMaterials,
-    handleSearchFilter
+    handleSearchFilter,
+    saveOption
   } = RecipeManagementContext;
 
   if (rawMaterials.length === 0) {
@@ -30,6 +31,12 @@ const SeachItems = () => {
         </RecipeManagementContainer>
       </>
     );
+  }
+
+  if (saveOption === 'basicRecipe') {
+    searchFilterDisplay = [
+      { filterDisplay: 'Raw Material', filterValue: 'rawMaterial' }
+    ];
   }
 
   return (

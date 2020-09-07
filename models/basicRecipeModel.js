@@ -61,6 +61,18 @@ const basicRecipeSchema = new mongoose.Schema({
   },
   baseUnit: {
     type: String
+  },
+  unitPerBaseQuantity: {
+    type: Number
+  },
+  yieldBasicRecipe: {
+    type: Number
+  },
+  costPerUnit: {
+    type: Number
+  },
+  weightPerUnit: {
+    type: Number
   }
 });
 

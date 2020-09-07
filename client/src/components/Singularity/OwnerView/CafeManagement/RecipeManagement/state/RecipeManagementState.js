@@ -12,6 +12,7 @@ import {
   CLEAR_SEARCHRESULTS,
   UPDATE_RAWMATERIALS,
   REMOVE_RAWMATERIAL,
+  UPDATE_RAWMATERIALNAME,
   UPDATE_RAWMATERIAL_PRICE,
   UPDATE_RAWMATERIAL_RATE,
   COMPLETE_FORM,
@@ -20,6 +21,7 @@ import {
   SET_BASICRECIPES,
   SET_SEARCHFILTER,
   UPDATE_BASICRECIPE,
+  UPDATE_BASICRECIPEUNITS,
   UPDATE_BASICRECIPEQUANTITY,
   UPDATE_BASICRECIPERATE,
   REMOVE_BASICRECIPERM,
@@ -61,6 +63,8 @@ const RecipeManagementState = props => {
     recipeBasicRecipeRMDetails: [],
     searchResults: [],
     searchArray: [],
+    recipeYield: '',
+    finalUnits: '',
     searchFilterDisplay: [
       { filterDisplay: 'Raw Material', filterValue: 'rawMaterial' },
       { filterDisplay: 'Basic Recipe', filterValue: 'basicRecipe' },
@@ -79,7 +83,9 @@ const RecipeManagementState = props => {
     recipeName,
     recipeRawMaterials,
     brandName,
-    recipeUrl
+    recipeUrl,
+    recipeYield,
+    finalUnits
   ) => {
     let name = recipeName;
     let details = [...recipeRawMaterials];
@@ -97,6 +103,14 @@ const RecipeManagementState = props => {
       )
     );
 
+    let yieldBasicRecipe = recipeYield;
+
+    let unitPerBaseQuantity = finalUnits;
+
+    let costPerUnit = rate / finalUnits;
+
+    let weightPerUnit = baseQuantity / finalUnits;
+
     const body = JSON.stringify({
       name,
       details,
@@ -104,7 +118,11 @@ const RecipeManagementState = props => {
       baseUnit,
       rate,
       brandName,
-      recipeUrl
+      recipeUrl,
+      yieldBasicRecipe,
+      unitPerBaseQuantity,
+      costPerUnit,
+      weightPerUnit
     });
     console.log(body);
 
@@ -264,7 +282,9 @@ const RecipeManagementState = props => {
           state.recipeName,
           state.recipeRawMaterials,
           state.brandName,
-          state.recipeUrl
+          state.recipeUrl,
+          state.recipeYield,
+          state.finalUnits
         );
       }
       if (state.saveOption === 'product') {
@@ -474,6 +494,17 @@ const RecipeManagementState = props => {
     });
   };
 
+  const handleBasicRecipeUnits = index => e => {
+    console.log(index);
+    console.log(e.target.value);
+    let newUnits = e.target.value;
+    dispatch({
+      type: UPDATE_BASICRECIPEUNITS,
+      index1: index,
+      value: newUnits
+    });
+  };
+
   const handleBasicRecipeRMQuantityChange = (id, name, index) => e => {
     let quantity = e.target.value;
     dispatch({
@@ -533,12 +564,26 @@ const RecipeManagementState = props => {
     });
   };
 
-  const handleQuantityChange = id => e => {
+  const handleRawMaterialNameChange = index => e => {
+    console.log(e.target.value);
+    let newRawMaterialName = e.target.value;
+    let rawMaterialIndex = index;
+    console.log(index);
+    dispatch({
+      type: UPDATE_RAWMATERIALNAME,
+      name1: newRawMaterialName,
+      index1: rawMaterialIndex
+    });
+  };
+
+  const handleQuantityChange = (id, index) => e => {
     let quantity = e.target.value;
+    console.log(index);
 
     dispatch({
       type: UPDATE_RAWMATERIAL_PRICE,
       id1: id,
+      index1: index,
       value: quantity
     });
   };
@@ -721,6 +766,8 @@ Immer.js
         showBasicRecipeSearch: state.showBasicRecipeSearch,
         brandName: state.brandName,
         recipeUrl: state.recipeUrl,
+        recipeYield: state.recipeYield,
+        finalUnits: state.finalUnits,
         getData,
         handleChangeFor,
         handleSearchText,
@@ -730,6 +777,8 @@ Immer.js
         handleRateChange,
         onSubmit,
         handleSearchFilter,
+        handleRawMaterialNameChange,
+        handleBasicRecipeUnits,
         handleBasicRecipeRMQuantityChange,
         handleBasicRecipeRMRateChange,
         handleBasicRecipeRMDelete,

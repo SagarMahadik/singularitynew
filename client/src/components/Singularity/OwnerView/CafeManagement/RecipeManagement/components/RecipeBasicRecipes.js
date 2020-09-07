@@ -29,7 +29,9 @@ import {
   RotateIcon,
   BasicRecipeName,
   LabelGridContainenr,
-  TableContainer
+  TableContainer,
+  QuantityDisplayProduction,
+  NumberOfUnits
 } from 'styles/Singularity/OwnerView/CafeManagement/RecipeManagement';
 
 import SearchBoxResults from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/components/SearchBoxResults.js';
@@ -49,7 +51,8 @@ const RecipeBasicRecipies = () => {
     handleRemoveBasicRecipe,
     handleBasicRecipeMSearchFilter,
     handleBasicRecipeDisplay,
-    hideBasicRecipeRMOnDelete
+    hideBasicRecipeRMOnDelete,
+    handleBasicRecipeUnits
   } = RecipeManagementContext;
 
   const basicRcipeRefs = useRef([]);
@@ -121,6 +124,11 @@ const RecipeBasicRecipies = () => {
                       <RecipeManagementContainer key={index}>
                         <BasicRecipeNameContainer>
                           <FormHeadingText>{material.name}</FormHeadingText>
+                          <NumberOfUnits
+                            type="number"
+                            defaultValue={material.unitPerBaseQuantity}
+                            onChange={handleBasicRecipeUnits(index)}
+                          />
                           <DeleteIcon
                             onClick={() =>
                               handleRemoveBasicRecipe(material._id)
@@ -190,18 +198,14 @@ const RecipeBasicRecipies = () => {
                                           marginLeft: '-10px'
                                         }}
                                       >
-                                        <Quantity
-                                          type="number"
-                                          name="quantity"
-                                          value={item.quantityInRecipe}
-                                          clicked={item.hiddeRM}
-                                          onChange={handleBasicRecipeRMQuantityChange(
-                                            item._id,
-                                            material.name,
-                                            index
-                                          )}
+                                        <QuantityDisplayProduction
                                           isEven={index1 % 2 === 0}
-                                        />
+                                          clicked={item.hiddeRM}
+                                        >
+                                          {item.quantityPerUnit *
+                                            material.unitPerBaseQuantity}
+                                        </QuantityDisplayProduction>
+
                                         <QuantityUnit>
                                           {item.recipeUnit}
                                         </QuantityUnit>
@@ -232,7 +236,9 @@ const RecipeBasicRecipies = () => {
                                       </div>
                                       <CostOfRawMaterial>
                                         {Math.round(
-                                          (item.rate * item.quantityInRecipe) /
+                                          (item.rate *
+                                            item.quantityPerUnit *
+                                            material.unitPerBaseQuantity) /
                                             item.baseQuantity,
                                           0
                                         )}
@@ -273,7 +279,11 @@ const RecipeBasicRecipies = () => {
                                 {Math.round(
                                   material.details.reduce(
                                     (total, obj) =>
-                                      obj.costOfRawMaterial + total,
+                                      (obj.rate *
+                                        obj.quantityPerUnit *
+                                        material.unitPerBaseQuantity) /
+                                        obj.baseQuantity +
+                                      total,
                                     0
                                   )
                                 )}
@@ -284,7 +294,10 @@ const RecipeBasicRecipies = () => {
                                   {Math.round(
                                     material.details.reduce(
                                       (total, obj) =>
-                                        Number(obj.quantityInRecipe) + total,
+                                        Number(
+                                          obj.quantityPerUnit *
+                                            material.unitPerBaseQuantity
+                                        ) + total,
                                       0
                                     )
                                   )}
