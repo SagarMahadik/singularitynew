@@ -52,7 +52,9 @@ const RecipeBasicRecipies = () => {
     handleBasicRecipeMSearchFilter,
     handleBasicRecipeDisplay,
     hideBasicRecipeRMOnDelete,
-    handleBasicRecipeUnits
+    handleBasicRecipeUnits,
+    totalBasicRecipeRAWMQuantity,
+    totalBasicRecipeRAWMCost
   } = RecipeManagementContext;
 
   const basicRcipeRefs = useRef([]);
@@ -276,31 +278,11 @@ const RecipeBasicRecipies = () => {
                               }`}</TotalCostText>
 
                               <FinalRawMaterialCost>
-                                {Math.round(
-                                  material.details.reduce(
-                                    (total, obj) =>
-                                      (obj.rate *
-                                        obj.quantityPerUnit *
-                                        material.unitPerBaseQuantity) /
-                                        obj.baseQuantity +
-                                      total,
-                                    0
-                                  )
-                                )}
+                                {material.totalCostOfRMInBR}
                               </FinalRawMaterialCost>
                               <TotalQuantity>
                                 <FinalRawMaterialCost>
-                                  /
-                                  {Math.round(
-                                    material.details.reduce(
-                                      (total, obj) =>
-                                        Number(
-                                          obj.quantityPerUnit *
-                                            material.unitPerBaseQuantity
-                                        ) + total,
-                                      0
-                                    )
-                                  )}
+                                  /{material.totalRMQuantityInBR}
                                 </FinalRawMaterialCost>
                                 <BaseRateUnit style={{ marginLeft: '2px' }}>
                                   gm
@@ -320,31 +302,11 @@ const RecipeBasicRecipies = () => {
             <TotalCostText>Total Basic Recipe Cost</TotalCostText>
 
             <FinalRawMaterialCost>
-              {Math.round(
-                recipeBasicRecipes.reduce(
-                  (total, obj) =>
-                    obj.details.reduce(
-                      (total1, obj1) => obj1.costOfRawMaterial + total1,
-                      0
-                    ) + total,
-                  0
-                )
-              )}
+              {totalBasicRecipeRAWMCost}
             </FinalRawMaterialCost>
             <TotalQuantity>
               <FinalRawMaterialCost>
-                /
-                {Math.round(
-                  recipeBasicRecipes.reduce(
-                    (total, obj) =>
-                      obj.details.reduce(
-                        (total1, obj1) =>
-                          Number(obj1.quantityInRecipe) + total1,
-                        0
-                      ) + total,
-                    0
-                  )
-                )}
+                /{totalBasicRecipeRAWMQuantity}
               </FinalRawMaterialCost>
               <BaseRateUnit>gm</BaseRateUnit>
             </TotalQuantity>

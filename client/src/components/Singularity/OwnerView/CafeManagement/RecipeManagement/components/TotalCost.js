@@ -12,7 +12,12 @@ import { RecipeManagementContainer } from 'styles/Singularity/Style1.0/Container
 import recipeManagementContext from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/recipeManagementContext.js';
 const TotalCost = () => {
   const RecipeManagementContext = useContext(recipeManagementContext);
-  const { recipeBasicRecipes, recipeRawMaterials } = RecipeManagementContext;
+  const {
+    totalRawMQuantityInRecipe,
+    totalRawMaterialCostInRecipe,
+    totalBasicRecipeRAWMQuantity,
+    totalBasicRecipeRAWMCost
+  } = RecipeManagementContext;
   return (
     <>
       <RecipeManagementContainer>
@@ -22,43 +27,12 @@ const TotalCost = () => {
           </TotalCostText>
 
           <FinalRawMaterialCost>
-            {Math.round(
-              recipeRawMaterials.reduce(
-                (total, obj) => obj.costOfRawMaterial + total,
-                0
-              )
-            ) +
-              Math.round(
-                recipeBasicRecipes.reduce(
-                  (total, obj) =>
-                    obj.details.reduce(
-                      (total1, obj1) => obj1.costOfRawMaterial + total1,
-                      0
-                    ) + total,
-                  0
-                )
-              )}
+            {Number(totalRawMaterialCostInRecipe) +
+              Number(totalBasicRecipeRAWMCost)}
           </FinalRawMaterialCost>
           <TotalQuantity>
             <FinalRawMaterialCost>
-              /
-              {Math.round(
-                recipeRawMaterials.reduce(
-                  (total, obj) => Number(obj.quantityInRecipe) + total,
-                  0
-                )
-              ) +
-                Math.round(
-                  recipeBasicRecipes.reduce(
-                    (total, obj) =>
-                      obj.details.reduce(
-                        (total1, obj1) =>
-                          Number(obj1.quantityInRecipe) + total1,
-                        0
-                      ) + total,
-                    0
-                  )
-                )}
+              /{totalRawMQuantityInRecipe + totalBasicRecipeRAWMQuantity}
             </FinalRawMaterialCost>
             <BaseRateUnit>gm</BaseRateUnit>
           </TotalQuantity>

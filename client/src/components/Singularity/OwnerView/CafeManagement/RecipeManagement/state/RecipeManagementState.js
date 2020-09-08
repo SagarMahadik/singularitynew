@@ -33,7 +33,10 @@ import {
   SET_RECIPES,
   UPDATE_RECIPE,
   HANDLE_BASICRECIPEDISPLAY,
-  HIDE_BASICRECIPERMONDELETE
+  HIDE_BASICRECIPERMONDELETE,
+  CALCULATE_RECIPERMQTYANDCOST,
+  CALCULATE_SINGLEBASICRECIPEQTYANDCOST,
+  CALCULATE_TOTALBASICRECIPERMQTYANDCOST
 } from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/types.js';
 
 import { useHttpClient } from 'Hooks/httpsHooks';
@@ -58,6 +61,10 @@ const RecipeManagementState = props => {
     brandName: 'Piatto',
     recipeUrl: '',
     recipeRawMaterials: [],
+    totalRawMQuantityInRecipe: 0,
+    totalRawMaterialCostInRecipe: 0,
+    totalBasicRecipeRAWMQuantity: 0,
+    totalBasicRecipeRAWMCost: 0,
     recipeBasicRecipes: [],
     recipeProducts: [],
     recipeBasicRecipeRMDetails: [],
@@ -79,29 +86,36 @@ const RecipeManagementState = props => {
   };
   const [state, dispatch] = useReducer(recipeManagementReducer, initialState);
 
+  useEffect(() => {
+    dispatch({
+      type: CALCULATE_RECIPERMQTYANDCOST
+    });
+  }, [state.recipeRawMaterials]);
+
+  useEffect(() => {
+    dispatch({
+      type: CALCULATE_SINGLEBASICRECIPEQTYANDCOST
+    });
+    dispatch({
+      type: CALCULATE_TOTALBASICRECIPERMQTYANDCOST
+    });
+  }, [state.recipeBasicRecipes]);
+
   const addDataToDB = async (
     recipeName,
     recipeRawMaterials,
     brandName,
     recipeUrl,
     recipeYield,
-    finalUnits
+    finalUnits,
+    totalRawMQuantityInRecipe,
+    totalRawMaterialCostInRecipe
   ) => {
     let name = recipeName;
     let details = [...recipeRawMaterials];
-    let baseQuantity = Math.round(
-      recipeRawMaterials.reduce(
-        (total, obj) => Number(obj.quantityInRecipe) + total,
-        0
-      )
-    );
+    let baseQuantity = totalRawMQuantityInRecipe;
     let baseUnit = 'gm';
-    let rate = Math.round(
-      recipeRawMaterials.reduce(
-        (total, obj) => obj.costOfRawMaterial + total,
-        0
-      )
-    );
+    let rate = totalRawMaterialCostInRecipe;
 
     let yieldBasicRecipe = recipeYield;
 
@@ -284,7 +298,9 @@ const RecipeManagementState = props => {
           state.brandName,
           state.recipeUrl,
           state.recipeYield,
-          state.finalUnits
+          state.finalUnits,
+          state.totalRawMQuantityInRecipe,
+          state.totalRawMaterialCostInRecipe
         );
       }
       if (state.saveOption === 'product') {
@@ -768,6 +784,10 @@ Immer.js
         recipeUrl: state.recipeUrl,
         recipeYield: state.recipeYield,
         finalUnits: state.finalUnits,
+        totalRawMQuantityInRecipe: state.totalRawMQuantityInRecipe,
+        totalRawMaterialCostInRecipe: state.totalRawMaterialCostInRecipe,
+        totalBasicRecipeRAWMQuantity: state.totalBasicRecipeRAWMQuantity,
+        totalBasicRecipeRAWMCost: state.totalBasicRecipeRAWMCost,
         getData,
         handleChangeFor,
         handleSearchText,

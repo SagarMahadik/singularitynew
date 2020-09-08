@@ -30,7 +30,10 @@ import {
   SET_RECIPES,
   UPDATE_RECIPE,
   HANDLE_BASICRECIPEDISPLAY,
-  HIDE_BASICRECIPERMONDELETE
+  HIDE_BASICRECIPERMONDELETE,
+  CALCULATE_RECIPERMQTYANDCOST,
+  CALCULATE_SINGLEBASICRECIPEQTYANDCOST,
+  CALCULATE_TOTALBASICRECIPERMQTYANDCOST
 } from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/state/types.js';
 
 import { produce } from 'immer';
@@ -83,6 +86,62 @@ export default (state, action) => {
           })
         );
       });
+
+    case CALCULATE_RECIPERMQTYANDCOST:
+      return produce(state, draftState => {
+        draftState.totalRawMQuantityInRecipe = Math.round(
+          draftState.recipeRawMaterials.reduce(
+            (total, obj) => Number(obj.quantityInRecipe) + total,
+            0
+          )
+        );
+        draftState.totalRawMaterialCostInRecipe = Math.round(
+          draftState.recipeRawMaterials.reduce(
+            (total, obj) => Number(obj.costOfRawMaterial) + total,
+            0
+          )
+        );
+      });
+
+    case CALCULATE_SINGLEBASICRECIPEQTYANDCOST:
+      return produce(state, draftState => {
+        draftState.recipeBasicRecipes.forEach(item => {
+          item.totalCostOfRMInBR = item.details
+            .reduce(
+              (total, obj) =>
+                (obj.rate * obj.quantityPerUnit * item.unitPerBaseQuantity) /
+                  obj.baseQuantity +
+                total,
+              0
+            )
+            .toFixed(0);
+          item.totalRMQuantityInBR = item.details
+            .reduce(
+              (total, obj) =>
+                obj.quantityPerUnit * item.unitPerBaseQuantity + total,
+              0
+            )
+            .toFixed(0);
+        });
+      });
+
+    case CALCULATE_TOTALBASICRECIPERMQTYANDCOST:
+      return produce(state, draftState => {
+        draftState.totalBasicRecipeRAWMQuantity = Math.round(
+          draftState.recipeBasicRecipes.reduce(
+            (total, obj) => Number(obj.totalRMQuantityInBR) + total,
+            0
+          )
+        );
+
+        draftState.totalBasicRecipeRAWMCost = Number(
+          draftState.recipeBasicRecipes.reduce(
+            (total, obj) => Number(obj.totalCostOfRMInBR) + total,
+            0
+          )
+        ).toFixed(2);
+      });
+
     case UPDATE_FIELD:
       const { input, value } = action.payload;
       return {

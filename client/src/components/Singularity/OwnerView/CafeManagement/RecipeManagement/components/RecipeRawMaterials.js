@@ -36,7 +36,9 @@ const RecipeRawMaterials = () => {
     handleRawMaterialNameChange,
     handleRemoveRawMaterial,
     handleQuantityChange,
-    handleRateChange
+    handleRateChange,
+    totalRawMQuantityInRecipe,
+    totalRawMaterialCostInRecipe
   } = RecipeManagementContext;
 
   const [hideItem, setHideItem] = useState(true);
@@ -164,22 +166,12 @@ const RecipeRawMaterials = () => {
           <DetailsContainer>
             <TotalCostText>Total Raw Material Cost</TotalCostText>
             <FinalRawMaterialCost>
-              {Math.round(
-                recipeRawMaterials.reduce(
-                  (total, obj) => obj.costOfRawMaterial + total,
-                  0
-                )
-              )}
+              {totalRawMaterialCostInRecipe}
             </FinalRawMaterialCost>
             <TotalQuantity>
               /
               <FinalRawMaterialCost>
-                {Math.round(
-                  recipeRawMaterials.reduce(
-                    (total, obj) => Number(obj.quantityInRecipe) + total,
-                    0
-                  )
-                )}
+                {totalRawMQuantityInRecipe}
               </FinalRawMaterialCost>
               <BaseRateUnit>gm</BaseRateUnit>
             </TotalQuantity>

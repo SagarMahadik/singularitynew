@@ -69,10 +69,10 @@ export const LabelGridContainenr = styled.div`
 export const DetailsContainer = styled.div`
   display: grid;
   width: 90%;
-  grid-template-columns: 70% 10% 20%;
+  grid-template-columns: 60% 15% 25%;
   grid-auto-rows: 45px;
   align-items: center;
-  justify-items: center;
+  justify-items: baseline;
   color: ${styles.formContentColor};
   font-size: 18px;
   font-family: PT Sans;
@@ -265,7 +265,7 @@ export const TotalCostText = styled(PTSansText)`
 `;
 
 export const FinalRawMaterialCost = styled(PTSansText)`
-  font-size: 16px;
+  font-size: 14px;
   color: ${styles.formContentColor};
   font-weight: bold;
 `;

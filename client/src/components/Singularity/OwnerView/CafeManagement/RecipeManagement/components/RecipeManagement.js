@@ -48,7 +48,6 @@ const RecipeManagement = () => {
       {Object.keys(recipeProducts).length > 0 ? <ProductRecipes /> : null}
       {recipeRawMaterials.length > 0 ? <RecipeRawMaterials /> : null}
       {recipeBasicRecipes.length > 0 ? <RecipeBasicRecipies /> : null}
-
       {recipeBasicRecipes.length > 0 || recipeRawMaterials.length > 0 ? (
         <>
           <TotalCost />
