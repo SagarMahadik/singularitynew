@@ -18,7 +18,7 @@ import {
   GridContainenr,
   QuantityDisplay,
   DetailsContainer,
-  TotalCostText,
+  TotalCostLabel,
   FinalRawMaterialCost,
   RotateIcon,
   RawmateriaName
@@ -61,9 +61,7 @@ const RecipeRawMaterials = () => {
               Raw Material Details
             </FormSectionHeadingTextContainer>
           </FormHeadingText>
-          <RotateIcon clicked={hideItem}>
-            <HideIcon onClick={() => setHideItem(!hideItem)} />
-          </RotateIcon>
+
           <AnimatePresence>
             {hideItem ? (
               <>
@@ -162,9 +160,9 @@ const RecipeRawMaterials = () => {
               </>
             ) : null}
           </AnimatePresence>
-          <PartialWidthDivider />
+
           <DetailsContainer>
-            <TotalCostText>Total Raw Material Cost</TotalCostText>
+            <TotalCostLabel>Total Raw Material Cost</TotalCostLabel>
             <FinalRawMaterialCost>
               {totalRawMaterialCostInRecipe}
             </FinalRawMaterialCost>
@@ -176,7 +174,6 @@ const RecipeRawMaterials = () => {
               <BaseRateUnit>gm</BaseRateUnit>
             </TotalQuantity>
           </DetailsContainer>
-          <PartialWidthDivider />
         </RecipeManagementContainer>
       </AnimationContainer>
     </AnimatePresence>

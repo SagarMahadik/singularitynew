@@ -68,7 +68,8 @@ export default (state, action) => {
         });
         draftState.basicRecipe.forEach(item => {
           item.showSearchBox = false;
-          item.showItem = true;
+          item.showItem = false;
+          item.showAddIcon = false;
         });
       });
     case SET_RECIPES:
@@ -139,7 +140,7 @@ export default (state, action) => {
             (total, obj) => Number(obj.totalCostOfRMInBR) + total,
             0
           )
-        ).toFixed(2);
+        ).toFixed(0);
       });
 
     case UPDATE_FIELD:
@@ -356,6 +357,15 @@ export default (state, action) => {
             item.costOfRawMaterial =
               (item.quantityInRecipe * item.rate) / item.baseQuantity;
           });
+        draftState.recipeBasicRecipes.map(item =>
+          item.details.forEach(detail => {
+            if (detail._id === action.id1) {
+              detail.rate = action.value;
+              detail.costOfRawMaterial =
+                (detail.quantityInRecipe * action.value) / detail.baseQuantity;
+            }
+          })
+        );
       });
     }
     case UPDATE_RAWMATERIAL_COST: {

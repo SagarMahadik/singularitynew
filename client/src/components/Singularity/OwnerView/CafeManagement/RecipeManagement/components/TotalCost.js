@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import {
   BaseRateUnit,
-  DetailsContainer,
-  TotalCostText,
+  TotalCostQuantityContainer,
+  TotalCostLabel,
   FinalRawMaterialCost,
   TotalQuantity
 } from 'styles/Singularity/OwnerView/CafeManagement/RecipeManagement';
@@ -16,17 +16,19 @@ const TotalCost = () => {
     totalRawMQuantityInRecipe,
     totalRawMaterialCostInRecipe,
     totalBasicRecipeRAWMQuantity,
-    totalBasicRecipeRAWMCost
+    totalBasicRecipeRAWMCost,
+    finalUnits
   } = RecipeManagementContext;
   return (
     <>
       <RecipeManagementContainer>
-        <DetailsContainer>
-          <TotalCostText style={{ fontWeight: 'bold' }}>
+        <TotalCostQuantityContainer>
+          <TotalCostLabel style={{ fontWeight: 'bold' }}>
             Total Recipe Cost
-          </TotalCostText>
+          </TotalCostLabel>
 
           <FinalRawMaterialCost>
+            Rs.
             {Number(totalRawMaterialCostInRecipe) +
               Number(totalBasicRecipeRAWMCost)}
           </FinalRawMaterialCost>
@@ -36,7 +38,7 @@ const TotalCost = () => {
             </FinalRawMaterialCost>
             <BaseRateUnit>gm</BaseRateUnit>
           </TotalQuantity>
-        </DetailsContainer>
+        </TotalCostQuantityContainer>
         <PartialWidthDivider />
       </RecipeManagementContainer>
     </>

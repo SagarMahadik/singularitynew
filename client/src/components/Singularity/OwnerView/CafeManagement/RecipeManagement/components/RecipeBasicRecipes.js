@@ -22,7 +22,7 @@ import {
   GridContainenr,
   QuantityDisplay,
   DetailsContainer,
-  TotalCostText,
+  TotalCostLabel,
   FinalRawMaterialCost,
   BasicRecipeNameContainer,
   TotalQuantity,
@@ -31,7 +31,9 @@ import {
   LabelGridContainenr,
   TableContainer,
   QuantityDisplayProduction,
-  NumberOfUnits
+  NumberOfUnits,
+  BaseRecipeCostForUnits,
+  BasicRecipeCostQuantityContainer
 } from 'styles/Singularity/OwnerView/CafeManagement/RecipeManagement';
 
 import SearchBoxResults from 'components/Singularity/OwnerView/CafeManagement/RecipeManagement/components/SearchBoxResults.js';
@@ -110,14 +112,6 @@ const RecipeBasicRecipies = () => {
         exit={{ opacity: 0 }}
       >
         <RecipeManagementContainer>
-          <BasicRecipeName>
-            <FormSectionHeadingTextContainer>
-              Basic Recipe Details
-            </FormSectionHeadingTextContainer>
-          </BasicRecipeName>
-          <RotateIcon clicked={hideItem}>
-            <HideIcon onClick={() => setHideItem(!hideItem)} />
-          </RotateIcon>
           <AnimatePresence>
             {hideItem
               ? recipeBasicRecipes.length > 0
@@ -125,12 +119,15 @@ const RecipeBasicRecipies = () => {
                     return (
                       <RecipeManagementContainer key={index}>
                         <BasicRecipeNameContainer>
-                          <FormHeadingText>{material.name}</FormHeadingText>
+                          <BasicRecipeName>{material.name}</BasicRecipeName>
                           <NumberOfUnits
                             type="number"
                             defaultValue={material.unitPerBaseQuantity}
                             onChange={handleBasicRecipeUnits(index)}
                           />
+                          <BaseRecipeCostForUnits>
+                            Rs.{material.totalCostOfRMInBR}
+                          </BaseRecipeCostForUnits>
                           <DeleteIcon
                             onClick={() =>
                               handleRemoveBasicRecipe(material._id)
@@ -165,7 +162,7 @@ const RecipeBasicRecipies = () => {
                               </BaseRate>
 
                               <CostOfRawMaterial style={{ fontWeight: 'bold' }}>
-                                Cost
+                                Cost Rs.
                               </CostOfRawMaterial>
                               <h6 style={{ margin: '0', opacity: '0' }}>
                                 Delete
@@ -204,8 +201,10 @@ const RecipeBasicRecipies = () => {
                                           isEven={index1 % 2 === 0}
                                           clicked={item.hiddeRM}
                                         >
-                                          {item.quantityPerUnit *
-                                            material.unitPerBaseQuantity}
+                                          {Math.round(
+                                            item.quantityPerUnit *
+                                              material.unitPerBaseQuantity
+                                          )}
                                         </QuantityDisplayProduction>
 
                                         <QuantityUnit>
@@ -217,7 +216,8 @@ const RecipeBasicRecipies = () => {
                                           display: 'flex',
                                           flexDirecction: 'row',
                                           alignItems: 'baseline',
-                                          justifyContent: 'center'
+                                          justifyContent: 'center',
+                                          padding: 0
                                         }}
                                       >
                                         <Quantity
@@ -267,18 +267,21 @@ const RecipeBasicRecipies = () => {
                                 </>
                               );
                             })}
-                            <AddIcon
-                              onClick={() =>
-                                handleBasicRecipeMSearchFilter(material._id)
-                              }
-                            />
-                            <DetailsContainer>
-                              <TotalCostText>{`${
+                            {material.showAddIcon && (
+                              <AddIcon
+                                onClick={() =>
+                                  handleBasicRecipeMSearchFilter(material._id)
+                                }
+                              />
+                            )}
+
+                            <BasicRecipeCostQuantityContainer>
+                              <TotalCostLabel>{`${
                                 material.name
-                              }`}</TotalCostText>
+                              }`}</TotalCostLabel>
 
                               <FinalRawMaterialCost>
-                                {material.totalCostOfRMInBR}
+                                Rs. {material.totalCostOfRMInBR}
                               </FinalRawMaterialCost>
                               <TotalQuantity>
                                 <FinalRawMaterialCost>
@@ -288,7 +291,7 @@ const RecipeBasicRecipies = () => {
                                   gm
                                 </BaseRateUnit>
                               </TotalQuantity>
-                            </DetailsContainer>
+                            </BasicRecipeCostQuantityContainer>
                           </>
                         ) : null}
                       </RecipeManagementContainer>
@@ -299,10 +302,10 @@ const RecipeBasicRecipies = () => {
           </AnimatePresence>
           <PartialWidthDivider />
           <DetailsContainer>
-            <TotalCostText>Total Basic Recipe Cost</TotalCostText>
+            <TotalCostLabel>Total Basic Recipe Cost</TotalCostLabel>
 
             <FinalRawMaterialCost>
-              {totalBasicRecipeRAWMCost}
+              Rs. {totalBasicRecipeRAWMCost}
             </FinalRawMaterialCost>
             <TotalQuantity>
               <FinalRawMaterialCost>

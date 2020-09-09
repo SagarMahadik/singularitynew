@@ -68,26 +68,40 @@ export const LabelGridContainenr = styled.div`
 
 export const DetailsContainer = styled.div`
   display: grid;
-  width: 90%;
-  grid-template-columns: 60% 15% 25%;
+  width: 100%;
+  grid-template-columns: auto auto 25%;
   grid-auto-rows: 45px;
   align-items: center;
   justify-items: baseline;
   color: ${styles.formContentColor};
-  font-size: 18px;
+  font-size: 1em;
   font-family: PT Sans;
+  border-radius: 8px;
+  background-color: rgba(176, 167, 229, 0.2);
+  margin-top: 0.8em;
 `;
 
+export const BasicRecipeCostQuantityContainer = styled(DetailsContainer)`
+  margin-top: 0em;
+  background-color: rgba(176, 126, 249, 0.46);
+`;
+
+export const TotalCostQuantityContainer = styled(DetailsContainer)`
+  background-color: rgba(176, 167, 229, 0.6);
+`;
 export const BasicRecipeNameContainer = styled.div`
   display: grid;
-  width: 90%;
-  grid-template-columns: 76% 12% 12%;
+  width: 100%;
+  grid-template-columns: 3fr 1.5fr 1.5fr 1fr 1fr;
+  height: 40px;
   grid-auto-rows: 45px;
   align-items: center;
   justify-items: center;
   color: ${styles.formContentColor};
-  font-size: 18px;
+  font-size: 16px;
   font-family: PT Sans;
+  background-color: rgba(176, 126, 249, 0.46);
+  margin-top: 0.8em;
 `;
 
 export const RawMaterial = styled.div`
@@ -123,38 +137,45 @@ export const QuantityDisplay = styled.div`
 `;
 
 export const BasicRecipeName = styled(FormHeadingText)`
-  font-size: 18px;
+  font-size: 14px;
 `;
 
 export const Quantity = styled.input`
-  font-size: 12px;
-  width: 28px;
-  height: 1em;
+  font-size: 1em;
+  width: 3em;
+  height: 1.2em;
   outline: none;
   border: none;
   border-radius: 5px;
+  line-height: 1em;
   transition: color ease-out 1.2s;
   color: ${props => (props.clicked ? `#ffffff` : `${styles.formContentColor}`)};
   text-align: right;
-  padding-top: 3px;
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+  -moz-appearance: textfield;
+  margin: 0;
+  padding: 0;
   &:focus {
     outline: none;
     border: 1px solid #6e5dcc;
   }
-  background: ${styles.backgroundGradient};
+  background-color: ${props => (props.isEven ? `#ffffff` : `#f6f6f6`)};
 `;
 
 export const QuantityDisplayProduction = styled.div`
-  font-size: 12px;
-  width: 28px;
-  height: 1em;
+  font-size: 0.9em;
+  padding: 0.1em;
+  height: 1.5em;
   outline: none;
   border: none;
   border-radius: 5px;
+  padding-top: 3px;
   transition: color ease-out 1.2s;
   color: ${props => (props.clicked ? `#ffffff` : `${styles.formContentColor}`)};
   text-align: right;
-  padding-top: 3px;
+
   &:focus {
     outline: none;
     border: 1px solid #6e5dcc;
@@ -164,26 +185,55 @@ export const QuantityDisplayProduction = styled.div`
 
 export const NumberOfUnits = styled.input`
   font-size: 12px;
-  width: 28px;
-  height: 1em;
+  width: 4em;
+  height: 2em;
   outline: none;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   transition: color ease-out 1.2s;
   color: ${props => (props.clicked ? `#ffffff` : `${styles.formContentColor}`)};
-  text-align: right;
+  text-align: center;
   padding-top: 3px;
+  padding-right: 2px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #6e5dcc;
   &:focus {
     outline: none;
-    border: 1px solid #6e5dcc;
+    border: 2px solid #6e5dcc;
   }
-  background: ${styles.backgroundGradient};
+  background: white;
+`;
+
+export const BaseRecipeCostForUnits = styled.div`
+  font-size: 12px;
+  width: 4em;
+  height: 1.7em;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  transition: color ease-out 1.2s;
+  color: ${props => (props.clicked ? `#ffffff` : `${styles.formContentColor}`)};
+  text-align: center;
+  padding-top: 8px;
+  padding-right: 2px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #6e5dcc;
+  &:focus {
+    outline: none;
+    border: 2px solid #6e5dcc;
+  }
+  background: white;
 `;
 
 export const QuantityUnit = styled.div`
   display: flex;
   align-self: center;
   justify-self: center;
+  font-size: 1em;
 `;
 
 export const BaseRate = styled.div`
@@ -195,11 +245,13 @@ export const BaseRateUnit = styled.div`
   display: flex;
   align-self: center;
   justify-self: center;
+  font-size: 1em;
 `;
 
 export const CostOfRawMaterial = styled.div`
   align-self: center;
   justify-self: center;
+  font-size: 1em;
 `;
 
 export const SearchResultContainer = styled(ColumnContainer)`
@@ -259,15 +311,17 @@ export const RotateIcon = styled.div`
 
 export const TotalQuantity = styled(RowContainer)``;
 
-export const TotalCostText = styled(PTSansText)`
+export const TotalCostLabel = styled(PTSansText)`
   font-size: 16px;
   color: ${styles.formContentColor};
+  justify-self: center;
 `;
 
 export const FinalRawMaterialCost = styled(PTSansText)`
   font-size: 14px;
   color: ${styles.formContentColor};
   font-weight: bold;
+  justify-self: end;
 `;
 
 export const SaveOptionsContainer = styled(RowContainer)`

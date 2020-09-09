@@ -39,49 +39,46 @@ const RecipeProductPricing = () => {
   const {
     finalUnits,
     recipeName,
-    recipeRawMaterials
+    recipeRawMaterials,
+    totalRawMQuantityInRecipe,
+    totalRawMaterialCostInRecipe,
+    totalBasicRecipeRAWMQuantity,
+    totalBasicRecipeRAWMCost
   } = RecipeManagementContext;
 
   return (
     <>
-      <ProductPricingLabelGridContainer>
-        <ProductPricingNameContainer>
-          <ProductPricingLabel>No. of units</ProductPricingLabel>
-        </ProductPricingNameContainer>
-        <ProductPricingNameContainer>
-          <ProductPricingLabel>Recipe Name</ProductPricingLabel>
-        </ProductPricingNameContainer>
-        <ProductPricingNameContainer>
-          <ProductPricingLabel>Cost per product</ProductPricingLabel>
-        </ProductPricingNameContainer>
-        <ProductPricingNameContainer>
-          <ProductPricingLabel>Wt. per unit</ProductPricingLabel>
-        </ProductPricingNameContainer>
-      </ProductPricingLabelGridContainer>
-      <ProductPricingDataContainer>
-        <ProductPricingContentText>{finalUnits}</ProductPricingContentText>
-        <ProductPricingContentText>{recipeName}</ProductPricingContentText>
-        <ProductPricingContentText>
-          {(
-            Math.round(
-              recipeRawMaterials.reduce(
-                (total, obj) => obj.costOfRawMaterial + total,
-                0
-              )
-            ) / finalUnits
-          ).toFixed(2)}
-        </ProductPricingContentText>
-        <ProductPricingContentText>
-          {(
-            Math.round(
-              recipeRawMaterials.reduce(
-                (total, obj) => Number(obj.quantityInRecipe) + total,
-                0
-              )
-            ) / finalUnits
-          ).toFixed(2)}
-        </ProductPricingContentText>
-      </ProductPricingDataContainer>
+      {finalUnits !== '' ? (
+        <>
+          <ProductPricingLabelGridContainer>
+            <ProductPricingNameContainer>
+              <ProductPricingLabel>No. of units</ProductPricingLabel>
+            </ProductPricingNameContainer>
+            <ProductPricingNameContainer>
+              <ProductPricingLabel>Recipe Name</ProductPricingLabel>
+            </ProductPricingNameContainer>
+            <ProductPricingNameContainer>
+              <ProductPricingLabel>Cost per product</ProductPricingLabel>
+            </ProductPricingNameContainer>
+            <ProductPricingNameContainer>
+              <ProductPricingLabel>Wt. per unit</ProductPricingLabel>
+            </ProductPricingNameContainer>
+          </ProductPricingLabelGridContainer>
+          <ProductPricingDataContainer>
+            <ProductPricingContentText>{finalUnits}</ProductPricingContentText>
+            <ProductPricingContentText>{recipeName}</ProductPricingContentText>
+            <ProductPricingContentText>
+              {(Number(totalRawMaterialCostInRecipe) +
+                Number(totalBasicRecipeRAWMCost)) /
+                finalUnits}
+            </ProductPricingContentText>
+            <ProductPricingContentText>
+              {(totalRawMQuantityInRecipe + totalBasicRecipeRAWMQuantity) /
+                finalUnits}
+            </ProductPricingContentText>
+          </ProductPricingDataContainer>
+        </>
+      ) : null}
     </>
   );
 };
