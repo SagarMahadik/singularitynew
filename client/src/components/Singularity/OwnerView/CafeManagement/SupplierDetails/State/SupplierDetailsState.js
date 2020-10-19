@@ -57,7 +57,6 @@ const SupplierDetailsState = props => {
       supplierPinCode,
       supplierGSTNumber
     });
-    console.log(body);
 
     const config = {
       headers: {

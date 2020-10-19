@@ -43,6 +43,7 @@ import { useHttpClient } from 'Hooks/httpsHooks';
 
 import axios from 'axios';
 import produce from 'immer';
+import { BasicRecipeCostQuantityContainer } from 'styles/Singularity/OwnerView/CafeManagement/RecipeManagement/index';
 
 const RecipeManagementState = props => {
   const saveOptions = [
@@ -101,6 +102,16 @@ const RecipeManagementState = props => {
     });
   }, [state.recipeBasicRecipes]);
 
+  if (!('multidelete' in Object.prototype)) {
+    Object.defineProperty(Object.prototype, 'multidelete', {
+      value: function() {
+        for (var i = 0; i < arguments.length; i++) {
+          delete this[arguments[i]];
+        }
+      }
+    });
+  }
+
   const addDataToDB = async (
     recipeName,
     recipeRawMaterials,
@@ -111,8 +122,30 @@ const RecipeManagementState = props => {
     totalRawMQuantityInRecipe,
     totalRawMaterialCostInRecipe
   ) => {
+    let updatedRAWM = produce(state, draftState => {
+      draftState.recipeRawMaterials.forEach(material => {
+        material.rawmaterialdetails = material._id;
+        material.quantityPerUnit = material.quantityInRecipe / state.finalUnits;
+      });
+      draftState.recipeRawMaterials.forEach(material =>
+        material.multidelete(
+          'brandName',
+          'type',
+          'name',
+          'baseQuantity',
+          'baseUnit',
+          'recipeUnit',
+          '__v',
+          'costOfRawMaterial',
+          'rate',
+          '_id'
+        )
+      );
+      return draftState;
+    });
+
     let name = recipeName;
-    let details = [...recipeRawMaterials];
+    let details = updatedRAWM.recipeRawMaterials;
     let baseQuantity = totalRawMQuantityInRecipe;
     let baseUnit = 'gm';
     let rate = totalRawMaterialCostInRecipe;
@@ -139,7 +172,6 @@ const RecipeManagementState = props => {
       weightPerUnit
     });
     console.log(body);
-
     const config = {
       headers: {
         'Content-Type': 'application/JSON'
@@ -148,7 +180,6 @@ const RecipeManagementState = props => {
 
     const res = await axios.post('/api/v1/basicRecipe', body, config);
     setLoading();
-    console.log(res);
 
     if (res.data.status === 'success') {
       dispatch({
@@ -162,47 +193,21 @@ const RecipeManagementState = props => {
     recipeRawMaterials,
     recipeBasicRecipes,
     brandName,
-    recipeUrl
+    recipeUrl,
+    finalUnits
   ) => {
     let name = recipeName;
     let rawMaterialDetails = [...recipeRawMaterials];
     let basicRecipeDetails = [...recipeBasicRecipes];
 
     let baseQuantity =
-      Math.round(
-        recipeRawMaterials.reduce(
-          (total, obj) => Number(obj.quantityInRecipe) + total,
-          0
-        )
-      ) +
-      Math.round(
-        recipeBasicRecipes.reduce(
-          (total, obj) =>
-            obj.details.reduce(
-              (total1, obj1) => obj1.quantityInRecipe + total1,
-              0
-            ) + total,
-          0
-        )
-      );
+      state.totalRawMQuantityInRecipe + state.totalBasicRecipeRAWMQuantity;
     let baseUnit = 'gm';
     let rate =
-      Math.round(
-        recipeRawMaterials.reduce(
-          (total, obj) => obj.costOfRawMaterial + total,
-          0
-        )
-      ) +
-      Math.round(
-        recipeBasicRecipes.reduce(
-          (total, obj) =>
-            obj.details.reduce(
-              (total1, obj1) => obj1.costOfRawMaterial + total1,
-              0
-            ) + total,
-          0
-        )
-      );
+      Number(state.totalRawMaterialCostInRecipe) +
+      Number(state.totalBasicRecipeRAWMCost);
+    let unitPerBaseQuantity = state.finalUnits;
+
     const body = JSON.stringify({
       name,
       rawMaterialDetails,
@@ -211,9 +216,9 @@ const RecipeManagementState = props => {
       baseUnit,
       rate,
       brandName,
-      recipeUrl
+      recipeUrl,
+      unitPerBaseQuantity
     });
-    console.log(body);
 
     const config = {
       headers: {
@@ -223,7 +228,6 @@ const RecipeManagementState = props => {
 
     const res = await axios.post('/api/v1/recipe', body, config);
     setLoading();
-    console.log(res);
 
     if (res.data.status === 'success') {
       dispatch({
@@ -233,12 +237,9 @@ const RecipeManagementState = props => {
   };
 
   const updateRawMaterialsDB = async (id, rate, index) => {
-    console.log(state.recipeRawMaterials);
     const body = JSON.stringify({
       rate
     });
-
-    console.log(body);
 
     const config = {
       headers: {
@@ -249,7 +250,6 @@ const RecipeManagementState = props => {
     const res = await axios.patch(`/api/v1/rawMaterial/${id}`, body, config);
 
     setLoading();
-    console.log(res);
 
     if (state.recipeRawMaterials.length - 1 === index) {
       dispatch({
@@ -263,8 +263,6 @@ const RecipeManagementState = props => {
       details
     });
 
-    console.log(body);
-
     const config = {
       headers: {
         'Content-Type': 'application/JSON'
@@ -272,23 +270,17 @@ const RecipeManagementState = props => {
     };
 
     const res = await axios.patch(`/api/v1/basicRecipe/${id}`, body, config);
-
-    console.log('Done with Basic Recipe');
   };
 
   const initiateSubmit = async (
     recipeRawMaterials,
-    finalRecipeBasicRecipes
+    finalRMDetails,
+    finalBasicRecipeDetails
   ) => {
     const arrayofPromises = recipeRawMaterials.map((item, index) => {
       updateRawMaterialsDB(item._id, item.rate, index);
     });
 
-    /**
-     *     for await (const item of arrayofPromises) {
-      console.log('item done');
-    }
-     */
     Promise.all(arrayofPromises).then(() => {
       // addDataToDB
       if (state.saveOption === 'basicRecipe') {
@@ -304,20 +296,13 @@ const RecipeManagementState = props => {
         );
       }
       if (state.saveOption === 'product') {
-        console.log('I am done upading the raw materials');
-        const arrayofBasicRecipePromises = finalRecipeBasicRecipes.map(
-          (item, index) => {
-            updateBasicRecipeDB(item._id, item.details, index);
-          }
-        );
-        Promise.all(arrayofBasicRecipePromises).then(() =>
-          addRecipeToDB(
-            state.recipeName,
-            state.recipeRawMaterials,
-            state.recipeBasicRecipes,
-            state.brandName,
-            state.recipeUrl
-          )
+        addRecipeToDB(
+          state.recipeName,
+          finalRMDetails,
+          finalBasicRecipeDetails,
+          state.brandName,
+          state.recipeUrl,
+          state.finalUnits
         );
       }
     });
@@ -387,7 +372,6 @@ const RecipeManagementState = props => {
   };
 
   const handleSearchFilter = e => {
-    console.log(e.currentTarget.value);
     let filter = e.currentTarget.value;
     let currentArray = [];
 
@@ -415,8 +399,6 @@ const RecipeManagementState = props => {
   };
 
   const handleBasicRecipeMSearchFilter = id => {
-    console.log(id);
-
     let filter = 'basicRecipeRawMaterial';
     let currentArray = [];
     currentArray = [...state.rawMaterials];
@@ -480,13 +462,6 @@ const RecipeManagementState = props => {
     }
 
     if (state.searchFilter === 'product') {
-      console.log(item.rawMaterialDetails);
-      console.log(item.basicRecipeDetails);
-      /**
-       *      state.recipeRawMaterials = item.rawMaterialDetails;
-      state.recipeBasicRecipes = item.basicRecipeDetails;
-       */
-
       dispatch({
         type: UPDATE_RECIPE,
         rawMaterial: item.rawMaterialDetails,
@@ -511,8 +486,6 @@ const RecipeManagementState = props => {
   };
 
   const handleBasicRecipeUnits = index => e => {
-    console.log(index);
-    console.log(e.target.value);
     let newUnits = e.target.value;
     dispatch({
       type: UPDATE_BASICRECIPEUNITS,
@@ -555,9 +528,6 @@ const RecipeManagementState = props => {
     id,
     basicRecipeID
   ) => {
-    console.log(basicRecipeID);
-    console.log(index);
-    console.log(basicRMIndex);
     if (state.recipeBasicRecipes[index].details.length === 1) {
       dispatch({
         type: REMOVE_BASICRECIPE,
@@ -581,10 +551,9 @@ const RecipeManagementState = props => {
   };
 
   const handleRawMaterialNameChange = index => e => {
-    console.log(e.target.value);
     let newRawMaterialName = e.target.value;
     let rawMaterialIndex = index;
-    console.log(index);
+
     dispatch({
       type: UPDATE_RAWMATERIALNAME,
       name1: newRawMaterialName,
@@ -594,7 +563,6 @@ const RecipeManagementState = props => {
 
   const handleQuantityChange = (id, index) => e => {
     let quantity = e.target.value;
-    console.log(index);
 
     dispatch({
       type: UPDATE_RAWMATERIAL_PRICE,
@@ -627,7 +595,35 @@ const RecipeManagementState = props => {
     e.preventDefault();
     setShowLoader();
     if (state.saveOption === 'basicRecipe') {
-      initiateSubmit(state.recipeRawMaterials);
+      let updatedRAWM = produce(state, draftState => {
+        if (!('multidelete' in Object.prototype)) {
+          Object.defineProperty(Object.prototype, 'multidelete', {
+            value: function() {
+              for (var i = 0; i < arguments.length; i++) {
+                delete this[arguments[i]];
+              }
+            }
+          });
+        }
+
+        draftState.recipeRawMaterials.forEach(
+          material => (material.rawmaterialdetails = material._id)
+        );
+        draftState.recipeRawMaterials.forEach(material =>
+          material.multidelete(
+            'brandName',
+            'type',
+            'name',
+            'baseQuantity',
+            'baseUnit',
+            'recipeUnit',
+            '__v'
+          )
+        );
+        return draftState;
+      });
+
+      initiateSubmit(updatedRAWM.recipeRawMaterials);
     }
 
     if (state.saveOption === 'product') {
@@ -655,14 +651,6 @@ const RecipeManagementState = props => {
         return draft;
       });
 
-      console.log(updatedState);
-
-      /**
-       *     const operation = (list1, list2, isUnion = false) =>
-        list1.filter(a => isUnion === list2.some(b => a._id === b._id));
-  
-       */
-
       const operation = (list1, list2, isUnion = false) =>
         list1.filter(
           (set => a => isUnion === set.has(a._id))(
@@ -685,10 +673,8 @@ const RecipeManagementState = props => {
         );
         return newBasiccRRecipeRMArray;
       });
-      console.log(basicRecipeRM);
 
       let finalBasicRecipeRM = basicRecipeRM.flat();
-      console.log(finalBasicRecipeRM);
 
       let finalRecipeRawMaterial = [
         ...state.recipeRawMaterials,
@@ -707,55 +693,52 @@ const RecipeManagementState = props => {
         []
       );
 
-      console.table(finalRecipeBasicRecipes);
-      console.table(finalRecipeRawMaterial);
-      console.table(uniqueRawMaterial);
+      let newState = produce(state, draftState => {
+        draftState.recipeRawMaterials.forEach(material => {
+          material.details = material._id;
+          material.multidelete(
+            'brandName',
+            'type',
+            'name',
+            'baseQuantity',
+            'baseUnit',
+            'recipeUnit',
+            '__v'
+          );
+        });
+        draftState.recipeBasicRecipes.forEach(basicRecipe => {
+          basicRecipe.details = basicRecipe._id;
+          basicRecipe.unitInRecipe = basicRecipe.unitPerBaseQuantity;
 
-      initiateSubmit(uniqueRawMaterial, finalRecipeBasicRecipes);
-    }
-    /**
-    * 
-
-        let r = [...state.basicRecipe];
-
-    let Array2 = [...state.recipeBasicRecipes];
-
-    r = r.map(item => {
-      let element = Array2.find(e => e._id === item._id);
-      console.log(element);
-      if (element) {
-        return {
-          ...item,
-          details: item.details.map(e => {
-            let detail = element.details.find(d => d._id === e._id);
-            if (detail) {
-              return {
-                ...e,
-                rate: detail.rate
-              };
-            }
-            return e;
-          })
-        };
-      }
-      return item;
-Immer.js
-            draft.basicRecipe = draft.basicRecipe.map(item => {
-        let element = draft.recipeBasicRecipes.find(e => e._id === item._id);
-
-        if (element) {
-          item.details = item.details.map(e => {
-            let detail = element.details.find(d => d._id === e._id);
-            if (detail) {
-              e.rate = detail.rate;
-            }
-            return e;
-          });
-        }
-        return item;
+          basicRecipe.multidelete(
+            'brandName',
+            'type',
+            'name',
+            'baseQuantity',
+            'baseUnit',
+            'recipeUnit',
+            '__v',
+            'unitPerBaseQuantity',
+            'costPerUnit',
+            'weightPerUnit',
+            'showSearchBox',
+            'showAddIcon',
+            'totalcostofRMInBR',
+            'totalRMQuantityInBR'
+          );
+        });
       });
-    });
-    *  */
+
+      let finalRMDetails = newState.recipeRawMaterials;
+
+      let finalBasicRecipeDetails = newState.recipeBasicRecipes;
+
+      initiateSubmit(
+        uniqueRawMaterial,
+        finalRMDetails,
+        finalBasicRecipeDetails
+      );
+    }
   };
 
   return (

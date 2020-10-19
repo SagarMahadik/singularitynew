@@ -387,11 +387,11 @@ const AddProductState = props => {
 
   const handleChange = e => {
     const value = e.currentTarget.value;
-    console.log(value);
+
     const selectedCategory1 = state.categoryData.filter(c => {
       return c.category === value;
     });
-    console.log(selectedCategory1);
+
     let IsSubcategory = false;
 
     if (

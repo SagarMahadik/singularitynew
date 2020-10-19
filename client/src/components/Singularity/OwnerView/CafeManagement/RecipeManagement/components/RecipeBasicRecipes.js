@@ -201,10 +201,7 @@ const RecipeBasicRecipies = () => {
                                           isEven={index1 % 2 === 0}
                                           clicked={item.hiddeRM}
                                         >
-                                          {Math.round(
-                                            item.quantityPerUnit *
-                                              material.unitPerBaseQuantity
-                                          )}
+                                          {Math.round(item.quantityInRecipe)}
                                         </QuantityDisplayProduction>
 
                                         <QuantityUnit>

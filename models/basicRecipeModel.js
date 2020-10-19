@@ -7,42 +7,15 @@ const basicRecipeSchema = new mongoose.Schema({
   },
   details: [
     {
-      name: {
-        type: String,
-        required: [true, 'Please enter the raw material']
-      },
-      brandName: {
-        type: String
-      },
-      supplier: {
-        type: String
-      },
-      type: {
-        type: String
-      },
-      baseQuantity: {
-        type: Number,
-        required: true
-      },
-      baseUnit: {
-        type: String,
-        required: true
-      },
-      rate: {
-        type: Number,
-        required: true
-      },
       quantityInRecipe: {
         type: Number
       },
-      costOfRawMaterial: {
+      rawmaterialdetails: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'RawMaterial'
+      },
+      quantityPerUnit: {
         type: Number
-      },
-      recipeUnit: {
-        type: String
-      },
-      displayRateUnit: {
-        type: String
       }
     }
   ],

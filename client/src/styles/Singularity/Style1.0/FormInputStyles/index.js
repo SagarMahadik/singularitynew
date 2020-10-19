@@ -117,7 +117,7 @@ export const LabelTextParagraph = styled.label`
 export const InputWrapper = styled.div`
   position: relative;
   width: 60%;
-  margin-top: 16px;
+  margin-top: 0.8em;
 `;
 
 export const CrossSellPitch = styled(TextParagraph)``;

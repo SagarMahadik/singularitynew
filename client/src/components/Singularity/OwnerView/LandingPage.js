@@ -116,7 +116,7 @@ const LandingPage = () => {
             ref={el => {
               contentRef.current[2] = el;
             }}
-            to="/rawMaterialManagement"
+            to="/quoteGeneration"
           >
             Lets go!
           </Button>

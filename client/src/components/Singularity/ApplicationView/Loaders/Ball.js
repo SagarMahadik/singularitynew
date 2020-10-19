@@ -32,9 +32,12 @@ const BallLoader = props => {
     }
   }, [props.isComplete]);
 
-  if (redirect) {
+  /**
+   *   if (redirect) {
     return window.location.reload();
   }
+   */
+
   return (
     <>
       <MainContainer

@@ -1,6 +1,7 @@
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
+const { populate } = require('../models/recipeModel');
 
 exports.deleteOne = Model =>
   catchAsync(async (req, res, next) => {
@@ -48,24 +49,6 @@ exports.createOne = Model =>
     });
   });
 
-exports.getOne = (Model, popOptions) =>
-  catchAsync(async (req, res, next) => {
-    let query = Model.findById(req.params.id);
-    if (popOptions) query = query.populate(popOptions);
-    const doc = await query;
-
-    if (!doc) {
-      return next(new AppError('No document found with that ID', 404));
-    }
-
-    res.status(200).json({
-      status: 'success',
-      data: {
-        data: doc
-      }
-    });
-  });
-
 exports.getSearchOutcomes = (Model, fieldsString) =>
   catchAsync(async (req, res, next) => {
     var searchString = new RegExp(req.query.q, 'i');
@@ -94,23 +77,94 @@ exports.getSearchOutcomes = (Model, fieldsString) =>
 
 // This Route return the only selected fields
 
-exports.getAll = (Model, fieldsString) =>
+exports.getAll = (Model, popOptions, popOption1) =>
   catchAsync(async (req, res, next) => {
     //console.log(Model);
     let filter = {};
-    if (req.params.genre) filter = { genre: req.params.genre };
-
     let selectFields = {};
-    selectFields = fieldsString;
+    let features = Model.find(filter);
 
-    const features = Model.find(filter).select(selectFields);
+    if (popOptions)
+      features = Model.find(filter)
+        .populate(popOption1)
+        .populate(popOptions);
     // const doc = await features.query.explain();
+
     const doc = await features;
 
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',
       results: doc.length,
+      data: {
+        data: doc
+      }
+    });
+  });
+
+exports.getRecipe = (Model, popOption1, popOption2, popOption3) =>
+  catchAsync(async (req, res, next) => {
+    //console.log(Model);
+    let filter = {};
+    let selectFields = {};
+    let features = Model.find(filter);
+
+    if (popOption1)
+      features = Model.find(filter)
+        .lean()
+        .populate(popOption1)
+        .populate(popOption2)
+        .populate(popOption3);
+
+    // const doc = await features.query.explain();
+
+    const doc = await features;
+
+    // SEND RESPONSE
+    res.status(200).json({
+      status: 'success',
+      results: doc.length,
+      data: {
+        data: doc
+      }
+    });
+  });
+
+exports.getBasicRecipes = (Model, popOptions) =>
+  catchAsync(async (req, res, next) => {
+    //console.log(Model);
+    let filter = {};
+    let selectFields = {};
+    let features = Model.find(filter);
+
+    if (popOptions) features = Model.find(filter).populate(popOptions);
+
+    // const doc = await features.query.explain();
+
+    const doc = await features;
+
+    // SEND RESPONSE
+    res.status(200).json({
+      status: 'success',
+      results: doc.length,
+      data: {
+        data: doc
+      }
+    });
+  });
+
+exports.getOne = (Model, popOptions) =>
+  catchAsync(async (req, res, next) => {
+    let query = Model.findById(req.params.id);
+    if (popOptions) query = query.populate(popOptions);
+    const doc = await query;
+
+    if (!doc) {
+      return next(new AppError('No document found with that ID', 404));
+    }
+
+    res.status(200).json({
+      status: 'success',
       data: {
         data: doc
       }

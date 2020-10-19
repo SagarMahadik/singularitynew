@@ -34,6 +34,7 @@ export const RowContainer = styled.div`
   height: auto;
   flex-wrap: wrap;
   align-items: center;
+  max-width: 500px;
   width: 100%;
 `;
 

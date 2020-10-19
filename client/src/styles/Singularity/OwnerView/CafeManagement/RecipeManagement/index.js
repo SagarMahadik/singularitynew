@@ -88,6 +88,7 @@ export const BasicRecipeCostQuantityContainer = styled(DetailsContainer)`
 
 export const TotalCostQuantityContainer = styled(DetailsContainer)`
   background-color: rgba(176, 167, 229, 0.6);
+  max-width: 600px;
 `;
 export const BasicRecipeNameContainer = styled.div`
   display: grid;

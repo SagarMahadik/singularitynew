@@ -22,7 +22,7 @@ const additionalProductInformationRouter = require('./routes/additionalProductIn
 const basicRecipeRouter = require('./routes/basicRecipeRoutes');
 const recipeRouter = require('./routes/recipeRoutes');
 const supplierRouter = require('./routes/supplierRoutes');
-
+const dMenuRouter = require('./routes/dMenuProductRoutes');
 const app = express();
 
 // 1) GLOBAL MIDDLEWARES
@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Limit requests from same API
 const limiter = rateLimit({
-  max: 100,
+  max: 1000,
   windowMs: 60 * 60 * 1000,
   message: 'Too many requests from this IP, please try again in an hour!'
 });
@@ -82,6 +82,7 @@ app.use('/api/v1/users', userRouter);
 //Piatto production routes
 app.use('/api/v1/category', categoryRouter);
 app.use('/api/v1/product', productRouter);
+app.use('/api/v1/dMenuProduct', dMenuRouter);
 app.use('/api/v1/addOn', addOnRouter);
 app.use(
   '/api/v1/additionalProductInfomation',

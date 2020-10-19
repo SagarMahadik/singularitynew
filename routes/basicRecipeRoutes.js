@@ -10,4 +10,6 @@ router.route('/').post(basicRecipeController.createBasicRecipe);
 
 router.route('/:id').patch(basicRecipeController.updateBasicRecipe);
 
+router.route('/:id').get(basicRecipeController.getBasicRecipeDetails);
+
 module.exports = router;

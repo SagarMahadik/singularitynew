@@ -51,8 +51,7 @@ const Category = React.forwardRef((props, setRef1) => {
     Category,
     isSubCategory,
     selectedCategory,
-    SubCategory,
-    loading
+    SubCategory
   } = AddProductContext;
 
   const [index, setIndex] = useState(null);
