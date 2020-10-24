@@ -33,3 +33,23 @@ export const CategoryContainer = styled(RowContainer)`
 export const SubCategoryContainer = styled(CategoryContainer)``;
 
 export const ProductTypeContainer = styled(CategoryContainer)``;
+
+export const OuterBorder = styled.div`
+  display: block;
+  height: 154px;
+  width: 162px;
+  border-radius: 5px solid ${styles.dMenuContentColor};
+  border: 15px;
+`;
+
+export const InnerBox = styled(CenterAlignedColumnContainer)`
+  height: 140px;
+  width: 150px;
+  border-radius: 5px solid ${styles.dMenuContentColor};
+  border: 10px;
+`;
+
+export const CategoryText = styled(PTSansText)`
+  font-size: 25px;
+  color: ${styles.dMenuContentColor};
+`;

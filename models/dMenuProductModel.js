@@ -15,7 +15,7 @@ const menuProductSchema = new mongoose.Schema({
       'Breakfast',
       'Salads',
       'Pasta',
-      'Sandwiches',
+      'Sandwitches',
       'Burgers'
     ],
     required: true

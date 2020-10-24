@@ -116,7 +116,7 @@ const LandingPage = () => {
             ref={el => {
               contentRef.current[2] = el;
             }}
-            to="/quoteGeneration"
+            to="/digitalCafeMenu"
           >
             Lets go!
           </Button>

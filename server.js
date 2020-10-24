@@ -10,10 +10,20 @@ process.on('uncaughtException', err => {
 dotenv.config({ path: './config.env' });
 const app = require('./app');
 
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-);
+const setDatabase = () => {
+  if (process.env.NODE_ENV === 'development') {
+    const DB = process.env.DATABASE;
+    return DB;
+  } else {
+    const DB = process.env.DATABASE_PRODUCTION.replace(
+      '<PASSWORD>',
+      process.env.DATABASE_PASSWORD
+    );
+    return DB;
+  }
+};
+
+const DB = setDatabase();
 
 mongoose
   .connect(DB, {

@@ -52,7 +52,13 @@ const AddProductState = props => {
     getData('/api/v1/category');
   }, []);
 
-  const addDataToDB = async () => {
+  const addDataToDB = async (
+    category,
+    subCategory,
+    productName,
+    productPrice,
+    cuisine
+  ) => {
     const body = JSON.stringify({
       category,
       subCategory,
