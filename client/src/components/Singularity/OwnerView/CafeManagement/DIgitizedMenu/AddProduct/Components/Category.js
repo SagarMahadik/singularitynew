@@ -12,7 +12,6 @@ import { PartialWidthDivider } from 'styles/Singularity/Style1.0/PageDividerStyl
 const Category = () => {
   const AddProductContext = useContext(addProductContext);
   const {
-    isCategory,
     categoryData,
     isSubCategory,
     selectedCategory,

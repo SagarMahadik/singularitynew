@@ -6,16 +6,10 @@ import React, {
   useRef
 } from 'react';
 
-import {
-  TextBox,
-  TextParagraph,
-  TextRadioButton,
-  HiddenRadioButton
-} from 'styles/Singularity/Style1.0/FormInputStyles';
+import { TextRadioButton } from 'styles/Singularity/Style1.0/FormInputStyles';
 
 import {
   CenterAlignedColumnContainer,
-  CenterAlignedRowContainer,
   CategoryContainer,
   SubCategoryContainer
 } from 'styles/Singularity/Style1.0/ContainerStyles';

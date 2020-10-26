@@ -1,14 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { TimelineMax, Circ, Power3, gsap } from 'gsap';
+
 import Loaders from 'components/Singularity/ApplicationView/Loaders';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router';
 
 import {
-  Ball,
-  BallContainer,
-  Shadow,
-  Wall,
   MainContainer,
   LoadingText,
   TextContainer,
@@ -16,7 +10,6 @@ import {
   LoadingTextContiner,
   DoneTextContainer
 } from 'styles/Singularity/Style1.0/Loaders/Ball';
-import styled from 'styled-components';
 
 const BallLoader = props => {
   const [redirect, setRedirect] = useState(false);
@@ -32,11 +25,9 @@ const BallLoader = props => {
     }
   }, [props.isComplete]);
 
-  /**
-   *   if (redirect) {
+  if (redirect) {
     return window.location.reload();
   }
-   */
 
   return (
     <>
