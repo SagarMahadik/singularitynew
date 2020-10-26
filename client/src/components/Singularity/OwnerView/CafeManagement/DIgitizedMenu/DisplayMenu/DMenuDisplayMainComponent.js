@@ -3,7 +3,11 @@ import DMenuDisplay from 'components/Singularity/OwnerView/CafeManagement/DIgiti
 import DMenuDisplayState from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/State/DMenuDisplayState.js';
 
 const DMenuDisplayMainComponent = () => {
-  return <DMenuDisplay />;
+  return (
+    <DMenuDisplayState>
+      <DMenuDisplay />
+    </DMenuDisplayState>
+  );
 };
 
 export default DMenuDisplayMainComponent;
