@@ -5,6 +5,8 @@ import {
   SET_DMENUPRODUCTDATA
 } from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/State/types.js';
 
+import { produce } from 'immer';
+
 export default (state, action) => {
   switch (action.type) {
     case SET_LOADING:
@@ -14,12 +16,18 @@ export default (state, action) => {
       };
 
     case SET_CATEGORYDATA:
-      return {
-        ...state,
-        categoryData: action.payload,
-        isCategory: true,
-        loading: false
-      };
+      return produce(state, draftState => {
+        function lowercaseFirstLetter(string) {
+          return string.charAt(0).toLowerCase() + string.slice(1);
+        }
+
+        draftState.categoryData = action.payload;
+        draftState.categoryData.forEach(category => {
+          category.categoryIdentifier = lowercaseFirstLetter(
+            `${category.category}`
+          );
+        });
+      });
 
     case SET_DMENUPRODUCTDATA:
       return {

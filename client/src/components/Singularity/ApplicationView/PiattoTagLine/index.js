@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { SacramentoText } from 'styles/Singularity/Style1.0/TextStyles';
+import { TaglineText } from 'styles/Singularity/Style1.0/TextStyles';
 
 const PiattoTagline = () => {
   return (
     <div>
-      <SacramentoText>Premium hand crafted delicacies!</SacramentoText>
+      <TaglineText>Premium hand crafted delicacies!</TaglineText>
     </div>
   );
 };

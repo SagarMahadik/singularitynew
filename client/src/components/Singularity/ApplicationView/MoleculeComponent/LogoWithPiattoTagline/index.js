@@ -3,9 +3,9 @@ import Logo from 'components/Singularity/ApplicationView/Logo';
 import PiattoTagLine from 'components/Singularity/ApplicationView/PiattoTagLine';
 import { CenterAlignedColumnContainer } from 'styles/Singularity/Style1.0/ContainerStyles';
 
-const LogoWithPiattoTagline = () => {
+const LogoWithPiattoTagline = props => {
   return (
-    <CenterAlignedColumnContainer>
+    <CenterAlignedColumnContainer backGroundcolor={`${props.backGroundcolor}`}>
       <Logo />
       <PiattoTagLine />
     </CenterAlignedColumnContainer>

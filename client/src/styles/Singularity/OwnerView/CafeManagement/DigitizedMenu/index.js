@@ -4,7 +4,8 @@ import { styles } from 'styles/Singularity/Style1.0/ApplicationStyles';
 import {
   CenterAlignedColumnContainer,
   RowContainer,
-  ColumnContainer
+  ColumnContainer,
+  LeftAlignedRowContainer
 } from 'styles/Singularity/Style1.0/ContainerStyles';
 
 import {
@@ -36,20 +37,35 @@ export const ProductTypeContainer = styled(CategoryContainer)``;
 
 export const OuterBorder = styled.div`
   display: block;
-  height: 154px;
-  width: 162px;
-  border-radius: 5px solid ${styles.dMenuContentColor};
-  border: 15px;
+  height: 150px;
+  width: 150px;
+  border: 2px solid ${styles.dMenuContentColor};
+  border-radius: 15px;
+  padding-top: 5px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-left: 20px;
 `;
 
 export const InnerBox = styled(CenterAlignedColumnContainer)`
   height: 140px;
-  width: 150px;
-  border-radius: 5px solid ${styles.dMenuContentColor};
-  border: 10px;
+  width: 140px;
+  border: 2px solid ${styles.dMenuContentColor};
+  border-radius: 10px;
+  background: ${props => props.backGroundcolor || 'white'};
+`;
+
+export const Background = styled(CenterAlignedColumnContainer)`
+  height: 100vh;
 `;
 
 export const CategoryText = styled(PTSansText)`
   font-size: 25px;
   color: ${styles.dMenuContentColor};
+`;
+
+export const DMenuCategoryContainer = styled(LeftAlignedRowContainer)`
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
 `;

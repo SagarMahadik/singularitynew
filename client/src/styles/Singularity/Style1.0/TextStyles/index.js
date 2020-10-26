@@ -100,8 +100,6 @@ export const ProductInformation = styled(PTSansText)`
   font-size: 16px;
   line-height: 14px;
   text-align: left;
-  /* or 117% */
-
   color: #665c5c;
 `;
 
@@ -137,4 +135,9 @@ export const GalleryProducctNameContainer = styled.div`
   display: flex;
   margin-top: -35px;
   z-index: 3;
+`;
+
+export const TaglineText = styled(SacramentoText)`
+  color: ${styles.dMenuContentColor};
+  font-size: 28px;
 `;

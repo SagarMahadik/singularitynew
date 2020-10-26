@@ -18,7 +18,7 @@ export const GridContainer = styled.div`
 
 export const CenterAlignedColumnContainer = styled(ColumnContainer)`
   align-items: center;
-  background-color: ${props => props.backGroundcolor || 'white'};
+  background: ${props => props.backGroundcolor || 'white'};
 `;
 
 export const LeftrAlignedColumnContainer = styled(ColumnContainer)`
@@ -51,6 +51,7 @@ export const LeftAlignedRowContainer = styled(RowContainer)`
   justify-content: flex-start;
   flex-wrap: nowrap;
   overflow-x: auto;
+  background: ${props => props.backGroundcolor || 'white'};
 `;
 
 export const Box = styled.div`
