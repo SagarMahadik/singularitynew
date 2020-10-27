@@ -38,6 +38,14 @@ export const AthitiText = styled.text`
   color: ${styles.formContentColor};
 `;
 
+export const ComicText = styled.text`
+  font-family: Athiti;
+  font-weight: normal;
+  align-items: center;
+  text-align: center;
+  color: ${styles.formContentColor};
+`;
+
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;

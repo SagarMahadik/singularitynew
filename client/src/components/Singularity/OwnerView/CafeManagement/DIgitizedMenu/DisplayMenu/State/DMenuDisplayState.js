@@ -17,12 +17,13 @@ const DMenuDisplayState = props => {
   const initialState = {
     categoryData: [],
     dMenuProductData: [],
+    selectedCategory: '',
     loading: false
   };
 
   const [state, dispatch] = useReducer(displayDMenuReducer, initialState);
 
-  const { categoryData, dMenuProductData, loading } = state;
+  const { categoryData, dMenuProductData, selectedCategory, loading } = state;
 
   useEffect(() => {
     getData('/api/v1/category', 'SET_CATEGORYDATA');
@@ -42,12 +43,23 @@ const DMenuDisplayState = props => {
     } catch (err) {}
   };
 
+  const setCategory = e => {
+    let categorySelected = e.currentTarget.value;
+
+    dispatch({
+      type: SET_SLECTEDCATEGORY,
+      payload: categorySelected
+    });
+  };
+
   return (
     <displayDMenuContext.Provider
       value={{
         categoryData,
         dMenuProductData,
-        loading
+        selectedCategory,
+        loading,
+        setCategory
       }}
     >
       {props.children}

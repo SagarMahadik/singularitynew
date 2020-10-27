@@ -7,7 +7,7 @@ import displayDMenuContext from 'components/Singularity/OwnerView/CafeManagement
 
 const DmenuDisplay = () => {
   const DisplayDMenuContext = useContext(displayDMenuContext);
-  const { categoryData } = DisplayDMenuContext;
+  const { categoryData, setCategory } = DisplayDMenuContext;
 
   return (
     <>
@@ -17,6 +17,8 @@ const DmenuDisplay = () => {
           {categoryData.map((category, categoryIndex) => {
             return (
               <CategoryCard
+                value={category.category}
+                onClick={setCategory}
                 description={category.category}
                 identifier={category.categoryIdentifier}
               />

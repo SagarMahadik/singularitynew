@@ -36,12 +36,9 @@ export default (state, action) => {
         loading: false
       };
     case SET_SLECTEDCATEGORY:
-      const { value2, data, condition } = action.payload;
       return {
         ...state,
-        selectedCategory: data,
-        category: value2,
-        isSubCategory: condition
+        selectedCategory: action.payload
       };
   }
 };

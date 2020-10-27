@@ -35,7 +35,12 @@ function CategoryIcon(props) {
 
 const CategoryCard = props => {
   return (
-    <OuterBorder>
+    <OuterBorder
+      backGroundcolor="rgba(0,0,0,0.8)"
+      value={props.value}
+      onClick={props.onClick}
+      to={`/cafeMenuProducts/${props.description}`}
+    >
       <InnerBox backGroundcolor="rgba(0,0,0,0.8)">
         <div style={{ marginTop: '10px' }}>
           <CategoryIcon identifier={props.identifier} />

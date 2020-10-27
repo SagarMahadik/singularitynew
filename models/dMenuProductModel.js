@@ -20,7 +20,7 @@ const menuProductSchema = new mongoose.Schema({
     ],
     required: true
   },
-  SubCategory: {
+  subCategory: {
     type: String
   },
   cuisine: {

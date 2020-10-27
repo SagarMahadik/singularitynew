@@ -48,6 +48,7 @@ export const RightAlignedRowContainer = styled(RowContainer)`
 `;
 
 export const LeftAlignedRowContainer = styled(RowContainer)`
+  width: 100%;
   justify-content: flex-start;
   flex-wrap: nowrap;
   overflow-x: auto;
