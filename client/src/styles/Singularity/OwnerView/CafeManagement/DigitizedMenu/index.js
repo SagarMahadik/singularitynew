@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { styles } from 'styles/Singularity/Style1.0/ApplicationStyles';
 import { Link } from 'react-router-dom';
 import {
@@ -31,12 +31,11 @@ export const ProductTypeContainer = styled(CategoryContainer)``;
 
 export const OuterBorder = styled(Link)`
   display: block;
-  height: 150px;
-  width: 150px;
+  height: 140px;
+  width: 140px;
   border: 2px solid ${styles.dMenuContentColor};
   border-radius: 15px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding: 1px;
   margin-right: 10px;
   margin-top: 15px;
   margin-left: 20px;
@@ -50,11 +49,14 @@ export const InnerBox = styled(CenterAlignedColumnContainer)`
   width: 130px;
   border: 2px solid ${styles.dMenuContentColor};
   border-radius: 10px;
+  margin-top: 2px;
+  padding: 1px;
   background: ${props => props.backGroundcolor || 'white'};
 `;
 
 export const Background = styled(CenterAlignedColumnContainer)`
-  height: 100vh;
+  width: 100%;
+  background: ${props => props.backGroundcolor || 'white'};
 `;
 
 export const CategoryText = styled(PTSansText)`
@@ -66,6 +68,17 @@ export const DMenuCategoryContainer = styled(RowContainer)`
   width: 100%;
   flex-wrap: wrap;
   justify-content: center;
+  background: ${props => props.backGroundcolor || 'white'};
+  padding: 10px;
+`;
+
+export const DMenuSubCategoryContainer = styled(RowContainer)`
+  width: 100%;
+  background: ${props => props.backGroundcolor || 'white'};
+`;
+
+export const DMenuProductContainer = styled(RowContainer)`
+  width: 100%;
   background: ${props => props.backGroundcolor || 'white'};
 `;
 
@@ -85,10 +98,15 @@ export const MenuPageCategoryContainer = styled(RowContainer)`
 `;
 
 export const MenuPageSubCategoryContainer = styled(RowContainer)`
-  width: 100%;
+  width: 96%;
   justify-content: flex-start;
   border-bottom: 2px solid ${styles.dMenuContentColor};
-  background: ${props => props.backGroundcolor || 'white'};
+  margin-left: 8px;
+`;
+
+export const MenuPageProductContainer = styled(RowContainer)`
+  width: 100%;
+  justify-content: space-between;
 `;
 
 export const MenuItemContainer = styled.div`
@@ -98,6 +116,7 @@ export const MenuItemContainer = styled.div`
   justify-items: center;
   color: ${styles.dMenuContentColor};
   background: ${props => props.backGroundcolor || 'white'};
+  padding: 5px;
 `;
 
 export const MenuItemText = styled(ComicText)`
@@ -107,6 +126,8 @@ export const MenuItemText = styled(ComicText)`
 `;
 
 export const MenuPageCategoryLine = styled.div`
-  width: 30%;
+  display: block;
   border: 2px solid ${styles.dMenuContentColor};
+  width: 100%;
+  height: 0;
 `;

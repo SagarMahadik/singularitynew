@@ -3,11 +3,11 @@ import LogoPiattoTagLine from 'components/Singularity/ApplicationView/MoleculeCo
 import { CenterAlignedColumnContainer } from 'styles/Singularity/Style1.0/ContainerStyles';
 import { DMenuCategoryContainer } from 'styles/Singularity/OwnerView/CafeManagement/DigitizedMenu/index.js';
 import CategoryCard from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/Components/ComponentDesign/CategoryCard.js';
-import displayDMenuContext from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/State/dMenuDisplayContext.js';
+import applicationContext from 'Context/ApplicationContext/applicationContext.js';
 
 const DmenuDisplay = () => {
-  const DisplayDMenuContext = useContext(displayDMenuContext);
-  const { categoryData, setCategory } = DisplayDMenuContext;
+  const ApplicationContext = useContext(applicationContext);
+  const { categoryData } = ApplicationContext;
 
   return (
     <>
@@ -18,7 +18,6 @@ const DmenuDisplay = () => {
             return (
               <CategoryCard
                 value={category.category}
-                onClick={setCategory}
                 description={category.category}
                 identifier={category.categoryIdentifier}
               />

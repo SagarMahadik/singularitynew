@@ -6,10 +6,7 @@ import RawMaterialManagementMainComponent from 'components/Singularity/OwnerView
 import SupplierDetailsMainComponent from 'components/Singularity/OwnerView/CafeManagement/SupplierDetails/SupplierDetailsMainComponent.js';
 import QuoteGenerationMainComponent from 'components/Singularity/OwnerView/CafeManagement/QuoteGeneration/QuoteGenerationMainComponent.js';
 import DMenuAddProductMainComponent from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/AddProduct/DMenuAddProductMainComponent.js';
-import DMenuDisplayMainComponent from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/DMenuDisplayMainComponent.js';
-import DMenuProductMain from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/Components/DMenuProductMain.js';
 import DmenuDisplay from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/Components/DmenuDisplay.js';
-import Ball from 'components/Singularity/ApplicationView/Loaders/Ball';
 import ImageGallery from 'components/Singularity/ApplicationView/ImageGallery';
 import DmenuProducts from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/Components/DmenuProducts';
 
@@ -46,9 +43,9 @@ export default function Routes() {
         <Route
           exact
           path="/cafeMenuProducts/:category"
-          component={DMenuProductMain}
+          component={DmenuProducts}
         />
-        <Route exact="/digitalCafeMenu" component={DMenuDisplayMainComponent} />
+        <Route exact="/digitalCafeMenu" component={DmenuDisplay} />
         <Route exact path="/gallery" component={ImageGallery} />
       </Switch>
     </BrowserRouter>
