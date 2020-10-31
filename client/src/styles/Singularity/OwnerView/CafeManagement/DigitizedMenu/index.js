@@ -70,7 +70,6 @@ export const DMenuCategoryContainer = styled(RowContainer)`
   flex-wrap: wrap;
   justify-content: center;
   background: ${props => props.backGroundcolor || 'white'};
-  margin-top: 8px;
 `;
 
 export const DMenuSubCategoryContainer = styled(RowContainer)`
