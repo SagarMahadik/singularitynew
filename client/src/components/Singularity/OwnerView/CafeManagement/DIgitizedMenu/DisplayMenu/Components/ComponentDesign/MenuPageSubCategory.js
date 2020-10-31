@@ -10,7 +10,7 @@ import {
 
 const MenuPageSubCategory = props => {
   return (
-    <DMenuSubCategoryContainer backGroundcolor="rgba(0,0,0,0.8)">
+    <DMenuSubCategoryContainer backGroundcolor="rgba(0,0,0,0)">
       <CenterAlignedColumnContainer
         style={{ width: '90%', background: 'rgba(0,0,0,0)' }}
       >

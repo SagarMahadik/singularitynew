@@ -16,13 +16,13 @@ const MenuPageCategory = props => {
   return (
     <>
       <CenterAlignedColumnContainer
-        style={{ background: 'rgba(0,0,0,0.8)', height: '20px' }}
+        style={{ background: 'rgba(0,0,0,0)', height: '20px' }}
       />
-      <DMenuCategoryContainer backGroundcolor="rgba(0,0,0,0.8)">
+      <DMenuCategoryContainer backGroundcolor="rgba(0,0,0,0)">
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'auto 38% auto',
+            gridTemplateColumns: '30% 38% 30%',
             width: '100%'
           }}
         >

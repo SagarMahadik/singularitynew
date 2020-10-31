@@ -41,6 +41,7 @@ export const OuterBorder = styled(Link)`
   margin-left: 20px;
   outline: none;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
   background: ${props => props.backGroundcolor || 'white'};
 `;
 
@@ -69,12 +70,13 @@ export const DMenuCategoryContainer = styled(RowContainer)`
   flex-wrap: wrap;
   justify-content: center;
   background: ${props => props.backGroundcolor || 'white'};
-  padding: 10px;
+  margin-top: 8px;
 `;
 
 export const DMenuSubCategoryContainer = styled(RowContainer)`
   width: 100%;
   background: ${props => props.backGroundcolor || 'white'};
+  margin-top: 8px;
 `;
 
 export const DMenuProductContainer = styled(RowContainer)`
@@ -85,6 +87,7 @@ export const DMenuProductContainer = styled(RowContainer)`
 export const Category = styled(SacramentoText)`
   color: ${styles.dMenuContentColor};
   font-size: 36px;
+  font-weight: bold;
 `;
 
 export const SubCategory = styled(SacramentoText)`
@@ -93,12 +96,12 @@ export const SubCategory = styled(SacramentoText)`
 `;
 
 export const MenuPageCategoryContainer = styled(RowContainer)`
-  width: 90%;
+  width: 100%;
   justify-content: space-between;
 `;
 
 export const MenuPageSubCategoryContainer = styled(RowContainer)`
-  width: 96%;
+  width: 100%;
   justify-content: flex-start;
   border-bottom: 2px solid ${styles.dMenuContentColor};
   margin-left: 8px;

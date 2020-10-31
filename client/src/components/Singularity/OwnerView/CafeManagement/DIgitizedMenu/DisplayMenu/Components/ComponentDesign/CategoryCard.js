@@ -13,8 +13,8 @@ import Desserts from 'components/Singularity/ApplicationView/CategoryIcons/Desse
 import Gelatos from 'components/Singularity/ApplicationView/CategoryIcons/Gelatos.js';
 import Salads from 'components/Singularity/ApplicationView/CategoryIcons/Salads.js';
 import Sandwiches from 'components/Singularity/ApplicationView/CategoryIcons/Sandwiches.js';
-import Pasta from 'components/Singularity/ApplicationView/CategoryIcons/Sandwiches.js';
-import Burgers from 'components/Singularity/ApplicationView/CategoryIcons/Sandwiches.js';
+import Pasta from 'components/Singularity/ApplicationView/CategoryIcons/Pasta.js';
+import Burgers from 'components/Singularity/ApplicationView/CategoryIcons/Burgers.js';
 
 const components = {
   beverages: Beverages,

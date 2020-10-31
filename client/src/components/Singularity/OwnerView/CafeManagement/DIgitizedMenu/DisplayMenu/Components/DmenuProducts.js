@@ -26,8 +26,8 @@ const DmenuProducts = () => {
       }}
       exit={{ opacity: 0 }}
     >
-      <CenterAlignedColumnContainer>
-        <LogoPiattoTagLine backGroundcolor="rgba(0,0,0,0.8)" />
+      <CenterAlignedColumnContainer backGroundcolor="rgba(0,0,0,0.8)">
+        <LogoPiattoTagLine backGroundcolor="rgba(0,0,0,0)" />
 
         {categoryData
           .filter(catg => catg.category === `${selectedCategory.category}`)
