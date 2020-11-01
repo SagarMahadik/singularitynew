@@ -17,8 +17,8 @@ import axios from 'axios';
 
 const AddProductState = props => {
   const initialState = {
-    category: '',
-    subCategory: '',
+    category: 'Cakes',
+    subCategory: 'Naked Cake',
     productName: '',
     isCategory: false,
     productPrice: '',

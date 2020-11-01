@@ -4,7 +4,11 @@ import DmenuProducts from 'components/Singularity/OwnerView/CafeManagement/DIgit
 import { CenterAlignedColumnContainer } from 'styles/Singularity/Style1.0/ContainerStyles/index.js';
 
 const DMenuProductMain = () => {
-  return <DmenuProducts />;
+  return (
+    <DMenuDisplayState>
+      <DmenuProducts />
+    </DMenuDisplayState>
+  );
 };
 
 export default DMenuProductMain;

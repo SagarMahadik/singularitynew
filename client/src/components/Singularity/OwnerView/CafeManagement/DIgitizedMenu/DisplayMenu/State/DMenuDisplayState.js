@@ -6,27 +6,25 @@ import { SET_SLECTEDCATEGORY } from 'components/Singularity/OwnerView/WebsiteCon
 
 const DMenuDisplayState = props => {
   const initialState = {
-    selectedCategory: '',
+    activeCategory: '',
     loading: false
   };
 
   const [state, dispatch] = useReducer(displayDMenuReducer, initialState);
 
-  const { selectedCategory, loading } = state;
+  const { activeCategory, loading } = state;
 
-  const setCategory = e => {
-    let categorySelected = e.currentTarget.value;
-
+  const setCategory = category => {
     dispatch({
       type: SET_SLECTEDCATEGORY,
-      payload: categorySelected
+      payload: category
     });
   };
 
   return (
     <displayDMenuContext.Provider
       value={{
-        selectedCategory,
+        activeCategory,
         loading,
         setCategory
       }}

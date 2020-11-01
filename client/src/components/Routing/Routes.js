@@ -8,7 +8,7 @@ import QuoteGenerationMainComponent from 'components/Singularity/OwnerView/CafeM
 import DMenuAddProductMainComponent from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/AddProduct/DMenuAddProductMainComponent.js';
 import DmenuDisplay from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/Components/DmenuDisplay.js';
 import ImageGallery from 'components/Singularity/ApplicationView/ImageGallery';
-import DmenuProducts from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/Components/DmenuProducts';
+import DMenuProductMain from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/Components/DMenuProductMain.js';
 
 export default function Routes() {
   return (
@@ -43,7 +43,7 @@ export default function Routes() {
         <Route
           exact
           path="/cafeMenuProducts/:category"
-          component={DmenuProducts}
+          component={DMenuProductMain}
         />
         <Route exact="/digitalCafeMenu" component={DmenuDisplay} />
         <Route exact path="/gallery" component={ImageGallery} />

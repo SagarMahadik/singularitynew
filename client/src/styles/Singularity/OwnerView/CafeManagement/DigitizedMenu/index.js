@@ -76,6 +76,7 @@ export const DMenuSubCategoryContainer = styled(RowContainer)`
   width: 100%;
   background: ${props => props.backGroundcolor || 'white'};
   margin-top: 8px;
+  margin-bottom: 8px;
 `;
 
 export const DMenuProductContainer = styled(RowContainer)`
@@ -83,15 +84,14 @@ export const DMenuProductContainer = styled(RowContainer)`
   background: ${props => props.backGroundcolor || 'white'};
 `;
 
-export const Category = styled(SacramentoText)`
+export const Category = styled(PTSansText)`
   color: ${styles.dMenuContentColor};
-  font-size: 36px;
-  font-weight: bold;
+  font-size: 24px;
 `;
 
-export const SubCategory = styled(SacramentoText)`
+export const SubCategory = styled(PTSansText)`
   color: ${styles.dMenuContentColor};
-  font-size: 28px;
+  font-size: 20px;
 `;
 
 export const MenuPageCategoryContainer = styled(RowContainer)`
@@ -102,7 +102,7 @@ export const MenuPageCategoryContainer = styled(RowContainer)`
 export const MenuPageSubCategoryContainer = styled(RowContainer)`
   width: 100%;
   justify-content: flex-start;
-  border-bottom: 2px solid ${styles.dMenuContentColor};
+
   margin-left: 8px;
 `;
 
@@ -132,4 +132,24 @@ export const MenuPageCategoryLine = styled.div`
   border: 2px solid ${styles.dMenuContentColor};
   width: 100%;
   height: 0;
+`;
+
+export const CategoryButton = styled.div`
+  width: 100;
+  margin: 5px;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 15px;
+  border: 2px solid ${styles.dMenuContentColor};
+  color: ${props => (props.active ? 'white' : 'gold')};
+  background: ${props =>
+    props.active ? `${styles.dMenuContentColor}` : 'transperant'};
+  transition: transform 0.8s ease-out;
+`;
+
+export const DMenuProductMainContainer = styled(CenterAlignedColumnContainer)`
+  width: 100%;
+  &:last-child {
+    margin-bottom: 500px;
+  }
 `;

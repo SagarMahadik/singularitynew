@@ -38,7 +38,7 @@ export default (state, action) => {
     case SET_SLECTEDCATEGORY:
       return {
         ...state,
-        selectedCategory: action.payload
+        activeCategory: action.payload
       };
   }
 };

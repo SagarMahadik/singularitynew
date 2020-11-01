@@ -29,7 +29,7 @@ const MenuPageCategory = props => {
           <MenuPageCategoryLine />
           <CenterAlignedColumnContainer
             style={{
-              marginTop: '-25px',
+              marginTop: '-15px',
               background: 'rgba(0,0,0,0)'
             }}
           >
