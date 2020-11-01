@@ -6,18 +6,6 @@ import LogoPiattoTagLine from 'components/Singularity/ApplicationView/MoleculeCo
 import applicationContext from 'Context/ApplicationContext/applicationContext.js';
 import displayDMenuContext from 'components/Singularity/OwnerView/CafeManagement/DIgitizedMenu/DisplayMenu/State/dMenuDisplayContext.js';
 import { ThemeAnimationContainer } from 'styles/Singularity/Style1.0/Animations';
-import {
-  Background,
-  LandingPageContainer,
-  BackgroundImage,
-  LandingPageContentContainer,
-  ContentContainer,
-  Content,
-  Button,
-  Quote,
-  AuthorName,
-  GalleryLink
-} from 'styles/Singularity/Style1.0/LaandingPageStyles';
 
 import { BrowserRouter as Router, useParams } from 'react-router-dom';
 import {
@@ -74,12 +62,14 @@ const DmenuProducts = () => {
     const obserevr = new IntersectionObserver(
       ([entry]) => {
         console.log(entry);
+        const bottomMargin = window.innerHeight * 0.7;
+        console.log(bottomMargin);
         if (entry.isIntersecting) {
           console.log(entry.target.firstChild.nextSibling.innerText);
           setCategory(entry.target.firstChild.nextSibling.innerText);
         }
       },
-      { rootMargin: '-202px 0px -590px 0px' }
+      { rootMargin: `-202px 0px -62% 0px` }
     );
 
     if (categoryRefs.current) {

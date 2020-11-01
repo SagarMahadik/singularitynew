@@ -129,7 +129,7 @@ export const MenuItemText = styled(ComicText)`
 
 export const MenuPageCategoryLine = styled.div`
   display: block;
-  border: 2px solid ${styles.dMenuContentColor};
+  border: 1px solid ${styles.dMenuContentColor};
   width: 100%;
   height: 0;
 `;

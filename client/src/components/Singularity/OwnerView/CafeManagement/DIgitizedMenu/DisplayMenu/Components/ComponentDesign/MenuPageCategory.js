@@ -19,25 +19,17 @@ const MenuPageCategory = props => {
         style={{ background: 'rgba(0,0,0,0)', height: '20px' }}
       />
       <DMenuCategoryContainer backGroundcolor="rgba(0,0,0,0)">
-        <div
+        <MenuPageCategoryLine />
+        <CenterAlignedColumnContainer
           style={{
-            display: 'grid',
-            gridTemplateColumns: '30% 38% 30%',
-            width: '100%'
+            marginTop: '-24px',
+            background: '#2a2a2a',
+            width: 'auto',
+            padding: '5px'
           }}
         >
-          <MenuPageCategoryLine />
-          <CenterAlignedColumnContainer
-            style={{
-              marginTop: '-15px',
-              background: 'rgba(0,0,0,0)'
-            }}
-          >
-            <Category>{props.category}</Category>
-          </CenterAlignedColumnContainer>
-
-          <MenuPageCategoryLine />
-        </div>
+          <Category>{props.category}</Category>
+        </CenterAlignedColumnContainer>
       </DMenuCategoryContainer>
     </>
   );
