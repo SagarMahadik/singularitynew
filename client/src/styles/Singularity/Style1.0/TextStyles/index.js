@@ -147,5 +147,5 @@ export const GalleryProducctNameContainer = styled.div`
 
 export const TaglineText = styled(SacramentoText)`
   color: ${styles.dMenuContentColor};
-  font-size: 28px;
+  font-size: 24px;
 `;

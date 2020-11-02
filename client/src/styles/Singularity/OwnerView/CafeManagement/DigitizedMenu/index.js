@@ -141,9 +141,10 @@ export const CategoryButton = styled.div`
   padding: 5px;
   border-radius: 15px;
   border: 2px solid ${styles.dMenuContentColor};
+  border: ${props =>
+    props.active ? `2px solid white` : `2px solid ${styles.dMenuContentColor}`};
   color: ${props => (props.active ? 'white' : 'gold')};
-  background: ${props =>
-    props.active ? `${styles.dMenuContentColor}` : 'transperant'};
+  background: 'transperant';
   transition: transform 0.8s ease-out;
 `;
 
@@ -152,4 +153,15 @@ export const DMenuProductMainContainer = styled(CenterAlignedColumnContainer)`
   &:last-child {
     margin-bottom: 500px;
   }
+`;
+
+export const HorizontalCategoryContainer = styled(LeftAlignedRowContainer)`
+  position: sticky;
+  flex-wrap: nowrap;
+  top: 110px;
+  z-index: 1;
+  width: 100%;
+  padding-left: 20px;
+  justify-items: center;
+  align-items: center;
 `;

@@ -15,7 +15,8 @@ import {
 
 import {
   CategoryButton,
-  DMenuProductMainContainer
+  DMenuProductMainContainer,
+  HorizontalCategoryContainer
 } from 'styles/Singularity/OwnerView/CafeManagement/DigitizedMenu/index.js';
 
 import { produce } from 'immer';
@@ -27,7 +28,7 @@ const DmenuProducts = () => {
   const DMenuDisplayContext = useContext(displayDMenuContext);
 
   let { categoryData, dMenuProductData } = ApplicationContext;
-  const { setCategory, activeCategory } = DMenuDisplayContext;
+  const { setCategory, activeCategory, activeIndex } = DMenuDisplayContext;
 
   let newCategoryData = produce(categoryData, draftData => {
     draftData.forEach(function(cat, i) {
@@ -41,9 +42,21 @@ const DmenuProducts = () => {
   const categoryRefs = useRef([]);
   categoryRefs.current = [];
 
+  const navigationCategoryRefs = useRef([]);
+  navigationCategoryRefs.current = [];
+
+  const mainContainerRef = useRef(null);
+
   const addToRefs = el => {
     if (el && !categoryRefs.current.includes(el)) {
       categoryRefs.current.push(el);
+    }
+  };
+
+  const addNavigationRefs = el => {
+    if (el && !navigationCategoryRefs.current.includes(el)) {
+      navigationCategoryRefs.current.push(el);
+      console.log(navigationCategoryRefs);
     }
   };
 
@@ -54,19 +67,34 @@ const DmenuProducts = () => {
     console.log(index);
     window.scrollTo({
       behavior: 'smooth',
-      top: categoryRefs.current[index].offsetTop - 200
+      top: categoryRefs.current[index].offsetTop - 150
     });
   };
 
   useEffect(() => {
     const obserevr = new IntersectionObserver(
       ([entry]) => {
-        console.log(entry);
-        const bottomMargin = window.innerHeight * 0.7;
-        console.log(bottomMargin);
         if (entry.isIntersecting) {
           console.log(entry.target.firstChild.nextSibling.innerText);
-          setCategory(entry.target.firstChild.nextSibling.innerText);
+          let categoryIndex = newCategoryData.findIndex(
+            cat =>
+              cat.category === entry.target.firstChild.nextSibling.innerText
+          );
+          setCategory(
+            entry.target.firstChild.nextSibling.innerText,
+            categoryIndex
+          );
+
+          console.log(navigationCategoryRefs.current[categoryIndex].offsetLeft);
+          if (categoryIndex > 3) {
+            mainContainerRef.current.scrollLeft += 150;
+          }
+          if (categoryIndex < 3) {
+            mainContainerRef.current.scrollLeft -= 150;
+          }
+          console.log(window.scroll);
+
+          /**FInd index of the category..Scroll the horizontal  filter to te left */
         }
       },
       { rootMargin: `-202px 0px -62% 0px` }
@@ -85,7 +113,7 @@ const DmenuProducts = () => {
         });
       }
     };
-  }, [categoryRefs]);
+  }, [categoryRefs, navigationCategoryRefs]);
 
   return (
     <ThemeAnimationContainer
@@ -108,14 +136,9 @@ const DmenuProducts = () => {
         <LogoPiattoTagLine backGroundcolor="#2a2a2a" />
       </div>
       <CenterAlignedColumnContainer backGroundcolor=" #2a2a2a">
-        <LeftAlignedRowContainer
-          style={{
-            position: 'sticky',
-            top: '151px',
-            zIndex: '1',
-            width: '100%'
-          }}
+        <HorizontalCategoryContainer
           backGroundcolor="#2a2a2a"
+          ref={mainContainerRef}
         >
           {newCategoryData.map((cat, index) => {
             return (
@@ -124,12 +147,15 @@ const DmenuProducts = () => {
                   scrollTosection(index);
                 }}
                 active={cat.category === `${activeCategory}`}
+                ref={addNavigationRefs}
+                scrollLeft={activeIndex > 3}
               >
                 {cat.category}
               </CategoryButton>
             );
           })}
-        </LeftAlignedRowContainer>
+        </HorizontalCategoryContainer>
+
         <DMenuProductMainContainer>
           {newCategoryData.map(c => {
             return (

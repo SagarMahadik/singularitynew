@@ -38,7 +38,8 @@ export default (state, action) => {
     case SET_SLECTEDCATEGORY:
       return {
         ...state,
-        activeCategory: action.payload
+        activeCategory: action.payload,
+        activeIndex: action.index
       };
   }
 };
